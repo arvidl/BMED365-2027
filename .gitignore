@@ -5,6 +5,9 @@ __MACOSX/
 __pycache__/
 *.pyc
 
+# uv virtual environment (recreate with: uv sync)
+.venv/
+
 # Environment variables and API keys (NEVER commit these!)
 .env
 .env.local

@@ -114,49 +114,153 @@ All course material is openly available at [this](https://github.com/arvidl/BMED
 
 ## Running Jupyter Notebooks
 
-All notebooks in the course can be run **for free** in several ways. We recommend Google Colab as the main platform, but there are good alternatives.
+All notebooks in the course can be run **for free** in two ways:
 
-### Recommended: Google Colab
+| | [Run locally](#option-1-run-locally-macos-apple-silicon-or-linux) | [Run in Google Colab](#option-2-run-in-the-cloud-google-colab) |
+|---|---|---|
+| **Works on** | macOS with Apple Silicon (M1–M5), Linux | Any computer with a web browser |
+| **Installation** | About 15 minutes, once | None |
+| **Requires** | About 6 GB of free disk space | A Google account |
+| **Best for** | Working offline, own data, full control | Getting started quickly, free GPU |
 
-[Google Colab](https://colab.research.google.com) is a free, cloud-based service that lets you run Jupyter Notebooks directly in your browser – no installation required.
+You can freely mix the two, e.g. use Colab in class and work locally on your project.
 
-**Advantages:**
-- No installation required
-- Built-in AI assistance (Gemini)
-- Free access to GPU/TPU for heavier computations
-- Easy sharing and collaboration
+### Option 1: Run locally (macOS Apple Silicon or Linux)
 
-**Requirement:** You need a **Google account**. If you don't have one, you can create one for free at [accounts.google.com](https://accounts.google.com).
+The course environment is managed with [uv](https://docs.astral.sh/uv/). uv downloads the right Python version (3.12) and all course packages for you, so you do **not** need to install Python, Anaconda or Miniconda first. The steps are the same on macOS and Linux unless stated otherwise. All commands are typed in a terminal (macOS: the *Terminal* app).
 
-### Alternatives (without Google account)
+#### Step 1 – Install git
 
-If you don't have or don't want a Google account, there are several free alternatives:
+| System | Command |
+|---|---|
+| macOS (M1–M5) | `xcode-select --install` (skip if `git --version` already prints a version) |
+| Linux (Ubuntu/Debian) | `sudo apt update && sudo apt install -y git curl` |
 
-| Platform | Account required? | Advantages | Disadvantages |
-|----------|-------------------|------------|---------------|
-| **[Kaggle Notebooks](https://www.kaggle.com/code)** | Yes (Kaggle account) | Free GPU, large ML community | Requires registration |
-| **[Binder](https://mybinder.org)** | No | No registration, opens directly from GitHub | Can be slow to start, time-limited session |
-| **[JupyterLite](https://jupyter.org/try-jupyter/lab/)** | No | Runs entirely in the browser | Limited functionality, not all packages |
-| **Local installation** | No | Full control, works offline | Requires Conda/Python installation |
-
-### Local Installation with Conda
-
-For those who prefer to work locally, you can install Jupyter on your own machine:
+#### Step 2 – Install uv
 
 ```bash
-# 1. Download and install Miniconda from https://docs.conda.io/en/latest/miniconda.html
-
-# 2. Create the course environment
-conda env create -f environment.yml
-conda activate bmed365-2027
-
-# 3. Start Jupyter
-jupyter notebook
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-See [environment.yml](./environment.yml) for the complete list of packages used in the course.
+Close the terminal and open a new one, then check that it works:
 
-> **Tip:** Regardless of which platform you choose, all course material is free and openly available. Choose the solution that works best for you!
+```bash
+uv --version
+```
+
+On macOS you can alternatively use [Homebrew](https://brew.sh): `brew install uv`.
+
+#### Step 3 – Download the course material
+
+```bash
+git clone https://github.com/arvidl/BMED365-2027.git
+cd BMED365-2027
+```
+
+The repository is large (more than 1 GB), so this can take several minutes.
+
+#### Step 4 – Create the course environment
+
+```bash
+uv sync
+```
+
+This creates a folder `.venv/` inside `BMED365-2027` containing Python 3.12 and exactly the package versions listed in [uv.lock](./uv.lock) (about 3 GB; allow 5–10 minutes the first time).
+
+#### Step 5 – Register the Jupyter kernel (once)
+
+The course notebooks expect a kernel named `bmed365-2027`:
+
+```bash
+uv run python -m ipykernel install --user --name bmed365-2027
+```
+
+#### Step 6 – Check the installation
+
+```bash
+uv run python -c "import torch, tensorflow as tf; print('PyTorch', torch.__version__, '| TensorFlow', tf.__version__); print('Apple GPU (MPS):', torch.backends.mps.is_available(), '| NVIDIA GPU (CUDA):', torch.cuda.is_available())"
+```
+
+- **macOS (M1–M5):** you should see `Apple GPU (MPS): True`. PyTorch then uses the built-in Apple GPU.
+- **Linux with an NVIDIA GPU:** you should see `NVIDIA GPU (CUDA): True`. This requires an up-to-date NVIDIA driver (check with `nvidia-smi`); you do not need to install CUDA separately.
+- **Linux without an NVIDIA GPU:** both are `False`. Everything still runs, on the CPU.
+
+#### Step 7 – Start Jupyter
+
+Always start from the `BMED365-2027` folder:
+
+```bash
+uv run jupyter lab
+```
+
+JupyterLab opens in your web browser. Navigate to a lab folder (e.g. `Lab1-NetworkSci-PSN/notebooks`), open a notebook, and if asked for a kernel choose **bmed365-2027**. Stop Jupyter with `Ctrl-C` in the terminal.
+
+**Using VS Code or Cursor instead?** Open the `BMED365-2027` folder, open a notebook, click *Select Kernel* and choose the Python environment in `.venv` (or the *bmed365-2027* Jupyter kernel).
+
+#### Keeping up to date
+
+The course material is updated during the semester. To get the latest version:
+
+```bash
+cd BMED365-2027
+git pull
+uv sync
+```
+
+> **Tip:** `git pull` can fail if you have edited the course notebooks. Work on **copies** (e.g. `my-01-networkx_tutorial.ipynb`), or keep your own work in a folder named `MyStuff/`, which git ignores.
+
+#### If something goes wrong
+
+| Problem | Solution |
+|---|---|
+| `uv: command not found` | Open a new terminal window. If it still fails, repeat Step 2. |
+| Kernel `bmed365-2027` is not found | Repeat Step 5 from inside the `BMED365-2027` folder. |
+| `ModuleNotFoundError` in a notebook | Check that the kernel is **bmed365-2027** (top right in Jupyter), then run `uv sync` again. |
+| The environment seems broken | Delete it and start over: `rm -rf .venv` followed by `uv sync`. |
+
+See [pyproject.toml](./pyproject.toml) for the complete list of packages. A few notebooks use their own separate environment (PyCaret in Lab 0, IMC in Lab 4, MLX in Lab 5); this is described in the respective lab folders.
+
+> **Other systems:** These instructions cover macOS with Apple Silicon and Linux. On Windows or an Intel-based Mac, we recommend Google Colab (below).
+
+### Option 2: Run in the cloud (Google Colab)
+
+[Google Colab](https://colab.research.google.com) is a free, cloud-based service that lets you run Jupyter notebooks directly in your web browser, with nothing to install, built-in AI assistance (Gemini) and free access to a GPU.
+
+**Requirement:** a **Google account**. If you don't have one, create one for free at [accounts.google.com](https://accounts.google.com).
+
+#### Step 1 – Open a notebook
+
+Each lab's README lists its notebooks with an [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/) badge. Click the badge and the notebook opens in Colab.
+
+Alternatively, go to [colab.research.google.com](https://colab.research.google.com), choose **File → Open notebook → GitHub**, type `arvidl/BMED365-2027` and pick a notebook from the list.
+
+#### Step 2 – Save your own copy
+
+A notebook opened from GitHub is read-only: you can run and edit it, but your changes are **not saved**. Choose **File → Save a copy in Drive** first. Your copy is stored in the folder *Colab Notebooks* in your Google Drive, and you continue working in that copy.
+
+#### Step 3 – Turn on the GPU (when needed)
+
+For the deep learning notebooks (Lab 2, parts of Lab 3 and Lab 4), choose **Runtime → Change runtime type → T4 GPU → Save**. For the other notebooks the default (CPU) is fine.
+
+#### Step 4 – Run the notebook
+
+Run a cell with `Shift+Enter`, or everything with **Runtime → Run all**. The first time, Colab warns that the notebook was not authored by Google; choose **Run anyway**.
+
+- **Packages:** Colab comes with most packages preinstalled. Notebooks that need more install them in one of their first cells (`!pip install ...`), so run the cells from the top.
+- **Data:** most notebooks download the data they need automatically when run in Colab.
+
+#### Good to know
+
+| Topic | What it means |
+|---|---|
+| **Sessions are temporary** | Colab disconnects after a period of inactivity, and files created during a session (downloaded data, trained models, figures) are then deleted. Your notebook copy in Drive is kept. After a disconnect, choose **Runtime → Run all** to continue. |
+| **Keeping files** | Download them from the file panel (folder icon on the left), or mount your Google Drive with `from google.colab import drive; drive.mount('/content/drive')` and save to `/content/drive/MyDrive/`. |
+| **API keys** | Some notebooks use keys for e.g. Kaggle, Hugging Face, OpenAI or Anthropic. Never paste a key into a notebook. Store it under **Secrets** (key icon on the left) and give the notebook access to it. |
+| **GPU quota** | The free GPU has usage limits. Switch back to CPU when you don't need it, and close the tab when you are done. |
+| **AI help** | Click the Gemini icon to ask questions about the code or have an error explained. |
+| **Local-only notebooks** | A few notebooks cannot run in Colab because they use local models (Ollama in Lab 3, MLX in Lab 5, which needs a Mac with Apple Silicon). Run these locally instead. |
+
+> **Tip:** Regardless of which option you choose, all course material is free and openly available. Choose the solution that works best for you!
 
 ---
 
@@ -178,4 +282,4 @@ _"In Vivo Imaging and Physiological Modelling"_
 |2021 |https://github.com/computational-medicine/BMED360-2021 |
 |2020 |https://github.com/computational-medicine/BMED360-2020 |
 
-Updated: 2026-02-19
+Updated: 2026-11-12

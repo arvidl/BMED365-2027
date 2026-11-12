@@ -114,9 +114,9 @@ Notebooks are organized into **6 parts (A-F)** with clear prioritization. **Star
 ### Local Execution
 
 ```bash
-conda env create -f environment.yml
-conda activate bmed365-2027
-jupyter notebook
+# From the repository root (see the main README for installing uv)
+uv sync
+uv run jupyter lab
 ```
 
 ---

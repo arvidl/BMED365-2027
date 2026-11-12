@@ -55,7 +55,7 @@ Examples of questions you can ask:
 
 ## Notebooks
 
-All notebooks can be run in Google Colab or locally with the conda environment `bmed365-2027`.
+All notebooks can be run in Google Colab or locally with the uv environment `bmed365-2027` (see the main [README](../README.md)).
 
 ### Main Notebooks
 

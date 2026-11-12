@@ -65,11 +65,11 @@ The quick start is specially designed for medical students without programming e
 
 We use Python, the most popular programming language for machine learning. The practical content is mainly based on [Jupyter Notebooks](https://jupyter.org/), which allow us to mix code, text, results, and documentation in a single document. We also use standard data science and machine learning libraries in Python, such as [Pandas](https://pandas.pydata.org/) and [scikit-learn](https://scikit-learn.org/stable/).
 
-### Conda Environments
+### Environments
 
-**Main environment:** Use `environment.yml` in the root directory for notebooks 01 and 02.
+**Main environment:** Use the course uv environment (`uv sync` in the root directory, see the main [README](../README.md)) for notebooks 01 and 02.
 
-**PyCaret environment:** Notebook 03 requires PyCaret, which has dependencies that may conflict with TensorFlow/PyTorch. We recommend a separate environment:
+**PyCaret environment:** Notebook 03 requires PyCaret, which has dependencies that may conflict with TensorFlow/PyTorch. We recommend a separate Conda environment:
 
 ```bash
 # Create PyCaret environment
