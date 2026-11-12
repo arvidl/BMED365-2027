@@ -51,7 +51,7 @@ Please refer to the course syllabus for more detailed information about the curr
 
 
 
-## A few examples from previous ELMED219 exams:
+## A few examples of exam questions:
 
 <img src=./example_01.png width=500>
 

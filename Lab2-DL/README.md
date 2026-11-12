@@ -166,7 +166,7 @@ Lab2-DL/
 **Time:** 08:15 - 13:00 (4h 45min)  
 **Location:** 9a110bp  
 **Instructor:** Arvid Lundervold  
-**Courses:** ELMED219 / BMED365
+**Course:** BMED365
 
 ---
 

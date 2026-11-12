@@ -320,7 +320,6 @@ Lab3-GenAI-LLM/
 ## Resources and Tools
 
 ### AI Assistants
-- [Medical AI Assistant (GPT)](https://chatgpt.com/g/g-d90dfN17H-medical-ai-assistant-uibmed-elmed219-bmed365) - Customized for ELMED219/BMED365
 - [NotebookLM](https://notebooklm.google.com/) - Google's AI for document analysis
 - [Claude](https://claude.ai/) - Anthropic's AI assistant
 - [ChatGPT](https://chat.openai.com/) - OpenAI's AI assistant

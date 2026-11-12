@@ -1,41 +1,18 @@
-# Team Project &nbsp;&nbsp;&nbsp; <span style="font-size: 16px;">[ELMED219 / BMED365]</span>
+# Team Project &nbsp;&nbsp;&nbsp; <span style="font-size: 16px;">[BMED365]</span>
 ## _Precision Medicine and Quantitative Imaging in Glioblastoma_
 
-> **Note:** This is a joint project between ELMED219 and BMED365. The **project report should be written in English** (see the [LaTeX template](./latex-template/)).
+> **Note:** The **project report should be written in English** (see the [LaTeX template](./latex-template/)).
 
 ---
 
 ## Team Organization
 
-This year we have **15 applicants from BMED365** and **13 applicants from ELMED219**. We will establish **5 interdisciplinary teams**, each with a balanced mix of students from both programs
-
-<!--
-| Team | BMED365 students | ELMED219 students | Total |
-|------|------------------|-------------------|-------|
-| Team 1 | 3 (b01*, b02, b03) | 3 (e01*, e02*, e03*)| 6 |
-| Team 2 | 3 (b04*, b05, b06) | 3 (e04, e05*, e06*)| 6 |
-| Team 3 | 3 (b07*, b08, b09*) | 3 (e07, e08, e09*)| 6 |
-| Team 4 | 3 (b10*, b11*, b12)| 2 (e10*, e11*)| 5 |
-| Team 5 | 2 (b13*, b14*, b15*) | 3 (e12, e13, e14*)| 6 |
-
-*) Present Day 1 (2026-01-05)
--->
-
-Pr. 2026-01-21:
-
-| Team | BMED365 students    | ELMED219 students      | Total |
-|------|---------------------|------------------------|-------|
-| Team 1 | 2 (b01, b02)      | 3 (e01, e02, e03)      | 5     |
-| Team 2 | 2 (b04, b05)      | 3 (e05, e06, e18)      | 5     |
-| Team 3 | 3 (b07, b08, b09) | 3 (e08, e09 e17)       | 6     |
-| Team 4 | 2 (b10, b11)      | 3 (e10, e11, e15)      | 5     |
-| Team 5 | 4 (b12, b13, b14, b15) | 2 (e12, e14)      | 6     |
+Students are organized into **interdisciplinary teams** with a balanced mix of backgrounds. The team composition will be announced at the start of the course.
 
 This interdisciplinary composition reflects real-world research teams where medical expertise meets computational and technical skills.
 
 ### Target Audience
 
-- **ELMED219**: Medical students in their 2nd to 5th year of medical school
 - **BMED365**: Master students in biomedicine, including specializations in bioinformatics, medical physics, molecular biology, medical technology, and related fields. Some students have recently completed their BSc.
 
 The project is designed to accommodate this diversity of backgrounds while encouraging collaboration and mutual learning.
@@ -189,9 +166,9 @@ We use the online, collaborative LaTeX editor [Overleaf](https://www.overleaf.co
 - [Academic journal templates](https://www.overleaf.com/latex/templates/tagged/academic-journal)
 
 **Project template:**
-- LaTeX source: [[ELMED219_BMED365_2026_project_team_k.tex](./latex-template/ELMED219_BMED365_2026_project_team_k.tex)]
-- Example figure: [[elmed219_bmed365_dummy_fig.png](./latex-template/elmed219_bmed365_dummy_fig.png)]
-- Compiled PDF: [[ELMED219_BMED365_2026_project_team_k.pdf](./latex-template/ELMED219_BMED365_2026_project_team_k.pdf)]
+- LaTeX source: [[BMED365_2027_project_team_k.tex](./latex-template/BMED365_2027_project_team_k.tex)]
+- Example figure: [[bmed365_dummy_fig.png](./latex-template/bmed365_dummy_fig.png)]
+- Compiled PDF: [[BMED365_2027_project_team_k.pdf](./latex-template/BMED365_2027_project_team_k.pdf)]
 
 **Example of expected detail level:**
 - Seili Summer School 2019 project report (Prostate Cancer theme):

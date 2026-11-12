@@ -40,7 +40,7 @@ Download `assets.zip` file if ./assets does not exist (as when running in Colab)
 ```
 if os.path.isdir('./assets') == False:
     
-    ## Download assets.zip from Google Drive (My Drive -> ELMED219 -> Lab1-mpMRI-glioblastoma -> assets.zip)
+    ## Download assets.zip from Google Drive (My Drive -> BMED365 -> Lab1-mpMRI-glioblastoma -> assets.zip)
     # OLD: https://drive.google.com/file/d/1yYoQZR8jSyL1_23wimkMDHQv3cGC8TWN/view?usp=share_link
     # https://drive.google.com/file/d/1uF32YcNp1DveTqmEg4ao6INTJWv0WkXA/view?usp=sharing
     
@@ -62,7 +62,7 @@ Download data.zip file if ./data does not exist (as when running in Colab)
 ```
 if os.path.isdir('./data') == False:
     
-    ## Download data.zip from Google Drive  (My Drive -> ELMED219 -> Lab1-mpMRI-glioblastoma -> data.zip)
+    ## Download data.zip from Google Drive  (My Drive -> BMED365 -> Lab1-mpMRI-glioblastoma -> data.zip)
     # https://drive.google.com/file/d/1y3OvRNthpDdllo--L3WHYXTsjb6H87FT/view?usp=sharing
     # OLD: https://drive.google.com/file/d/1mKbERWG09Ni5UpnYhLlcebKfxeVu_Y2c/view?usp=share_link
     

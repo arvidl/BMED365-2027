@@ -21,7 +21,7 @@ The following notebook is essentially a copy of the multi-class semantic segment
 
 | Notebook    |      1-Click Notebook      |
 |:----------|------|
-|  [Lab1-1-BRATS-3D-fastMONAI-extended.ipynb](https://nbviewer.jupyter.org/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab1-1-BRATS-3D-fastMONAI-extended.ipynb)<br> Multi-class semantic segmentation of a glioma from mpMRI recordings<br> *If on Colab*: Remember to attach a GPU to your Colab Runtime:<br>1. From the **Runtime** menu select **Change Runtime Type**<br>2. Choose **GPU** (T4 GPU) from the drop-down menu<br>3. Click **'SAVE'** (~3 min to install fastMONAI with GPU attached) | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab1-1-BRATS-3D-fastMONAI-extended.ipynb)|
+|  [1-BRATS-3D-fastMONAI-extended.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/mpMRI-glioma/1-BRATS-3D-fastMONAI-extended.ipynb)<br> Multi-class semantic segmentation of a glioma from mpMRI recordings<br> *If on Colab*: Remember to attach a GPU to your Colab Runtime:<br>1. From the **Runtime** menu select **Change Runtime Type**<br>2. Choose **GPU** (T4 GPU) from the drop-down menu<br>3. Click **'SAVE'** (~3 min to install fastMONAI with GPU attached) | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/mpMRI-glioma/1-BRATS-3D-fastMONAI-extended.ipynb)|
 
 
 <!--
@@ -31,9 +31,9 @@ Some additional (optional) example-based introductions to (bio)medical imaging i
 
 | Notebook    |      1-Click Notebook      |
 |:----------|------|
-|  [01-imaging-intro.ipynb](https://nbviewer.jupyter.org/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab-optional-imaging/01-imaging-intro.ipynb)<br> Illustration of basic concepts and methods in imaging   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab-optional-imaging/01-imaging-intro.ipynb)|
-|  [02-mri-intro.ipynb](https://nbviewer.jupyter.org/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab-optional-imaging/02-mri-intro.ipynb)<br> Introduction to Magnetic Resonance Imaging   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab-optional-imaging/02-mri-intro.ipynb)|
-|  [03-imc-intro.ipynb](https://nbviewer.jupyter.org/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab-optional-imaging/03-imc-intro.ipynb)<br> Introduction to Imaging Mass Cytometry   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MMIV-ML/ELMED219/blob/main/Lab1-mpMRI-glioma/Lab-optional-imaging/03-imc-intro.ipynb)|
+|  [01-imaging-intro.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/01-imaging-intro.ipynb)<br> Illustration of basic concepts and methods in imaging   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/01-imaging-intro.ipynb)|
+|  [02-mri-intro.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/02-mri-intro.ipynb)<br> Introduction to Magnetic Resonance Imaging   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/02-mri-intro.ipynb)|
+|  [03-imc-intro.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/03-imc-intro.ipynb)<br> Introduction to Imaging Mass Cytometry   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/03-imc-intro.ipynb)|
 
 ---
 

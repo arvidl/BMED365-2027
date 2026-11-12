@@ -1,6 +1,6 @@
 # Quick Reference Guide: Generative AI for Healthcare
 
-**BMED365 / ELMED219 - Lab 3**
+**BMED365 - Lab 3**
 
 A one-page summary of key concepts, techniques, and safety principles.
 

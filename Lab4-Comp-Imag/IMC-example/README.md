@@ -2,10 +2,6 @@
 
 This lab is part of our journey through computational imaging and modeling techniques, and the use of AI in biomedical applications related to Imaging Mass Cytometry (IMC). We will explore IMC data ([readimc](https://bodenmillergroup.github.io/readimc)) and use the _steinbock_ [toolkit](https://bodenmillergroup.github.io/steinbock). This requires the `bmed365imc` environment - check [here](./environment-imc.yml). <br>  _update: 2024-01-29_
 
-
-<!-- ![img](../assets/GPT-MedAI.png)<br> -->
-<img src="../../assets/GPT-MedAI.png" width="600"><br>
-If you have a subscription to [ChatGPT Plus](https://openai.com/blog/chatgpt-plus), you can also try out the the [**Medical AI Assistant (UiBmed - ELMED219 & BMED365)**](https://chat.openai.com/g/g-d90dfN17H-medical-ai-assistant-uibmed-elmed219-bmed365) [GPT](https://openai.com/blog/introducing-gpts) and see if you can get it to answer some of your questions, e.g.<br>
 - "_Explain Imaging Mass Cytometry (IMC) to me_"
 - "_How to read an .mcd-file in Python using readimc_?" 
 - "_Provide 5 recent references on Imaging Mass Cytometry in brain cancer_"

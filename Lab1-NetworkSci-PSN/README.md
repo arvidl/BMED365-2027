@@ -36,9 +36,6 @@ The quick start is specially designed for medical students without programming e
 
 ## AI-Assisted Learning
 
-<img src="../assets/GPT-MedAI.png" width="500"><br>
-
-If you have access to [ChatGPT Plus](https://openai.com/blog/chatgpt-plus), you can try [**Medical AI Assistant (UiBmed - ELMED219 & BMED365)**](https://chat.openai.com/g/g-d90dfN17H-medical-ai-assistant-uibmed-elmed219-bmed365) for help with questions related to graph theory, network science, and patient similarity networks (see also [this document](./assets/ELMED219_BMED365_2024_PSN.pdf)).
 
 Examples of questions you can ask:
 - _What is graph theory and how is a graph defined?_
@@ -98,7 +95,6 @@ See also the [GraphTheory-and-ComplexNetworks](./GraphTheory-and-ComplexNetworks
 ## Other Resources
 
 ### Graph Theory and Network Science
-- A. Lundervold & Medical AI Assistant: _Elements of graph theory and patient similarity networks (PSN) - A short introduction for ELMED219+BMED365_ [[PDF](./assets/ELMED219_BMED365_2024_PSN.pdf)] [[$\LaTeX$](https://www.overleaf.com/read/pccnktqbnswg#4f47e2)]
 
 - **Khan Academy Graph Theory:** A beginner-friendly series on fundamental concepts and applications. [Khan Academy Graph Theory](https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/describing-graphs)
     

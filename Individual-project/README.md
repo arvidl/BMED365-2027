@@ -22,7 +22,7 @@ The Individual Project is a **mandatory component** of BMED365 that provides stu
 
 ### 1.1 Position in the Course
 
-The Individual Project bridges Block 1 (joint with ELMED219, covering foundational AI and computational medicine) and the advanced topics of Block 2 (computational imaging and modeling). This project allows you to:
+The Individual Project bridges Block 1 (foundational AI and computational medicine) and the advanced topics of Block 2 (computational imaging and modeling). This project allows you to:
 
 - Consolidate knowledge from Block 1 while preparing for Block 2 content
 - Develop independent research and communication skills
