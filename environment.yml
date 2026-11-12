@@ -1,5 +1,5 @@
 # =============================================================================
-# BMED365-2026: Conda Environment
+# BMED365-2027: Conda Environment
 # Computational imaging, modeling and AI in biomedicine
 # =============================================================================
 # Compatible with: Linux (x86_64), macOS (Intel & Apple Silicon M1/M2/M3/M4)
@@ -9,7 +9,7 @@
 #   - TensorFlow has limited GPU support on Apple Silicon
 #   - Some packages may install CPU-only versions on macOS
 # =============================================================================
-name: bmed365-2026
+name: bmed365-2027
 
 channels:
   - conda-forge    # Community-driven channel with updated packages

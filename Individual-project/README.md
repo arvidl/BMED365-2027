@@ -10,7 +10,7 @@ The Individual Project is a **mandatory component** of BMED365 that provides stu
 **Key Dates:**
 - **Project period:** Weeks 4–6 (Monday 25 January – Saturday 13 February 2027)
 - **Poster submission deadline:** Tuesday 9 February 2027, 23:59 via Mitt UiB
-- **Speed-poster presentation session:** Wednesday 10 February 2027, 08:15–12:00, Hist 1
+- **Speed-poster presentation session:** Wednesday 10 February 2027, 08:15–12:00, 9a110bp
 
 **Two Distinct Deliverables:**
 1. **Digital Poster** — A static visual artifact submitted for review

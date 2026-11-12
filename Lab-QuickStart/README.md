@@ -1,7 +1,7 @@
 # Quick Start: AI-Assisted Python Programming
 
 **Date:** January 12, 2027, 09:15–13:00  
-**Location:** Hist 1  
+**Location:** 9a110bp  
 **Lecturer:** Arvid Lundervold  
 **Target audience:** Medical students with no prior programming experience
 
@@ -64,7 +64,7 @@ After completing this quick start course, you should be able to:
 
 | Notebook | Description | Colab |
 |:---------|:------------|:-----:|
-| [quickstart-ai-python.ipynb](./notebooks/quickstart-ai-python.ipynb) | Complete course notebook with all modules, examples, and exercises | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab-QuickStart/notebooks/quickstart-ai-python.ipynb) |
+| [quickstart-ai-python.ipynb](./notebooks/quickstart-ai-python.ipynb) | Complete course notebook with all modules, examples, and exercises | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab-QuickStart/notebooks/quickstart-ai-python.ipynb) |
 
 ---
 

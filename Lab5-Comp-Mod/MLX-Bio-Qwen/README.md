@@ -1,6 +1,6 @@
 Arvid Lundervold, 2026-02-11
 
-# BMED365-2026: Lab 5 - Computational Modeling with LLMs (Local)
+# BMED365-2027: Lab 5 - Computational Modeling with LLMs (Local)
 
 **Target Hardware:** MacBook Pro M4 Max (128GB Unified Memory)
 
@@ -202,4 +202,4 @@ You:
 
 ---
 
-*Created for BMED365-2026 | Lab 5: Computational Modeling*
+*Created for BMED365-2027 | Lab 5: Computational Modeling*

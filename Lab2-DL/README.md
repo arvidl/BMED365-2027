@@ -41,52 +41,52 @@ Notebooks are organized into **6 parts (A-F)** with clear prioritization. **Star
 
 | Priority | Notebook | Description | Colab |
 |:--------:|:---------|:------------|:------|
-| **1** | [A1-CNN-intro](notebooks/A1-CNN-intro.ipynb) | Conceptual intro to CNN with medical analogies | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/A1-CNN-intro.ipynb) |
-| 3 | [A2-PyTorch-Lightning](notebooks/A2-PyTorch-Lightning.ipynb) | Introduction to PyTorch and Lightning | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/A2-PyTorch-Lightning.ipynb) |
-| 3 | [A3-MNIST-datacollection](notebooks/A3-MNIST-datacollection.ipynb) | Data collection and organization | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/A3-MNIST-datacollection.ipynb) |
-| 3 | [A4-MNIST-Random-Forest](notebooks/A4-MNIST-Random-Forest.ipynb) | ML baseline with Random Forest | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/A4-MNIST-Random-Forest.ipynb) |
-| **1** | [A5-MNIST-MLP](notebooks/A5-MNIST-MLP.ipynb) | Your first deep learning model (MLP) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/A5-MNIST-MLP.ipynb) |
-| **1** | [A6-MNIST-CNN](notebooks/A6-MNIST-CNN.ipynb) | MNIST with CNN | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/A6-MNIST-CNN.ipynb) |
+| **1** | [A1-CNN-intro](notebooks/A1-CNN-intro.ipynb) | Conceptual intro to CNN with medical analogies | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/A1-CNN-intro.ipynb) |
+| 3 | [A2-PyTorch-Lightning](notebooks/A2-PyTorch-Lightning.ipynb) | Introduction to PyTorch and Lightning | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/A2-PyTorch-Lightning.ipynb) |
+| 3 | [A3-MNIST-datacollection](notebooks/A3-MNIST-datacollection.ipynb) | Data collection and organization | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/A3-MNIST-datacollection.ipynb) |
+| 3 | [A4-MNIST-Random-Forest](notebooks/A4-MNIST-Random-Forest.ipynb) | ML baseline with Random Forest | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/A4-MNIST-Random-Forest.ipynb) |
+| **1** | [A5-MNIST-MLP](notebooks/A5-MNIST-MLP.ipynb) | Your first deep learning model (MLP) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/A5-MNIST-MLP.ipynb) |
+| **1** | [A6-MNIST-CNN](notebooks/A6-MNIST-CNN.ipynb) | MNIST with CNN | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/A6-MNIST-CNN.ipynb) |
 
 ### PART B: Neural Networks – Theory and Medical Application
 
 | Priority | Notebook | Description | Colab |
 |:--------:|:---------|:------------|:------|
-| **1** | [B1-nn-intro](notebooks/B1-nn-intro.ipynb) | Neural networks in humans and machines | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/B1-nn-intro.ipynb) |
-| **1** | [B2-learning-in-nn](notebooks/B2-learning-in-nn.ipynb) | How neural networks learn | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/B2-learning-in-nn.ipynb) |
-| **1** | [B3-heart-disease-classification](notebooks/B3-heart-disease-classification.ipynb) | Heart disease classification (UCI) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/B3-heart-disease-classification.ipynb) |
-| **1** | [B4-ECG-arrhythmia-CNN](notebooks/B4-ECG-arrhythmia-CNN.ipynb) | ECG arrhythmia classification with CNN | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/B4-ECG-arrhythmia-CNN.ipynb) |
+| **1** | [B1-nn-intro](notebooks/B1-nn-intro.ipynb) | Neural networks in humans and machines | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/B1-nn-intro.ipynb) |
+| **1** | [B2-learning-in-nn](notebooks/B2-learning-in-nn.ipynb) | How neural networks learn | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/B2-learning-in-nn.ipynb) |
+| **1** | [B3-heart-disease-classification](notebooks/B3-heart-disease-classification.ipynb) | Heart disease classification (UCI) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/B3-heart-disease-classification.ipynb) |
+| **1** | [B4-ECG-arrhythmia-CNN](notebooks/B4-ECG-arrhythmia-CNN.ipynb) | ECG arrhythmia classification with CNN | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/B4-ECG-arrhythmia-CNN.ipynb) |
 
 ### PART C: CNN Image Classification
 
 | Priority | Notebook | Description | Colab |
 |:--------:|:---------|:------------|:------|
-| **2** | [C1-cnn-environment-architecture](notebooks/C1-cnn-environment-architecture.ipynb) | Environment setup and CNN architecture | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/C1-cnn-environment-architecture.ipynb) |
-| **2** | [C2-cnn-training](notebooks/C2-cnn-training.ipynb) | Training and saving model | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/C2-cnn-training.ipynb) |
-| **2** | [C3-cnn-testing-gradcam](notebooks/C3-cnn-testing-gradcam.ipynb) | Testing, evaluation, and Grad-CAM | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/C3-cnn-testing-gradcam.ipynb) |
-| **2** | [C4-cnn-conclusion](notebooks/C4-cnn-conclusion.ipynb) | Summary and the way forward | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/C4-cnn-conclusion.ipynb) |
-| 📝 | [C4a-cnn-conclusion-solutions](notebooks/C4a-cnn-conclusion-solutions.ipynb) | **Solution suggestions** with MedMNIST, ViT, and ethics | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/C4a-cnn-conclusion-solutions.ipynb) |
+| **2** | [C1-cnn-environment-architecture](notebooks/C1-cnn-environment-architecture.ipynb) | Environment setup and CNN architecture | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/C1-cnn-environment-architecture.ipynb) |
+| **2** | [C2-cnn-training](notebooks/C2-cnn-training.ipynb) | Training and saving model | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/C2-cnn-training.ipynb) |
+| **2** | [C3-cnn-testing-gradcam](notebooks/C3-cnn-testing-gradcam.ipynb) | Testing, evaluation, and Grad-CAM | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/C3-cnn-testing-gradcam.ipynb) |
+| **2** | [C4-cnn-conclusion](notebooks/C4-cnn-conclusion.ipynb) | Summary and the way forward | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/C4-cnn-conclusion.ipynb) |
+| 📝 | [C4a-cnn-conclusion-solutions](notebooks/C4a-cnn-conclusion-solutions.ipynb) | **Solution suggestions** with MedMNIST, ViT, and ethics | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/C4a-cnn-conclusion-solutions.ipynb) |
 
 ### PART D: Medical Image Analysis
 
 | Priority | Notebook | Description | Colab |
 |:--------:|:---------|:------------|:------|
-| **2** | [D1-MRI-dementia-classification](notebooks/D1-MRI-dementia-classification.ipynb) | MRI image analysis for dementia detection | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/D1-MRI-dementia-classification.ipynb) |
+| **2** | [D1-MRI-dementia-classification](notebooks/D1-MRI-dementia-classification.ipynb) | MRI image analysis for dementia detection | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/D1-MRI-dementia-classification.ipynb) |
 
 ### PART E: Emotion Analysis
 
 | Priority | Notebook | Description | Colab |
 |:--------:|:---------|:------------|:------|
-| 3 | [E1-emotions-building](notebooks/E1-emotions-building.ipynb) | Emotion classification part 1 (building) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/E1-emotions-building.ipynb) |
-| 3 | [E2-emotions-training](notebooks/E2-emotions-training.ipynb) | Emotion classification part 2 (training) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/E2-emotions-training.ipynb) |
-| 3 | [E3-emotions-evaluation](notebooks/E3-emotions-evaluation.ipynb) | Emotion classification part 3 (evaluation) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/E3-emotions-evaluation.ipynb) |
+| 3 | [E1-emotions-building](notebooks/E1-emotions-building.ipynb) | Emotion classification part 1 (building) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/E1-emotions-building.ipynb) |
+| 3 | [E2-emotions-training](notebooks/E2-emotions-training.ipynb) | Emotion classification part 2 (training) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/E2-emotions-training.ipynb) |
+| 3 | [E3-emotions-evaluation](notebooks/E3-emotions-evaluation.ipynb) | Emotion classification part 3 (evaluation) | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/E3-emotions-evaluation.ipynb) |
 
 ### PART F: TabPFN – Deep Learning on Tabular Data (Advanced)
 
 | Priority | Notebook | Description | Colab |
 |:--------:|:---------|:------------|:------|
-| 4 | [F1-TabPFN-intro](notebooks/F1-TabPFN-intro.ipynb) | Exploring TabPFN | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/F1-TabPFN-intro.ipynb) |
-| 4 | [F2-TabPFN-neuro](notebooks/F2-TabPFN-neuro.ipynb) | TabPFN in neuroscience | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab2-DL/notebooks/F2-TabPFN-neuro.ipynb) |
+| 4 | [F1-TabPFN-intro](notebooks/F1-TabPFN-intro.ipynb) | Exploring TabPFN | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/F1-TabPFN-intro.ipynb) |
+| 4 | [F2-TabPFN-neuro](notebooks/F2-TabPFN-neuro.ipynb) | TabPFN in neuroscience | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab2-DL/notebooks/F2-TabPFN-neuro.ipynb) |
 
 ---
 
@@ -115,7 +115,7 @@ Notebooks are organized into **6 parts (A-F)** with clear prioritization. **Star
 
 ```bash
 conda env create -f environment.yml
-conda activate bmed365-2026
+conda activate bmed365-2027
 jupyter notebook
 ```
 
@@ -164,7 +164,7 @@ Lab2-DL/
 
 **Date:** Friday, January 15, 2027  
 **Time:** 08:15 - 13:00 (4h 45min)  
-**Location:** Hist 1  
+**Location:** 9a110bp  
 **Instructor:** Arvid Lundervold  
 **Courses:** ELMED219 / BMED365
 

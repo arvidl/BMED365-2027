@@ -6,7 +6,7 @@ This is a collection of introductory notebooks about artificial intelligence (AI
 
 ### 1. What is Artificial Intelligence?
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/AI-and-health-intro/1-what-is-ai.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/AI-and-health-intro/1-what-is-ai.ipynb)
 
 This notebook provides a basic introduction to artificial intelligence. It covers definitions of AI, the difference between "narrow" and "general" AI, the Turing test and its relevance, as well as practical examples of AI in everyday life and healthcare.
 
@@ -20,7 +20,7 @@ This notebook provides a basic introduction to artificial intelligence. It cover
 
 ### 2. AI in Healthcare: A Historical Journey
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/AI-and-health-intro/2-ai-history-health.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/AI-and-health-intro/2-ai-history-health.ipynb)
 
 This notebook takes you on a journey through AI's development in a medical context from the 1950s to today. It covers important milestones, successes and challenges, as well as future perspectives for AI in healthcare.
 
@@ -34,7 +34,7 @@ This notebook takes you on a journey through AI's development in a medical conte
 
 ### 3. AI, ML and DL: Understanding the Terminology
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/AI-and-health-intro/3-ai-ml-dl-differences.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/AI-and-health-intro/3-ai-ml-dl-differences.ipynb)
 
 This notebook clarifies the relationship between artificial intelligence (AI), machine learning (ML) and deep learning (DL). It explains how these concepts are related and what distinguishes them from each other, with a focus on applications in healthcare.
 

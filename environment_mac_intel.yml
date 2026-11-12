@@ -1,5 +1,5 @@
 # =============================================================================
-# BMED365-2026: Conda Environment for macOS Intel
+# BMED365-2027: Conda Environment for macOS Intel
 # Computational imaging, modeling and AI in biomedicine
 # =============================================================================
 # Optimized for: macOS Intel (x86_64)
@@ -9,7 +9,7 @@
 #   - numba and llvmlite installed from conda-forge to avoid build issues
 #   - Some packages may install CPU-only versions on macOS
 # =============================================================================
-name: bmed365-2026
+name: bmed365-2027
 
 channels:
   - conda-forge    # Community-driven channel with updated packages

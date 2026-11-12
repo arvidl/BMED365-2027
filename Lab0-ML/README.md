@@ -48,9 +48,9 @@ The quick start is specially designed for medical students without programming e
 
 | Notebook | Description | Colab |
 |:---------|:------------|:------|
-| [01-Simple_examples.ipynb](notebooks/01-Simple_examples.ipynb) | Build predictive models based on simple datasets. Practical introduction to basic ML. | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab0-ML/notebooks/01-Simple_examples.ipynb) |
-| [02-Binary_classification.ipynb](notebooks/02-Binary_classification.ipynb) | Central concepts in binary classification: evaluation, metrics, validation. | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab0-ML/notebooks/02-Binary_classification.ipynb) |
-| [03-PyCaret_quickguide.ipynb](notebooks/03-PyCaret_quickguide.ipynb) | AutoML with PyCaret – rapid prototyping with caveats for medical use. | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab0-ML/notebooks/03-PyCaret_quickguide.ipynb) |
+| [01-Simple_examples.ipynb](notebooks/01-Simple_examples.ipynb) | Build predictive models based on simple datasets. Practical introduction to basic ML. | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab0-ML/notebooks/01-Simple_examples.ipynb) |
+| [02-Binary_classification.ipynb](notebooks/02-Binary_classification.ipynb) | Central concepts in binary classification: evaluation, metrics, validation. | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab0-ML/notebooks/02-Binary_classification.ipynb) |
+| [03-PyCaret_quickguide.ipynb](notebooks/03-PyCaret_quickguide.ipynb) | AutoML with PyCaret – rapid prototyping with caveats for medical use. | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab0-ML/notebooks/03-PyCaret_quickguide.ipynb) |
 
 ### Solution Notebooks:
 

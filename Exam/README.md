@@ -10,7 +10,7 @@ The digital home exam will take place in [Inspera](https://www.inspera.com). Ple
 
 ## Exam Format
 
-- The **two hours** digital home exam in BMED365-2026 on Inspera consists of **multiple-choice questions (MCQ)**, each with five answer options, where there are two answers being "the most correct". 
+- The **two hours** digital home exam in BMED365-2027 on Inspera consists of **multiple-choice questions (MCQ)**, each with five answer options, where there are two answers being "the most correct". 
 
 - This may be followed by **free-text essay questions**. 
 

@@ -2,7 +2,7 @@
 
 This lab provides a comprehensive introduction to generative AI and large language models (LLM) with a focus on biomedical applications. We cover everything from foundational concepts and the transformer architecture to ethical considerations, trustworthy AI, and emerging approaches like neurosymbolic AI.
 
-> **Connection to Team Project:** This lab provides essential background for your Team Project on *Precision Medicine and Quantitative Imaging in Glioblastoma*. Notebook 08 ([Neurosymbolic AI](https://github.com/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/08-neurosymbolic-ai.ipynb)) includes a dedicated case study on brain tumor classification that directly relates to your project work. See also the prompt templates [grant_writing.txt](https://github.com/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/prompts/grant_writing.txt) and [project_pitch.txt](https://github.com/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/prompts/project_pitch.txt) for preparing your grant application and project presentation.
+> **Connection to Team Project:** This lab provides essential background for your Team Project on *Precision Medicine and Quantitative Imaging in Glioblastoma*. Notebook 08 ([Neurosymbolic AI](https://github.com/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/08-neurosymbolic-ai.ipynb)) includes a dedicated case study on brain tumor classification that directly relates to your project work. See also the prompt templates [grant_writing.txt](https://github.com/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/prompts/grant_writing.txt) and [project_pitch.txt](https://github.com/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/prompts/project_pitch.txt) for preparing your grant application and project presentation.
 
 ---
 
@@ -116,32 +116,32 @@ These notebooks cover the essentials and should be reviewed by everyone:
 
 | # | Notebook | Description | Time | 1-Click Colab |
 |---|----------|-------------|------|---------------|
-| 01 | [Introduction to Generative AI](notebooks/01-introduction-genai.ipynb) | Overview, history, and medical relevance | ~45 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/01-introduction-genai.ipynb) |
-| 02 | [Transformer Architecture](notebooks/02-transformer-architecture.ipynb) | Self-attention and the foundation of modern AI | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/02-transformer-architecture.ipynb) |
-| 03 | [LLM Fundamentals](notebooks/03-llm-fundamentals.ipynb) | Tokens, temperature, and context window | ~45 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/03-llm-fundamentals.ipynb) |
-| 04 | [Prompt Engineering](notebooks/04-prompt-engineering.ipynb) | Techniques for effective communication with AI | ~90 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/04-prompt-engineering.ipynb) |
+| 01 | [Introduction to Generative AI](notebooks/01-introduction-genai.ipynb) | Overview, history, and medical relevance | ~45 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/01-introduction-genai.ipynb) |
+| 02 | [Transformer Architecture](notebooks/02-transformer-architecture.ipynb) | Self-attention and the foundation of modern AI | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/02-transformer-architecture.ipynb) |
+| 03 | [LLM Fundamentals](notebooks/03-llm-fundamentals.ipynb) | Tokens, temperature, and context window | ~45 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/03-llm-fundamentals.ipynb) |
+| 04 | [Prompt Engineering](notebooks/04-prompt-engineering.ipynb) | Techniques for effective communication with AI | ~90 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/04-prompt-engineering.ipynb) |
 
 ### Important (Recommended) - Approx. 2-3 hours
 These notebooks provide important context for responsible use of AI in healthcare:
 
 | # | Notebook | Description | Time | 1-Click Colab |
 |---|----------|-------------|------|---------------|
-| 05 | [Explainable AI (XAI)](notebooks/05-xai-explainable-ai.ipynb) | SHAP, LIME, and clinical interpretability | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/05-xai-explainable-ai.ipynb) |
-| 06 | [AI Ethics in Medicine](notebooks/06-ai-ethics-medicine.ipynb) | Bias, privacy, and regulation | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/06-ai-ethics-medicine.ipynb) |
+| 05 | [Explainable AI (XAI)](notebooks/05-xai-explainable-ai.ipynb) | SHAP, LIME, and clinical interpretability | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/05-xai-explainable-ai.ipynb) |
+| 06 | [AI Ethics in Medicine](notebooks/06-ai-ethics-medicine.ipynb) | Bias, privacy, and regulation | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/06-ai-ethics-medicine.ipynb) |
 
 ### In-Depth (Optional) - Approx. 2-3 hours
 For those who want to go deeper into special topics:
 
 | # | Notebook | Description | Time | 1-Click Colab |
 |---|----------|-------------|------|---------------|
-| 07 | [Trustworthy AI](notebooks/07-trustworthy-ai.ipynb) | Reliability, robustness, human-in-the-loop | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/07-trustworthy-ai.ipynb) |
-| 08 | [Neurosymbolic AI](notebooks/08-neurosymbolic-ai.ipynb) | Hybrid AI, knowledge graphs, **glioma case study** | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/08-neurosymbolic-ai.ipynb) |
-| 09 | [ChatGPT/Claude API](notebooks/09-chatgpt-claude-api.ipynb) | Programmatic use of LLM APIs | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/notebooks/09-chatgpt-claude-api.ipynb) |
+| 07 | [Trustworthy AI](notebooks/07-trustworthy-ai.ipynb) | Reliability, robustness, human-in-the-loop | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/07-trustworthy-ai.ipynb) |
+| 08 | [Neurosymbolic AI](notebooks/08-neurosymbolic-ai.ipynb) | Hybrid AI, knowledge graphs, **glioma case study** | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/08-neurosymbolic-ai.ipynb) |
+| 09 | [ChatGPT/Claude API](notebooks/09-chatgpt-claude-api.ipynb) | Programmatic use of LLM APIs | ~60 min | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/notebooks/09-chatgpt-claude-api.ipynb) |
 
 ### Technical Supplement
 | # | Notebook | Description | 1-Click Colab |
 |---|----------|-------------|---------------|
-| 00 | [Test LLM Locally](00-test-llm.ipynb) | Running local models with Ollama | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2026/blob/main/Lab3-GenAI-LLM/00-test-llm.ipynb) |
+| 00 | [Test LLM Locally](00-test-llm.ipynb) | Running local models with Ollama | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/00-test-llm.ipynb) |
 
 ---
 
@@ -364,7 +364,7 @@ After reviewing the material, write a short reflection (300-500 words) addressin
 ## Lecture Schedule: Tuesday, January 19, 2027
 
 **Time:** 08:15-12:00 (3h 45min)  
-**Location:** Hist 1  
+**Location:** 9a110bp  
 **Instructor:** AL
 
 ### Overview

@@ -548,7 +548,7 @@ A: Consider dividing by expertise: medical students might lead on clinical backg
 
 ## Contact and Support
 
-- Course repository: [https://github.com/arvidl/BMED365-2026](https://github.com/arvidl/BMED365-2026)
+- Course repository: [https://github.com/arvidl/BMED365-2027](https://github.com/arvidl/BMED365-2027)
 - For technical questions about LaTeX/Overleaf, consult the [Overleaf documentation](https://www.overleaf.com/learn)
 - For questions about the project, contact the course instructors
 
