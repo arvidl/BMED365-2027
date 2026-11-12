@@ -1,0 +1,427 @@
+% =====================================================================
+% BMED365: Patient Similarity Networks (PSN)
+% Beamer presentation - Topic List P01-P08
+% =====================================================================
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+% =====================================================================
+% PACKAGES
+% =====================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, calc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\usepackage{amssymb}
+
+% =====================================================================
+% THEME AND COLORS
+% =====================================================================
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+% Colors for TikZ diagrams
+\definecolor{uibblue}{RGB}{0, 61, 115}
+\definecolor{uibred}{RGB}{175, 28, 44}
+
+% =====================================================================
+% TITLE INFO
+% =====================================================================
+\title{Patient Similarity Networks (PSN)}
+\subtitle{BMED365: Topic List P01--P08}
+\author{BMED365}
+\date{Spring 2026}
+
+% =====================================================================
+% DOCUMENT
+% =====================================================================
+\begin{document}
+
+% Title page
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Table of Contents
+\begin{frame}{Overview}
+    \begin{enumerate}
+        \item \textbf{Fundamentals of PSN}
+        \begin{itemize}
+            \item P01: Explain the concept of patient similarity networks (PSN)
+            \item P02: Describe how PSN can support precision medicine
+        \end{itemize}
+        \item \textbf{Similarity Calculation}
+        \begin{itemize}
+            \item P03: Calculate similarity between patients
+            \item P04: Construct a PSN from a patient-feature matrix
+            \item P05: Choose threshold value for edge creation in PSN
+        \end{itemize}
+        \item \textbf{Analysis of PSN}
+        \begin{itemize}
+            \item P06: Identify patient subgroups via community detection
+        \end{itemize}
+        \item \textbf{Advanced Topics}
+        \begin{itemize}
+            \item P07: Advantages and limitations of the PSN approach
+            \item P08: Multimodal PSN (integration of different data types)
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+% =====================================================================
+% SECTION: Fundamentals of PSN
+% =====================================================================
+\section{Fundamentals of PSN}
+
+\begin{frame}{P01: Explain the concept of \href{https://en.wikipedia.org/wiki/Patient_similarity_network}{patient similarity networks (PSN)}}
+    \begin{columns}[T]
+        \begin{column}{0.55\textwidth}
+            \textbf{What is a patient similarity network?}
+            \begin{itemize}
+                \item A \textbf{graph} where each node represents a patient
+                \item \textbf{Edges} connect patients who are similar to each other
+                \item Similarity based on clinical variables (symptoms, vitals, demographics), biomarkers, genetics, imaging, lifestyle factors
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \textbf{Main idea:}
+            \begin{itemize}
+                \item Patients with similar profiles are grouped together
+                \item Reveals natural subgroups in the patient population
+                \item Foundation for \textbf{patient stratification}: identify subgroups with shared characteristics for targeted treatment
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \scriptsize\textbf{Key references:}
+            \href{https://doi.org/10.1038/ncomms5022}{Pai \& Bader (2018)},
+            \href{https://doi.org/10.1073/pnas.2421060122}{Urda-Garcia et al. (2025)},
+            \href{https://www.science.org/doi/10.1126/sciadv.abg9551}{Bhalla et al. (2021)}
+        \end{column}
+        \begin{column}{0.42\textwidth}
+            \begin{tikzpicture}[scale=0.8, transform shape]
+                \tikzstyle{patient} = [circle, draw=uibblue, fill=uibblue!20, minimum size=0.7cm, font=\footnotesize]
+                \tikzstyle{edge} = [draw, thick, uibblue!60]
+                
+                \node[patient] (p1) at (0,0) {P1};
+                \node[patient] (p2) at (1.5,0.8) {P2};
+                \node[patient] (p3) at (1.2,-0.9) {P3};
+                \node[patient] (p4) at (3,0) {P4};
+                \node[patient] (p5) at (3.5,1.2) {P5};
+                \node[patient] (p6) at (4.2,-0.5) {P6};
+                
+                \draw[edge] (p1) -- (p2);
+                \draw[edge] (p1) -- (p3);
+                \draw[edge] (p2) -- (p3);
+                \draw[edge] (p4) -- (p5);
+                \draw[edge] (p4) -- (p6);
+                \draw[edge] (p5) -- (p6);
+                \draw[edge, dashed, uibblue!30] (p2) -- (p4);
+            \end{tikzpicture}
+            
+            \vspace{0.3cm}
+            \footnotesize\textit{Two patient groups with strong internal similarity}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{P02: Describe how PSN can support \href{https://en.wikipedia.org/wiki/Precision_medicine}{precision medicine}}
+    \begin{block}{Precision medicine}
+        Tailoring treatment to the individual patient based on their unique profile -- not ``one size fits all''
+    \end{block}
+    
+    \vspace{0.3cm}
+    \textbf{PSN supports precision medicine by:}
+    \begin{enumerate}
+        \item \textbf{Identifying subgroups} -- Finding patients with similar disease mechanisms
+        \item \textbf{Predicting treatment response} -- ``Patients who are similar to you responded well to X''
+        \item \textbf{Discovering unknown relationships} -- Revealing patterns across data types and established diagnoses
+        \item \textbf{Integrating heterogeneous data} -- Combining clinical, omics, imaging data
+    \end{enumerate}
+    
+    \vspace{0.3cm}
+    \begin{alertblock}{Example: IBS study}
+        In Lab 1 we use PSN on IBS patients to investigate relationships between gastrointestinal symptoms, brain imaging (MRI), and cognitive functions.
+    \end{alertblock}
+\end{frame}
+
+% =====================================================================
+% SECTION: Similarity Calculation
+% =====================================================================
+\section{Similarity Calculation}
+
+\begin{frame}{P03: Calculate \href{https://en.wikipedia.org/wiki/Similarity_measure}{similarity} between patients}
+    \textbf{Common similarity/distance measures:}
+    \vspace{-1mm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Euclidean distance ($\ell_2$):}
+            \vspace{-2mm}
+            \[
+            d_E = \sqrt{\sum_{i=1}^{n}(x_i - y_i)^2}
+            \]
+            \vspace{-3mm}
+            \footnotesize
+            \begin{itemize}\setlength{\itemsep}{0pt}
+                \item Straight line between points in $\mathbb{R}^n$
+                \item Sensitive to scale
+                \item Good for continuous data
+            \end{itemize}
+            \normalsize
+            
+            \textbf{Manhattan distance ($\ell_1$):}
+            \vspace{-2mm}
+            \[
+            d_M = \sum_{i=1}^{n}|x_i - y_i|
+            \]
+            \vspace{-3mm}
+            \footnotesize
+            \begin{itemize}\setlength{\itemsep}{0pt}
+                \item ``City block'' distance
+                \item More robust to outliers
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Gower distance:}
+            \vspace{-2mm}
+            \[
+            d_G = \frac{1}{n}\sum_{i=1}^{n}d_i(x_i, y_i)
+            \]
+            \vspace{-1mm}
+            \scriptsize
+            \textit{$d_i$ = normalized distance for variable $i$:}
+            
+            \vspace{0.5mm}
+            num.: range-norm., cat.: 0/1, binary: id.
+            
+            \vspace{1mm}
+            \footnotesize
+            \begin{itemize}\setlength{\itemsep}{0pt}
+                \item Handles \textbf{mixed data types}
+                \item Normalizes automatically
+                \item Ideal for clinical data!
+            \end{itemize}
+            
+            \begin{block}{\scriptsize Conversion}
+                \scriptsize $\text{similarity} = 1 - \text{distance}$ (norm. to [0,1])
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{P04: Construct a PSN from a patient-feature matrix}
+    \textbf{Step-by-step process:}
+    
+    \begin{enumerate}
+        \item \textbf{Organize data:} Patient $\times$ Feature matrix
+        \begin{center}
+            \scriptsize
+            \begin{tabular}{l|cccccc}
+                \toprule
+                Patient & Age & Gender & BMI & Blood Pressure & Symptom Score & Biomarker \\
+                \midrule
+                P1 & 45 & F & 24.5 & 120/80 & 7 & 1.2 \\
+                P2 & 42 & F & 25.1 & 118/78 & 8 & 1.1 \\
+                P3 & 67 & M & 31.2 & 145/95 & 3 & 2.8 \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+        
+        \item \textbf{Normalize/standardize:} Make variables comparable\\
+        \scriptsize (z-score: $(x-\mu)/\sigma$, min-max: $(x-\min)/(\max-\min)$)
+        \normalsize
+        
+        \item \textbf{Calculate similarity matrix:} All pairs of patients
+        
+        \item \textbf{Choose threshold value:} Determine when two patients are ``similar enough''
+        
+        \item \textbf{Create edges:} Connect patients with similarity $>$ threshold
+        
+        \item \textbf{Build graph:} Use NetworkX to create the network
+    \end{enumerate}
+    
+    \begin{block}{\footnotesize Python code (conceptual)}
+        \footnotesize
+        \texttt{G = nx.Graph()} \\
+        \texttt{for i, j: if similarity[i,j] > threshold: G.add\_edge(i,j)}
+    \end{block}
+\end{frame}
+
+\begin{frame}{P05: Choose \href{https://en.wikipedia.org/wiki/Threshold_model}{threshold value} for edge creation in PSN}
+    \begin{block}{\footnotesize Definition}
+        \footnotesize \textbf{Threshold} $\tau$: Edge created between patient $i$ and $j$ if similarity $s_{ij} > \tau$.
+    \end{block}
+    
+    \vspace{1mm}
+    \textbf{The challenge} (threshold selection is \textbf{critical} for results and interpretation):
+    \begin{itemize}\setlength{\itemsep}{0pt}
+        \item Too low threshold $\rightarrow$ Too many edges, all patients connected
+        \item Too high threshold $\rightarrow$ Too few edges, isolated nodes
+    \end{itemize}
+    
+    \vspace{1mm}
+    \textbf{Strategies for threshold selection:}
+    \begin{enumerate}\setlength{\itemsep}{0pt}
+        \item \textbf{Percentile-based:} Keep top 5--10\% of edges
+        \item \textbf{k-nearest neighbors (k-NN):} Each node connects to k nearest
+        \item \textbf{Statistical threshold:} $\mu + 1.5\sigma$ of similarity distribution
+        \item \textbf{Visual inspection:} Try different values and visualize
+    \end{enumerate}
+    
+    \vspace{1mm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{alertblock}{\scriptsize Too many edges}
+                \scriptsize Lose subgroup structure, difficult to interpret
+            \end{alertblock}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{alertblock}{\scriptsize Too few edges}
+                \scriptsize Lose information, fragmented network
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =====================================================================
+% SECTION: Analysis of PSN
+% =====================================================================
+\section{Analysis of PSN}
+
+\begin{frame}{P06: Identify patient subgroups via \href{https://en.wikipedia.org/wiki/Community_structure}{community detection}}
+    \begin{columns}[T]
+        \begin{column}{0.58\textwidth}
+            \textbf{Community detection in PSN:}
+            \begin{itemize}\setlength{\itemsep}{0pt}
+                \item Finds natural groupings of patients
+                \item Patients in the same group are more similar to each other than to others
+            \end{itemize}
+            
+            \vspace{2mm}
+            \textbf{The Louvain algorithm (from N09):}
+            \begin{enumerate}\setlength{\itemsep}{0pt}
+                \item Optimizes \textbf{modularity} -- internal density vs. external connections
+                \item Hierarchical: Finds groups at multiple levels
+                \item Fast and scalable
+            \end{enumerate}
+            
+            \vspace{2mm}
+            \textbf{Clinical interpretation:}
+            \begin{itemize}\setlength{\itemsep}{0pt}
+                \item Each community = potential patient subtype
+                \item Examine characteristics for each group
+                \item Compare outcomes and treatment response
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.40\textwidth}
+            \begin{block}{\scriptsize Python code}
+                \scriptsize
+                \texttt{\# NetworkX (built-in):}\\
+                \texttt{nx.community.louvain\_communities(G)}\\[3pt]
+                \texttt{\# Alternative (python-louvain):}\\
+                \texttt{import community}\\
+                \texttt{community.best\_partition(G)}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =====================================================================
+% SECTION: Advanced Topics
+% =====================================================================
+\section{Advanced Topics}
+
+\begin{frame}{P07: Advantages and limitations of the PSN approach}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{\textcolor{green!60!black}{Advantages:}}
+            \begin{itemize}
+                \item \faCheck~Intuitive and visual
+                \item \faCheck~Integration of different data types
+                \item \faCheck~No assumption about underlying distributions
+                \item \faCheck~Discovers non-linear relationships
+                \item \faCheck~Network analysis tools can be applied
+                \item \faCheck~Patient-centered perspective
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{\textcolor{uibred}{Limitations:}}
+            \begin{itemize}
+                \item \faTimes~Choice of similarity measure and threshold is critical
+                \item \faTimes~Scales poorly to large datasets
+                \item \faTimes~Missing data can be problematic
+                \item \faTimes~Interpretation challenges
+                \item \faTimes~Not always reproducible
+                \item \faTimes~Requires domain expertise
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.5cm}
+    \begin{block}{Summary}
+        PSN is a powerful tool for exploratory analysis and hypothesis generation, but results should be validated with independent data and methods.
+    \end{block}
+\end{frame}
+
+\begin{frame}{P08: \href{https://en.wikipedia.org/wiki/Multimodal_learning}{Multimodal} PSN (\href{https://en.wikipedia.org/wiki/Data_fusion}{integration/fusion} of different data types)}
+    \textbf{Multimodal PSN:}
+    \begin{itemize}\setlength{\itemsep}{0pt}
+        \item Combines data from \textbf{multiple sources/modalities}
+        \item Examples: Clinical + Genetics + Imaging
+    \end{itemize}
+    
+    \vspace{1mm}
+    \textbf{Integration strategies:}
+    \begin{enumerate}\setlength{\itemsep}{0pt}
+        \item \textbf{Early fusion:} Combine all features before similarity calculation
+        \item \textbf{Late fusion:} Create separate PSNs, combine afterwards
+        \item \textbf{Intermediate fusion:} Weighted combination of similarity matrices
+    \end{enumerate}
+    
+    \vspace{1mm}
+    \footnotesize
+    \textbf{Example from Lab 1 (IBS study):}
+    \begin{itemize}\setlength{\itemsep}{0pt}
+        \item \textbf{Clinical data:} Symptom scores, demographics
+        \item \textbf{MRI data:} Brain imaging (connectivity, volume)
+        \item \textbf{Cognitive data:} Test results
+        \item $\rightarrow$ Integrated PSN for holistic patient profiling
+    \end{itemize}
+    \normalsize
+    
+    \vspace{-1mm}
+    \begin{block}{\footnotesize Value of multimodal PSN}
+        \footnotesize Captures the complexity in patient populations that is not visible in single modalities alone.
+    \end{block}
+\end{frame}
+
+% =====================================================================
+% SUMMARY
+% =====================================================================
+\section*{Summary}
+
+\begin{frame}{Summary: PSN}
+    \textbf{Key points:}
+    \begin{itemize}
+        \item \textbf{P01:} PSN = Graph where nodes are patients, edges are similarity
+        \item \textbf{P02:} Supports precision medicine via subgroup identification
+        \item \textbf{P03:} Similarity measures: Euclidean, Manhattan, Gower
+        \item \textbf{P04:} Construction: Feature matrix $\rightarrow$ Similarity $\rightarrow$ Thresholding $\rightarrow$ Graph
+        \item \textbf{P05:} Threshold selection is critical for network structure
+        \item \textbf{P06:} Community detection (Louvain) for subgroups
+        \item \textbf{P07:} Advantages vs. limitations must be weighed
+        \item \textbf{P08:} Multimodal PSN integrates heterogeneous data
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \begin{block}{\footnotesize Lab 1 -- Practical experience}
+        \footnotesize Construct and analyze PSN with real clinical data (IRIS, IBS, WAIS-IV) using Python and NetworkX.
+    \end{block}
+\end{frame}
+
+\end{document}

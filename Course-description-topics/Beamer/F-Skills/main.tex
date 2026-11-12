@@ -1,0 +1,619 @@
+% =====================================================================
+% BMED365: Practical Skills
+% Beamer presentation - Topic List F01-F14
+% =====================================================================
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+% =====================================================================
+% PACKAGES
+% =====================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, calc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{fontawesome5}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+% Code formatting
+\definecolor{codebg}{rgb}{0.95,0.95,0.92}
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{codebg},
+}
+
+% =====================================================================
+% THEME AND COLORS
+% =====================================================================
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+% =====================================================================
+% TITLE INFO
+% =====================================================================
+\title{Practical Skills}
+\subtitle{BMED365: Topic List F01--F14}
+\author{BMED365}
+\date{Spring 2026}
+
+% =====================================================================
+% DOCUMENT
+% =====================================================================
+\begin{document}
+
+% Title page
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Table of Contents
+\begin{frame}{Overview}
+    \begin{enumerate}
+        \item \textbf{Jupyter Notebooks and Google Colab}
+        (\href{https://jupyter.org/}{Jupyter}, \href{https://colab.research.google.com/}{Colab})
+        \item \textbf{Python Fundamentals}
+        (\href{https://numpy.org/}{NumPy}, \href{https://pandas.pydata.org/}{Pandas}, \href{https://matplotlib.org/}{Matplotlib})
+        \item \textbf{Machine Learning with scikit-learn}
+        (\href{https://scikit-learn.org/}{scikit-learn})
+        \item \textbf{Network Analysis with NetworkX}
+        (\href{https://networkx.org/}{NetworkX})
+        \item \textbf{Deep Learning with PyTorch}
+        (\href{https://pytorch.org/}{PyTorch})
+        \item \textbf{AI Tools and LaTeX}
+        (\href{https://chat.openai.com/}{ChatGPT}, \href{https://gemini.google.com/}{Gemini}, \href{https://claude.ai/}{Claude}, \href{https://www.overleaf.com/}{Overleaf})
+    \end{enumerate}
+\end{frame}
+
+% =====================================================================
+% SECTION: Jupyter and Colab
+% =====================================================================
+\section{Jupyter Notebooks and Google Colab}
+
+\begin{frame}{F01: Run Jupyter Notebooks in Google Colab}
+    \textbf{What is Jupyter Notebooks?}
+    \begin{itemize}
+        \item Interactive documents that combine code, text, and visualizations
+        \item Run Python code cell by cell
+        \item Standard in data science work
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \textbf{Google Colab:}
+    \begin{itemize}
+        \item Free cloud-based Jupyter environment from Google
+        \item No installation - runs in the browser
+        \item Free GPU access (important for deep learning!)
+        \item Integrated with Google Drive
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \textbf{Getting started:}
+    \begin{enumerate}
+        \item Go to \texttt{colab.research.google.com}
+        \item Log in with Google account
+        \item ``New notebook'' or open from GitHub
+    \end{enumerate}
+    
+    \begin{block}{\footnotesize Tip}
+        \footnotesize Enable GPU: Runtime $\rightarrow$ Change runtime type $\rightarrow$ GPU
+    \end{block}
+\end{frame}
+
+% =====================================================================
+% SECTION: Python Fundamentals
+% =====================================================================
+\section{Python Fundamentals}
+
+\begin{frame}[fragile]{F02: Use Python variables, lists, and simple functions}
+    \textbf{Variables:}
+    \begin{lstlisting}[language=Python]
+age = 45            # int
+name = "Patient A"  # str
+risk = 0.73         # float
+is_sick = True      # bool
+    \end{lstlisting}
+    
+    \textbf{Lists:}
+    \begin{lstlisting}[language=Python]
+symptoms = ["headache", "nausea", "fatigue"]
+values = [1.2, 3.4, 5.6, 7.8]
+symptoms.append("fever")  # Add element
+    \end{lstlisting}
+    
+    \textbf{Functions:}
+    \begin{lstlisting}[language=Python]
+def calculate_bmi(weight, height):
+    return weight / (height ** 2)
+
+bmi = calculate_bmi(70, 1.75)  # -> 22.9
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{F03: Import and use libraries (numpy, pandas, matplotlib)}
+    \textbf{Importing libraries:}
+    \begin{lstlisting}[language=Python]
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+    \end{lstlisting}
+    
+    \vspace{0.3cm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{NumPy:}
+            \begin{itemize}
+                \item Numerical computations
+                \item Arrays and matrices
+                \item Mathematical functions
+            \end{itemize}
+            \begin{lstlisting}[language=Python]
+arr = np.array([1, 2, 3])
+mean = np.mean(arr)
+            \end{lstlisting}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Pandas:}
+            \begin{itemize}
+                \item Data manipulation
+                \item DataFrames (tables)
+                \item CSV, Excel I/O
+            \end{itemize}
+            \begin{lstlisting}[language=Python]
+df = pd.read_csv("data.csv")
+df.head()
+            \end{lstlisting}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{F04: Read and inspect datasets with pandas}
+    \textbf{Reading data:}
+    \begin{lstlisting}[language=Python]
+df = pd.read_csv("patients.csv")
+    \end{lstlisting}
+    
+    \textbf{Inspecting data:}
+    \begin{lstlisting}[language=Python]
+df.head()        # First 5 rows
+df.info()        # Column types, null values
+df.describe()    # Statistics for numeric columns
+df.shape         # (number of rows, number of columns)
+df.columns       # Column names
+    \end{lstlisting}
+    
+    \textbf{Filtering and selection:}
+    \begin{lstlisting}[language=Python]
+# Select columns
+df[["age", "diagnosis"]]
+
+# Filter rows
+elderly = df[df["age"] > 65]
+    \end{lstlisting}
+\end{frame}
+
+% =====================================================================
+% SECTION: Machine Learning with scikit-learn
+% =====================================================================
+\section{Machine Learning with scikit-learn}
+
+\begin{frame}[fragile]{F05: Train a simple model with scikit-learn}
+    \textbf{Typical ML workflow:}
+    \begin{lstlisting}[language=Python]
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# 1. Prepare data
+X = df[["feature1", "feature2"]]
+y = df["label"]
+
+# 2. Split into train and test
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
+
+# 3. Create and train model
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train)
+
+# 4. Evaluate
+y_pred = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.2f}")
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{F06: Visualize results with matplotlib}
+    \textbf{Basic plotting:}
+    \begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+
+# Line chart
+plt.plot([1, 2, 3, 4], [10, 20, 25, 30])
+plt.xlabel("Time"); plt.ylabel("Value")
+plt.title("My figure")
+plt.show()
+    \end{lstlisting}
+    
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Histogram:}
+            \begin{lstlisting}[language=Python]
+plt.hist(df["age"], bins=20)
+plt.xlabel("Age")
+plt.show()
+            \end{lstlisting}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Scatter plot:}
+            \begin{lstlisting}[language=Python]
+plt.scatter(df["x"], df["y"])
+plt.xlabel("X"); plt.ylabel("Y")
+plt.show()
+            \end{lstlisting}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.2cm}
+    \begin{block}{\footnotesize \href{https://seaborn.pydata.org/}{Seaborn}}
+        \footnotesize \texttt{import seaborn as sns} - Beautiful visualizations with simple code!
+    \end{block}
+\end{frame}
+
+% =====================================================================
+% SECTION: Network Analysis
+% =====================================================================
+\section{Network Analysis with NetworkX}
+
+\begin{frame}[fragile]{F07: Use \href{https://networkx.org/}{NetworkX} for simple network analysis}
+    \textbf{Create and manipulate graphs:}
+    \begin{lstlisting}[language=Python]
+import networkx as nx
+
+# Create graph
+G = nx.Graph()
+G.add_nodes_from(["P1", "P2", "P3", "P4"])
+G.add_edges_from([("P1", "P2"), ("P2", "P3"), ("P1", "P3")])
+
+# Basic analysis
+print(f"Number of nodes: {G.number_of_nodes()}")
+print(f"Number of edges: {G.number_of_edges()}")
+
+# Centrality
+deg_cent = nx.degree_centrality(G)
+print(f"Degree centrality: {deg_cent}")
+
+# Visualization
+nx.draw(G, with_labels=True, node_color="lightblue")
+plt.show()
+    \end{lstlisting}
+\end{frame}
+
+% =====================================================================
+% SECTION: Deep Learning
+% =====================================================================
+\section{Deep Learning with PyTorch}
+
+\begin{frame}[fragile]{F08: Build and train a model with \href{https://pytorch.org/}{PyTorch}}
+    \textbf{Simple MLP in PyTorch:}
+    \begin{lstlisting}[language=Python,basicstyle=\ttfamily\scriptsize]
+import torch
+import torch.nn as nn
+
+class SimpleMLP(nn.Module):
+    def __init__(self, input_size, hidden_size, num_classes):
+        super().__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.relu = nn.ReLU()
+        self.fc2 = nn.Linear(hidden_size, num_classes)
+
+    def forward(self, x):
+        out = self.fc1(x)
+        out = self.relu(out)
+        out = self.fc2(out)
+        return out
+
+model = SimpleMLP(784, 128, 10)  # MNIST example
+    \end{lstlisting}
+
+    \begin{block}{\footnotesize Lab 2}
+        \footnotesize Full training with loss, optimizer, and training loop is covered in Lab 2.
+    \end{block}
+\end{frame}
+
+% =====================================================================
+% SECTION: AI Tools
+% =====================================================================
+\section{AI Tools and LaTeX}
+
+\begin{frame}{F09: Use AI tools as coding assistants}
+    \begin{columns}[T]
+        \begin{column}{0.52\textwidth}
+            \textbf{Useful applications:}
+            \begin{itemize}
+                \item \faCode~\textbf{Explain code:} ``What does this function do?''
+                \item \faBug~\textbf{Debugging:} ``Why am I getting this error?''
+                \item \faLightbulb~\textbf{Suggestions:} ``Make this more efficient?''
+                \item \faPuzzlePiece~\textbf{Generate code:} ``Write a function...''
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \textbf{Tips for effective use:}
+            \begin{enumerate}
+                \item Be \textbf{specific} in your questions
+                \item Include \textbf{context}
+                \item Always \textbf{verify} AI code
+                \item Use as a \textbf{learning tool}
+            \end{enumerate}
+        \end{column}
+    \end{columns}
+
+    \vspace{0.1cm}
+    \begin{block}{\footnotesize AI-powered IDEs (Integrated Development Environments)}
+        \scriptsize
+        \textbf{IDE} = Editor + compilation + debugger + tools in one.
+        \textbf{AI-powered IDE} = IDE with LLM agents that can plan, write, test and validate code autonomously.\\
+        \textit{Significance for medical/biomedical research:} Lowers the barrier to develop analysis tools, accelerates prototyping of ML models, and enables faster translation from research to clinic.\\[3pt]
+        \begin{tabular}{@{}ll@{}}
+        \href{https://www.cursor.com/}{Cursor}, \href{https://windsurf.com/}{Windsurf} & Editors with agents, plan mode \\
+        \href{https://antigravity.dev/}{Google Antigravity} & Agent-first, multi-model (Gemini 3) \\
+        \href{https://replit.com/}{Replit Agent} & Cloud-based IDE with AI agent \\
+        \href{https://lovable.dev/}{Lovable} & Natural language $\rightarrow$ full-stack app \\
+        \href{https://github.com/features/copilot}{GitHub Copilot}, \href{https://www.jetbrains.com/ai/}{JetBrains AI} & AI assistants in existing IDEs
+        \end{tabular}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{F10: Write documents with \href{https://www.latex-project.org/}{LaTeX}/\href{https://www.overleaf.com/}{Overleaf}}
+    \begin{columns}[T]
+        \begin{column}{0.28\textwidth}
+            \textbf{\href{http://www.bibtex.org/}{BibTeX} (.bib file):}
+            \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\tiny]
+@article{smith2024,
+  author  = {Smith, J.},
+  title   = {AI in Medicine},
+  journal = {Nature Med.},
+  year    = {2024},
+  volume  = {30},
+  pages   = {123--130},
+  doi     = {10.1038/s41591-
+             024-01234-5}
+}
+
+@book{bishop2006,
+  author    = {Bishop, C.},
+  title     = {Pattern Recog.},
+  publisher = {Springer},
+  year      = {2006},
+  isbn      = {978-0387310732}
+}
+            \end{lstlisting}
+            \tiny In text: \texttt{\textbackslash cite\{smith2024\}}
+        \end{column}
+        \begin{column}{0.40\textwidth}
+            \textbf{IMRAD structure:}
+            \begin{lstlisting}[language=TeX,basicstyle=\ttfamily\tiny,literate={å}{{\aa}}1]
+\documentclass{article}
+\usepackage{graphicx,booktabs}
+\begin{document}
+\title{Title}
+\author{Author}
+\maketitle
+\begin{abstract} ... \end{abstract}
+% Introduction
+\section{Introduction}
+Background and aim \cite{smith2024}.
+% Materials and methods
+\section{Methods}
+Data collection and analysis.
+% Results
+\section{Results}
+\begin{table}[h]
+\begin{tabular}{lcc} \toprule
+Model & AUC & F1 \\ \midrule
+CNN & 0.92 & 0.88 \\ \bottomrule
+\end{tabular}
+\caption{Results}\label{tab:1}
+\end{table}
+% Discussion
+\section{Discussion}
+Implications and limitations.
+\bibliography{refs}
+\end{document}
+            \end{lstlisting}
+        \end{column}
+        \begin{column}{0.30\textwidth}
+            \textbf{Journals with LaTeX:}
+            \tiny
+            \begin{itemize}
+                \item \href{https://journals.plos.org/plosmedicine/s/latex}{PLOS Medicine}
+                \item \href{https://www.nature.com/nature/for-authors/formatting-guide}{Nature / Nat. Med.}
+                \item \href{https://academic.oup.com/bioinformatics/pages/instructions_for_authors}{Bioinformatics}
+                \item \href{https://www.thelancet.com/pb/assets/raw/Lancet/authors/tl-info-for-authors.pdf}{The Lancet}
+                \item \href{https://www.bmj.com/about-bmj/resources-authors}{BMJ}
+                \item \href{https://www.elsevier.com/researcher/author/policies-and-guidelines/latex-instructions}{Elsevier (many)}
+                \item \href{https://www.springer.com/gp/livingreviews/latex-templates}{Springer Nature}
+                \item \href{https://www.mdpi.com/authors/latex}{MDPI (open access)}
+                \item \href{https://ieee-dataport.org/sites/default/files/analysis/27/IEEE-Reference-Guide.pdf}{IEEE JBHI}
+                \item \href{https://www.jmlr.org/format/format.html}{JMLR}
+                \item \href{https://www.frontiersin.org/guidelines/author-guidelines}{Frontiers}
+            \end{itemize}
+            \vspace{0.05cm}
+            \scriptsize \href{https://www.overleaf.com/gallery/tagged/academic-journal}{Overleaf Gallery}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =====================================================================
+% SECTION: Context Engineering
+% =====================================================================
+\section{Context Engineering for LLM}
+
+\begin{frame}{F11: Compose effective prompts for medical tasks}
+    \textbf{From Prompt Engineering to Context Engineering:}
+    \begin{itemize}
+        \item \textbf{Prompt engineering:} Crafting good questions and instructions
+        \item \textbf{Context engineering:} Designing the \textit{entire context} the model uses
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{Components of context engineering:}
+    \begin{enumerate}
+        \item \textbf{System prompt:} Role and basic instructions
+        \item \textbf{User prompt:} The specific question
+        \item \textbf{Retrieved context (RAG):} Medical records, guidelines, articles
+        \item \textbf{Tools:} Lab lookup, drug database, ICD-10
+        \item \textbf{Conversation history:} Previous dialog in the consultation
+        \item \textbf{Structured data:} JSON with lab values, vital signs
+    \end{enumerate}
+    
+    \begin{block}{\footnotesize Medical significance}
+        \footnotesize Rich context = more relevant, personalized, and safe AI responses
+    \end{block}
+\end{frame}
+
+\begin{frame}{F12: Apply context engineering in practice}
+    \textbf{Example: Simple prompt vs. rich context}
+    
+    \vspace{0.2cm}
+    \begin{columns}[T]
+        \begin{column}{0.45\textwidth}
+            \begin{alertblock}{\footnotesize Simple prompt}
+                \scriptsize
+                \texttt{What is the treatment for heart failure?}
+                
+                \vspace{0.1cm}
+                $\rightarrow$ Generic answer, not personalized
+            \end{alertblock}
+        \end{column}
+        \begin{column}{0.52\textwidth}
+            \begin{block}{\footnotesize Rich context}
+                \scriptsize
+                \texttt{System: Clinical decision support} \\
+                \texttt{Patient: 72 years, eGFR 45, Warfarin} \\
+                \texttt{RAG: ESC Guidelines 2023} \\
+                \texttt{Question: Treatment changes?}
+                
+                \vspace{0.1cm}
+                $\rightarrow$ Personalized, evidence-based answer
+            \end{block}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.2cm}
+    \textbf{Skill levels:}
+    \footnotesize
+    \begin{tabular}{ll}
+        \textbf{Beginner:} & Prompt formulation (role, format, examples) \\
+        \textbf{Intermediate:} & Structured system prompts with sections \\
+        \textbf{Advanced:} & RAG integration and tool use \\
+        \textbf{Expert:} & Multi-agent orchestration \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}{F13: Choose the right LLM model for the task}
+    \textbf{Model strengths for medical tasks:}
+    
+    \vspace{0.2cm}
+    \footnotesize
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{Task type} & \textbf{Recommended model} & \textbf{Rationale} \\
+        \midrule
+        Structured extraction & GPT-5.2 & Good instruction following \\
+        Ethical dilemmas & Claude Opus 4.5 & Nuanced reasoning \\
+        Image analysis & Gemini 3 & Multimodal from the ground up \\
+        Long record analysis & Claude Opus 4.5 & 200K token context \\
+        Updated research & Gemini 3 & Integrated real-time search \\
+        Tool integration & GPT-5.2 & Good API for functions \\
+        Patient communication & Claude Opus 4.5 & Empathetic, patient-centered \\
+        Calculations & Gemini 3 & Strong in science \\
+        \bottomrule
+    \end{tabular}
+    
+    \vspace{0.2cm}
+    \normalsize
+    \begin{block}{\footnotesize Practical recommendation}
+        \footnotesize For critical tasks: Test on multiple models and compare output
+    \end{block}
+\end{frame}
+
+\begin{frame}{F14: Compare output from different LLMs}
+    \textbf{Evaluation criteria for medical LLM output:}
+    
+    \vspace{0.2cm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Quality dimensions:}
+            \begin{enumerate}
+                \item \textbf{Medical accuracy} \\
+                      {\scriptsize Is the information correct?}
+                \item \textbf{Uncertainty handling} \\
+                      {\scriptsize Is uncertainty expressed appropriately?}
+                \item \textbf{Structured output} \\
+                      {\scriptsize Are format instructions followed?}
+                \item \textbf{Safety behavior} \\
+                      {\scriptsize Is referral to physician recommended when needed?}
+                \item \textbf{Clinical utility} \\
+                      {\scriptsize Is the answer practically applicable?}
+            \end{enumerate}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Practical approach:}
+            \begin{enumerate}
+                \item Define test case with ground truth
+                \item Send same prompt to 2--3 models
+                \item Evaluate against criteria (1--5 scale)
+                \item Document strengths/weaknesses
+                \item Choose model for production
+            \end{enumerate}
+            
+            \vspace{0.2cm}
+            \begin{alertblock}{\footnotesize Lab 3 Notebook 04}
+                \scriptsize Contains ready-made experiments for model comparison
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =====================================================================
+% SUMMARY
+% =====================================================================
+\section*{Summary}
+
+\begin{frame}{Summary: Practical Skills}
+    \textbf{Jupyter and Python:}
+    \begin{itemize}
+        \item F01--F04: Colab, variables, lists, functions, pandas
+    \end{itemize}
+    
+    \textbf{Machine Learning:}
+    \begin{itemize}
+        \item F05--F06: scikit-learn workflow, matplotlib visualization
+    \end{itemize}
+    
+    \textbf{Specialized:}
+    \begin{itemize}
+        \item F07: NetworkX for network analysis
+        \item F08: PyTorch for deep learning
+    \end{itemize}
+    
+    \textbf{Tools and LLM:}
+    \begin{itemize}
+        \item F09--F10: AI assistants, LaTeX/Overleaf
+        \item F11--F14: Context engineering, model selection, prompt optimization
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \begin{block}{QuickStart and Labs}
+        All these skills are practiced through the QuickStart and Labs 0--3. Practice makes perfect!
+    \end{block}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,443 @@
+% =====================================================================
+% BMED365: Explainable AI (XAI)
+% Beamer presentation - Topic List X01-X08
+% =====================================================================
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+% =====================================================================
+% PACKAGES
+% =====================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, calc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% =====================================================================
+% THEME AND COLORS
+% =====================================================================
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+% =====================================================================
+% TITLE INFO
+% =====================================================================
+\title{Explainable AI (XAI)}
+\subtitle{BMED365: Topic List X01--X08}
+\author{BMED365}
+\date{Spring 2026}
+
+% =====================================================================
+% DOCUMENT
+% =====================================================================
+\begin{document}
+
+% Title page
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Table of Contents
+\begin{frame}{Overview}
+    \begin{enumerate}
+        \item \textbf{Why explainability?}
+        \begin{itemize}
+            \item X01: Explain why explainability is important in medical AI
+        \end{itemize}
+        \item \textbf{Types of Explainability}
+        \begin{itemize}
+            \item X02: Distinguish between global and local explainability
+            \item X03: Distinguish between ante-hoc and post-hoc explainability
+        \end{itemize}
+        \item \textbf{XAI Methods}
+        \begin{itemize}
+            \item X04: Describe SHAP (SHapley Additive exPlanations)
+            \item X05: Describe LIME (Local Interpretable Model-agnostic Explanations)
+            \item X06: Explain Grad-CAM for CNN visualization
+        \end{itemize}
+        \item \textbf{Limitations and Challenges}
+        \begin{itemize}
+            \item X07: Discuss limitations of XAI methods
+            \item X08: Know about attention visualization in LLMs
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+% =====================================================================
+% SECTION: Why explainability?
+% =====================================================================
+\section{Why explainability?}
+
+\begin{frame}{X01: Explain why explainability is important in medical AI}
+    \textbf{The challenge with ``\href{https://en.wikipedia.org/wiki/Black_box}{black box}'' AI:}
+    \begin{itemize}
+        \item Complex models (deep networks, LLMs) give predictions without explaining \textit{why}
+        \item In medicine this is problematic for several reasons
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{Why explainability is critical in medicine:}
+    \begin{enumerate}
+        \item \textbf{Trust:} Physicians and patients must trust the recommendations
+        \item \textbf{Accountability:} When errors occur -- who is responsible?
+        \item \textbf{Regulation:} EU AI Act requires explainability for high-risk AI
+        \item \textbf{Learning:} Understand what the model has learned (and mis-learned)
+        \item \textbf{Debugging:} Identify bias and weaknesses
+        \item \textbf{Clinical integration:} AI as decision support, not autonomous
+    \end{enumerate}
+    
+    {\footnotesize
+    \begin{alertblock}{Medical practice}
+        A physician who cannot explain why they recommend a treatment will lose the patient's trust. The same applies to AI.
+    \end{alertblock}
+    }
+\end{frame}
+
+% =====================================================================
+% SECTION: Types of Explainability
+% =====================================================================
+\section{Types of Explainability}
+
+\begin{frame}{X02: Distinguish between global and local explainability}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Global explainability:}
+            \begin{itemize}
+                \item Explains the model's \textbf{general behavior}
+                \item ``Which features are most important overall?''
+                \item ``How does age affect the prediction in general?''
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \textbf{Methods:}
+            \begin{itemize}
+                \item \href{https://en.wikipedia.org/wiki/Feature_importance}{Feature importance}
+                \item \href{https://christophm.github.io/interpretable-ml-book/pdp.html}{Partial dependence plots}
+                \item \href{https://shap.readthedocs.io/en/latest/example_notebooks/api_examples/plots/beeswarm.html}{Global SHAP values}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Local explainability:}
+            \begin{itemize}
+                \item Explains one \textbf{specific prediction}
+                \item ``Why did \textit{this} patient get a high risk score?''
+                \item ``Which pixels affected the classification?''
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \textbf{Methods:}
+            \begin{itemize}
+                \item \href{https://github.com/marcotcr/lime}{LIME}
+                \item \href{https://shap.readthedocs.io/}{SHAP} (individual values)
+                \item \href{https://arxiv.org/abs/1610.02391}{Grad-CAM} (for images)
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.2cm}
+    {\small
+    \begin{block}{Both are important}
+        \textbf{Global:} Understand the model as a whole, validate against domain knowledge \\
+        \textbf{Local:} Explain decisions to patients and colleagues
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{X03: Distinguish between ante-hoc and post-hoc explainability}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{\href{https://christophm.github.io/interpretable-ml-book/simple.html}{Ante-hoc} (built-in):}
+            \begin{itemize}
+                \item Explainability \textbf{built into} the model
+                \item The model is designed to be interpretable
+                \item ``Interpretable by design''
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \textbf{Examples:}
+            \begin{itemize}
+                \item Linear regression (coefficients)
+                \item Decision trees (rules)
+                \item Attention weights (partially)
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \textbf{Advantage:} True explanation \\
+            \textbf{Disadvantage:} Often less accurate
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{\href{https://christophm.github.io/interpretable-ml-book/agnostic.html}{Post-hoc} (after the fact):}
+            \begin{itemize}
+                \item Explanation method \textbf{added after} training
+                \item The model remains a ``black box''
+                \item Separate tools for interpretation
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \textbf{Examples:}
+            \begin{itemize}
+                \item SHAP, LIME
+                \item Grad-CAM
+                \item \href{https://en.wikipedia.org/wiki/Saliency_map}{Saliency maps}
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            \textbf{Advantage:} Can be used on complex models \\
+            \textbf{Disadvantage:} Approximates, can be misleading
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.1cm}
+    {\small
+    \begin{alertblock}{Trade-off}
+        Often a choice between interpretability (ante-hoc) and performance (complex model + post-hoc)
+    \end{alertblock}
+    }
+\end{frame}
+
+% =====================================================================
+% SECTION: XAI Methods
+% =====================================================================
+\section{XAI Methods}
+
+\begin{frame}{X04: Describe SHAP (SHapley Additive exPlanations)}
+    \textbf{SHAP: Based on game theory}
+    
+    \begin{itemize}
+        \item Shapley values: Fair distribution of ``payoff'' among players
+        \item Here: How much does each feature contribute to the prediction?
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{How SHAP works:}
+    \begin{enumerate}
+        \item For each feature: Calculate average contribution to prediction
+        \item Considers all possible combinations of features
+        \item Gives a value per feature for each prediction
+    \end{enumerate}
+    
+    \vspace{0.15cm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Strengths:}
+            \begin{itemize}
+                \item Theoretically solid (\href{https://en.wikipedia.org/wiki/Shapley_value}{Shapley axioms})
+                \item Consistent and locally accurate
+                \item Works for all model types
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Visualizations:}
+            \begin{itemize}
+                \item \textbf{\href{https://shap.readthedocs.io/en/latest/example_notebooks/api_examples/plots/waterfall.html}{Waterfall plot}:} One prediction
+                \item \textbf{\href{https://shap.readthedocs.io/en/latest/example_notebooks/api_examples/plots/beeswarm.html}{Summary plot}:} Global overview
+                \item \textbf{\href{https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/tree_based_models/Force\%20Plot\%20Colors.html}{Force plot}:} Interactive
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    {\footnotesize
+    \begin{block}{Python}
+        \texttt{import shap; explainer = shap.Explainer(model); shap\_values = explainer(X)}
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{X05: Describe LIME (Local Interpretable Model-agnostic Explanations)}
+    \textbf{\href{https://github.com/marcotcr/lime}{LIME}: Local approximation with simple model}
+    
+    \vspace{0.2cm}
+    \textbf{Main idea:}
+    \begin{enumerate}
+        \item Choose one prediction to explain
+        \item Generate \textbf{\href{https://en.wikipedia.org/wiki/Perturbation_theory}{perturbed}} (modified) versions of input
+        \item Run the complex model on all versions
+        \item Train a \textbf{simple, interpretable model} (e.g. linear) locally
+        \item Use the simple model to explain
+    \end{enumerate}
+    
+    \vspace{0.2cm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Strengths:}
+            \begin{itemize}
+                \item Model-agnostic
+                \item Intuitively understandable
+                \item Works for text, images, tables
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Weaknesses:}
+            \begin{itemize}
+                \item Unstable -- different runs can give different answers
+                \item Choice of neighborhood is arbitrary
+                \item Can be misleading
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    {\footnotesize
+    \begin{block}{Example: Text classification}
+        LIME shows which words contributed most to the classification ``spam'' vs. ``not spam''
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{X06: Explain Grad-CAM for CNN visualization}
+    \textbf{\href{https://arxiv.org/abs/1610.02391}{Grad-CAM}: Gradient-weighted Class Activation Mapping}
+    
+    \begin{itemize}
+        \item Specialized for \textbf{convolutional neural networks (CNN)}
+        \item Shows \textbf{which image regions} affected the classification
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{How it works:}
+    \begin{enumerate}
+        \item Calculate gradients of output with respect to feature maps in last convolutional layer
+        \item Weight feature maps with average gradient
+        \item Combine into a \textbf{\href{https://en.wikipedia.org/wiki/Heat_map}{heatmap}} that overlays the original image
+    \end{enumerate}
+    
+    \vspace{0.2cm}
+    \textbf{Medical applications:}
+    \begin{itemize}
+        \item X-ray/CT: ``The model focused on this area for lung findings''
+        \item Dermatology: ``These pixels affected the melanoma diagnosis''
+        \item Validation: Check that the model looks at the right area!
+    \end{itemize}
+    
+    {\footnotesize
+    \begin{alertblock}{Important insight}
+        Grad-CAM can reveal if the model uses \textbf{spurious correlations} (e.g. looks at text in the image, not pathology)
+    \end{alertblock}
+    }
+\end{frame}
+
+% =====================================================================
+% SECTION: Limitations and Challenges
+% =====================================================================
+\section{Limitations and Challenges}
+
+\begin{frame}{X07: Discuss limitations of XAI methods}
+    \textbf{XAI is not perfect -- \href{https://arxiv.org/abs/2006.11371}{important limitations}:}
+    
+    \vspace{0.2cm}
+    \begin{enumerate}
+        \item \textbf{Explanations are approximations}
+        \begin{itemize}
+            \item Post-hoc methods don't explain the \textit{true} model
+            \item Can be misleading or inconsistent
+        \end{itemize}
+        
+        \item \textbf{Instability}
+        \begin{itemize}
+            \item LIME can give different explanations for the same input
+            \item Small changes in input can cause large changes in explanation
+        \end{itemize}
+        
+        \item \textbf{Interpretation burden}
+        \begin{itemize}
+            \item Who should interpret the explanations? Requires expertise
+            \item Risk of over-reliance on explanations
+        \end{itemize}
+        
+        \item \textbf{Computational cost}
+        \begin{itemize}
+            \item SHAP can be very slow for large models
+        \end{itemize}
+    \end{enumerate}
+    
+    \vspace{0.1cm}
+    {\small
+    \begin{block}{Remember}
+        XAI is a tool for insight, not a guarantee that the model is ``correct'' or fair.
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{X08: Know about attention visualization in LLMs}
+    \textbf{\href{https://jalammar.github.io/illustrated-transformer/}{Attention visualization} in LLMs: Built-in ``explanation''?}
+    \vspace{-0.1cm}
+    \begin{itemize}
+        \item Transformer models use \textbf{\href{https://en.wikipedia.org/wiki/Attention_(machine_learning)}{self-attention}}
+        \item Attention weights show which tokens the model ``looks at''
+        \item Can be visualized as heatmaps
+    \end{itemize}
+    
+    \vspace{0.1cm}
+    \textbf{Example:}
+    \begin{center}
+        \textit{``The patient has \textbf{diabetes} and takes \textbf{metformin}''}
+    \end{center}
+    Attention visualization can show that ``metformin'' has high attention on ``diabetes''
+    
+    \vspace{0.1cm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Opportunities:}
+            \begin{itemize}
+                \item Insight into model focus
+                \item Ante-hoc (built into the model)
+                \item Easily accessible
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Limitations:}
+            \begin{itemize}
+                \item Attention $\neq$ explanation
+                \item Many layers, many \href{https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)}{``heads''}
+                \item Can be difficult to interpret
+                \item Shows correlation, not causation
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    {\footnotesize
+    \begin{alertblock}{Caution}
+        Attention visualizations should be used as a supplement, not as a definitive explanation.
+    \end{alertblock}
+    }
+\end{frame}
+
+% =====================================================================
+% SUMMARY
+% =====================================================================
+\section*{Summary}
+
+\begin{frame}{Summary: Explainable AI (XAI)}
+    \textbf{Key points:}
+    \begin{itemize}
+        \item \textbf{X01:} Explainability is critical in medicine (trust, accountability, regulation)
+        \item \textbf{X02:} Global vs. local explainability
+        \item \textbf{X03:} Ante-hoc (built-in) vs. post-hoc (after the fact)
+        \item \textbf{X04:} SHAP -- game-theoretic, consistent
+        \item \textbf{X05:} LIME -- local approximation, model-agnostic
+        \item \textbf{X06:} Grad-CAM -- visualize CNN focus in images
+        \item \textbf{X07:} Limitations -- approximations, instability
+        \item \textbf{X08:} Attention visualization in LLMs
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    {\small
+    \begin{block}{Practical work in Lab 2 and Lab 3}
+        \begin{itemize}
+            \item Lab 2: Use Grad-CAM to interpret CNN classification
+            \item Lab 3: Discuss explainability and transparency in LLMs
+        \end{itemize}
+    \end{block}
+    }
+\end{frame}
+
+\end{document}

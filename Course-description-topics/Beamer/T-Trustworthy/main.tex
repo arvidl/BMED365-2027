@@ -1,0 +1,363 @@
+% =====================================================================
+% BMED365: Trustworthy AI and Robustness
+% Beamer presentation - Topic List T01-T07
+% =====================================================================
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+% =====================================================================
+% PACKAGES
+% =====================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, calc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% =====================================================================
+% THEME AND COLORS
+% =====================================================================
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+% =====================================================================
+% TITLE INFO
+% =====================================================================
+\title{Trustworthy AI and Robustness}
+\subtitle{BMED365: Topic List T01--T07}
+\author{BMED365}
+\date{Spring 2026}
+
+% =====================================================================
+% DOCUMENT
+% =====================================================================
+\begin{document}
+
+% Title page
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Table of Contents
+\begin{frame}{Overview}
+    \begin{enumerate}
+        \item \textbf{Trustworthy AI}
+        \begin{itemize}
+            \item T01: Define trustworthy AI according to EU guidelines
+        \end{itemize}
+        \item \textbf{Robustness and Uncertainty}
+        \begin{itemize}
+            \item T02: Explain the concept of robustness in ML/AI
+            \item T03: Describe data drift and its consequences
+            \item T04: Explain epistemic vs. aleatoric uncertainty
+        \end{itemize}
+        \item \textbf{Human-Machine Interaction}
+        \begin{itemize}
+            \item T05: Describe human-in-the-loop (HITL) systems
+            \item T06: Discuss the importance of continuous monitoring
+        \end{itemize}
+        \item \textbf{Security Threats}
+        \begin{itemize}
+            \item T07: Know about adversarial attacks
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+% =====================================================================
+% SECTION: Trustworthy AI
+% =====================================================================
+\section{Trustworthy AI}
+
+\begin{frame}{T01: Define trustworthy AI according to EU guidelines}
+    \textbf{\href{https://digital-strategy.ec.europa.eu/en/policies/expert-group-ai}{EU High-Level Expert Group on AI} (2019):}
+    
+    \begin{block}{Definition}
+        \textbf{Trustworthy AI} is AI that is lawful, ethical and robust -- both technically and socially.
+    \end{block}
+    
+    \vspace{0.2cm}
+    \textbf{Seven key requirements:}
+    \begin{enumerate}
+        \item \textbf{Human agency and oversight}
+        \item \textbf{Technical robustness and safety}
+        \item \textbf{Privacy and data governance}
+        \item \textbf{Transparency}
+        \item \textbf{Diversity, non-discrimination, fairness}
+        \item \textbf{Societal and environmental well-being}
+        \item \textbf{Accountability}
+    \end{enumerate}
+    
+    \vspace{0.1cm}
+    {\small
+    \begin{alertblock}{Medical relevance}
+        High-risk AI systems in healthcare must fulfill these requirements under the \href{https://artificialintelligenceact.eu/}{EU AI Act}.
+    \end{alertblock}
+    }
+\end{frame}
+
+% =====================================================================
+% SECTION: Robustness
+% =====================================================================
+\section{Robustness and Uncertainty}
+
+\begin{frame}{T02: Explain the concept of robustness in ML/AI}
+    \textbf{Robustness = the model's ability to perform reliably under variation}
+    
+    \vspace{0.2cm}
+    \textbf{A robust model:}
+    \begin{itemize}
+        \item Provides \textbf{consistent results} on similar inputs
+        \item \textbf{Degrades gracefully} (\href{https://en.wikipedia.org/wiki/Graceful_degradation}{not catastrophically}) under noise
+        \item Generalizes well to new, unseen data
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{Types of robustness:}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{itemize}
+                \item \textbf{Noise robustness:} Tolerance for random noise
+                \item \textbf{Distributional robustness:} Changes in data distribution
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{itemize}
+                \item \textbf{Adversarial robustness:} Resistance to deliberate attacks
+                \item \textbf{Temporal robustness:} Stability over time
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.15cm}
+    {\small
+    \begin{block}{In medicine}
+        A robust medical AI provides reliable predictions regardless of variation in image quality, patient population, or equipment.
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{T03: Describe data drift and its consequences}
+    \textbf{\href{https://en.wikipedia.org/wiki/Data_drift}{Data drift} (distributional shift):}
+    \begin{itemize}
+        \item Difference between \textbf{training data} and \textbf{production data}
+        \item The model encounters data that doesn't resemble what it was trained on
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{Types of drift:}
+    \begin{enumerate}
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Covariate_shift}{Covariate shift}:} Input distribution changes (e.g. new patient demographics)
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Label_shift}{Label shift}:} Class prevalence changes (e.g. pandemics)
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Concept_drift}{Concept drift}:} The relationship between input and output changes
+    \end{enumerate}
+    
+    \vspace{0.2cm}
+    \textbf{Examples in medicine:}
+    \begin{itemize}
+        \item Model trained on US data used in Norway
+        \item New MRI scanner produces different image characteristics
+        \item COVID changed admission patterns
+    \end{itemize}
+    
+    {\small
+    \begin{alertblock}{Consequence}
+        The model can \textbf{\href{https://en.wikipedia.org/wiki/Silent_failure}{fail silently}} -- gives predictions with high confidence that are wrong!
+    \end{alertblock}
+    }
+\end{frame}
+
+\begin{frame}{T04: Explain the difference between epistemic and aleatoric uncertainty}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{\href{https://en.wikipedia.org/wiki/Uncertainty_quantification\#Epistemic_uncertainty}{Epistemic uncertainty}:}
+            \begin{itemize}
+                \item Uncertainty due to \textbf{lack of knowledge}
+                \item ``We don't know enough yet''
+                \item \textbf{Can be reduced} with more data
+                \item Model is uncertain in areas with little training data
+            \end{itemize}
+            
+            \vspace{0.3cm}
+            \textbf{Example:}
+            \begin{itemize}
+                \item Rare disease with few training examples
+                \item Uncertainty because model lacks experience
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{\href{https://en.wikipedia.org/wiki/Uncertainty_quantification\#Aleatoric_uncertainty}{Aleatoric uncertainty}:}
+            \begin{itemize}
+                \item \textbf{Inherent} random variation in data
+                \item ``The world is uncertain''
+                \item \textbf{Cannot be reduced} with more data
+                \item Noise in measurements, natural variation
+            \end{itemize}
+            
+            \vspace{0.3cm}
+            \textbf{Example:}
+            \begin{itemize}
+                \item Two patients with identical features have different outcomes
+                \item Uncertainty because outcome is genuinely uncertain
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.5cm}
+    \begin{block}{Practical significance}
+        Epistemic uncertainty signals when the model should ``speak up'' that it is uncertain, and humans should take over.
+    \end{block}
+\end{frame}
+
+% =====================================================================
+% SECTION: Human-Machine Interaction
+% =====================================================================
+\section{Human-Machine Interaction}
+
+\begin{frame}{T05: Describe human-in-the-loop (HITL) systems}
+    \textbf{\href{https://en.wikipedia.org/wiki/Human-in-the-loop}{Human-in-the-loop} (HITL):}
+    \vspace{-0.1cm}
+    \begin{itemize}
+        \item Humans are \textbf{integrated} in the AI system's decision process
+        \item AI provides recommendations, humans make final decisions
+    \end{itemize}
+    
+    \vspace{-0.05cm}
+    \textbf{Three main variants:}
+    \vspace{-0.1cm}
+    \begin{enumerate}
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Human-in-the-loop}{Human-in-the-loop}:} Human involved in every decision
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Human-on-the-loop}{Human-on-the-loop}:} Human monitors and can override
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Automation\#Levels_of_automation}{Human-out-of-the-loop}:} Full autonomy (not recommended in medicine)
+    \end{enumerate}
+    
+    \vspace{-0.05cm}
+    \textbf{Advantages of HITL in medicine:}
+    \vspace{-0.1cm}
+    \begin{itemize}
+        \item Combines AI efficiency with human expertise
+        \item Catches AI errors before they have consequences
+        \item Maintains clinical responsibility, builds trust gradually
+    \end{itemize}
+    
+    {\footnotesize
+    \begin{alertblock}{\href{https://artificialintelligenceact.eu/}{EU AI Act}}
+        High-risk AI systems \textbf{require} effective human oversight.
+    \end{alertblock}
+    }
+\end{frame}
+
+\begin{frame}{T06: Discuss the importance of continuous monitoring}
+    \textbf{Why \href{https://en.wikipedia.org/wiki/Continuous_monitoring}{continuous monitoring}?}
+    \begin{itemize}
+        \item ML models \textbf{degrade over time} (model drift)
+        \item The world changes, data changes
+        \item Errors in production can have serious consequences
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{What should be monitored?}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Performance metrics:}
+            \begin{itemize}
+                \item Accuracy, precision, recall over time
+                \item Calibration of confidence scores
+                \item Comparison with baseline
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Data characteristics:}
+            \begin{itemize}
+                \item Input distribution (drift detection)
+                \item Proportion of out-of-distribution inputs
+                \item Feature statistics
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.2cm}
+    \textbf{Actions when problems occur:}
+    \begin{itemize}
+        \item \textbf{Re-training} with fresh data -- update the model on newer, representative data
+        \item \textbf{Alerting and escalation} -- automatic alerts on performance drops or drift
+        \item \textbf{Fallback} -- switch to simpler model or human assessment when uncertain
+    \end{itemize}
+\end{frame}
+
+% =====================================================================
+% SECTION: Security Threats
+% =====================================================================
+\section{Security Threats}
+
+\begin{frame}{T07: Know about adversarial attacks}
+    \textbf{\href{https://en.wikipedia.org/wiki/Adversarial_machine_learning}{Adversarial attacks} = deliberate manipulation of AI input}
+    
+    \begin{itemize}
+        \item Small, seemingly invisible changes that fool the model
+        \item Can turn a correct classification into a \textbf{completely wrong} one
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{Examples:}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Images:}
+            \begin{itemize}
+                \item Pixel perturbations invisible to humans
+                \item ``Panda'' $\rightarrow$ ``Gibbon'' with 99\% confidence
+                \item \href{https://arxiv.org/abs/1707.08945}{Stickers that fool self-driving cars}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Text (LLM):}
+            \begin{itemize}
+                \item \href{https://en.wikipedia.org/wiki/Prompt_injection}{Prompt injection}
+                \item \href{https://en.wikipedia.org/wiki/Jailbreaking_(LLM)}{Jailbreaking}
+                \item Bypassing \href{https://en.wikipedia.org/wiki/Content_moderation}{safety filters}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.15cm}
+    {\small
+    \begin{alertblock}{Medical risk and defenses}
+        \textbf{Risk:} An attacker could manipulate an X-ray image so AI overlooks pathology, or creates false findings. \\
+        \textbf{Defenses:} Adversarial training, input validation, ensemble methods, robustness testing.
+    \end{alertblock}
+    }
+\end{frame}
+
+% =====================================================================
+% SUMMARY
+% =====================================================================
+\section*{Summary}
+
+\begin{frame}{Summary: Trustworthy AI and Robustness}
+    \textbf{Key points:}
+    \begin{itemize}
+        \item \textbf{T01:} EU's 7 requirements for trustworthy AI
+        \item \textbf{T02:} Robustness -- consistent results under variation
+        \item \textbf{T03:} Distributional shift -- when production data differs from training
+        \item \textbf{T04:} Epistemic (can be reduced) vs. aleatoric (inherent) uncertainty
+        \item \textbf{T05:} HITL -- humans in the decision loop
+        \item \textbf{T06:} Continuous monitoring -- catching drift and degradation
+        \item \textbf{T07:} Adversarial attacks -- deliberate manipulation
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \begin{block}{Key message}
+        Trustworthy AI in medicine requires robust models, human oversight, continuous monitoring and awareness of security risks. Technology alone is not enough -- organizational and regulatory measures are also required.
+    \end{block}
+\end{frame}
+
+\end{document}

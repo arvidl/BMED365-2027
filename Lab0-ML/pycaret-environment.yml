@@ -1,0 +1,76 @@
+# ============================================================================
+# PyCaret Environment for BMED365-2026 Lab0-ML
+# ============================================================================
+#
+# IMPORTANT: PyCaret has many dependencies that can conflict with TensorFlow,
+# PyTorch, and other packages in the main environment. We therefore recommend
+# a separate environment.
+#
+# Installation:
+#   conda env create -f pycaret-environment.yml
+#   conda activate pycaret-bmed365
+#
+# To run Jupyter with this environment:
+#   conda activate pycaret-bmed365
+#   jupyter notebook
+#
+# ============================================================================
+
+name: pycaret-bmed365
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  
+  # Jupyter
+  - jupyter>=1.0.0
+  - ipywidgets>=8.0.0
+  - notebook>=6.5.0
+  
+  # Core scientific computing
+  - numpy>=1.24.0,<2.0.0
+  - pandas>=2.0.0,<2.1.0
+  - scipy>=1.10.0
+  - matplotlib>=3.7.0
+  - seaborn>=0.12.0
+  
+  # Scikit-learn (PyCaret-compatible version)
+  - scikit-learn>=1.3.0,<1.4.0
+  
+  # Pip-installed packages
+  - pip:
+      # PyCaret with full support
+      - pycaret[full]>=3.0.0
+      
+      # Profiling tools (optional, but useful)
+      - ydata-profiling>=4.0.0
+      
+      # Plotly for interactive plots
+      - plotly>=5.15.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

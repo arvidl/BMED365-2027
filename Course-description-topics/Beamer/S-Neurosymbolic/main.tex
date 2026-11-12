@@ -1,0 +1,445 @@
+% =====================================================================
+% BMED365: Neurosymbolic AI and Agentic AI
+% Beamer presentation - Topic List S01-S11
+% =====================================================================
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+% =====================================================================
+% PACKAGES
+% =====================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, calc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% =====================================================================
+% THEME AND COLORS
+% =====================================================================
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+% =====================================================================
+% TITLE INFO
+% =====================================================================
+\title{Neurosymbolic AI and Agentic AI}
+\subtitle{BMED365: Topic List S01--S11}
+\author{BMED365}
+\date{Spring 2026}
+
+% =====================================================================
+% DOCUMENT
+% =====================================================================
+\begin{document}
+
+% Title page
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Table of Contents
+\begin{frame}{Overview}
+    \begin{enumerate}
+        \item \textbf{Fundamental Paradigms}
+        \begin{itemize}
+            \item S01: Contrast symbolic and connectionist AI
+            \item S02: Explain the concept of neurosymbolic integration
+        \end{itemize}
+        \item \textbf{Knowledge Graphs and Ontologies}
+        \begin{itemize}
+            \item S03: Describe what a knowledge graph is
+            \item S04: Know about medical ontologies
+            \item S05: Discuss advantages of neurosymbolic AI in medicine
+        \end{itemize}
+        \item \textbf{Case: Neurosymbolic Glioma Diagnosis}
+        \begin{itemize}
+            \item S06: Neurosymbolic AI for glioma diagnostics
+            \item S07: Explain how knowledge graphs can validate predictions
+        \end{itemize}
+        \item \textbf{Agentic AI}
+        \begin{itemize}
+            \item S08: Define agentic AI and its core characteristics
+            \item S09: Describe how an AI agent can orchestrate clinical workflows
+            \item S10--S11: Human-in-the-loop and ethical challenges
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+% =====================================================================
+% SECTION: Symbolic vs. Connectionist AI
+% =====================================================================
+\section{Fundamental Paradigms}
+
+\begin{frame}{S01: Contrast symbolic and connectionist AI}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{\href{https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence}{Symbolic AI} (GOFAI):}
+            \begin{itemize}
+                \item ``Good Old-Fashioned AI''
+                \item Explicit rules and symbols
+                \item Logical reasoning
+                \item Knowledge representation
+                \item Expert systems
+            \end{itemize}
+            
+            \vspace{0.3cm}
+            \textbf{Strengths:}
+            \begin{itemize}
+                \item Explainable
+                \item Precise reasoning
+                \item Codifies expert knowledge
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{\href{https://en.wikipedia.org/wiki/Connectionism}{Connectionist AI}:}
+            \begin{itemize}
+                \item Neural networks, deep learning
+                \item Learns from data
+                \item Subsymbolic representation
+                \item Pattern recognition
+                \item ``Black box''
+            \end{itemize}
+            
+            \vspace{0.3cm}
+            \textbf{Strengths:}
+            \begin{itemize}
+                \item Learns complex patterns
+                \item Handles noise and uncertainty
+                \item Scales with data
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.15cm}
+    \begin{block}{Historical perspective}
+        AI has swung between these paradigms -- see \href{https://en.wikipedia.org/wiki/AI_winter}{AI winters}. Now: Can we combine them?
+    \end{block}
+\end{frame}
+
+\begin{frame}{S02: Explain the concept of neurosymbolic integration}
+    \textbf{\href{https://en.wikipedia.org/wiki/Neuro-symbolic_AI}{Neurosymbolic AI} = the best of both worlds}
+    
+    \vspace{0.2cm}
+    \textbf{Main idea:}
+    \begin{itemize}
+        \item Combine \textbf{neural} (learning from data, pattern recognition)
+        \item with \textbf{symbolic} (reasoning, knowledge, explainability)
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    \textbf{Integration patterns:}
+    \begin{enumerate}
+        \item \textbf{Neural $\rightarrow$ Symbolic:} Neural network produces symbols for reasoning
+        \item \textbf{Symbolic $\rightarrow$ Neural:} Symbolic knowledge guides neural network
+        \item \textbf{Hybrid:} Tight integration where both inform each other
+    \end{enumerate}
+    
+    \vspace{0.2cm}
+    {\small
+    \begin{block}{Example: Medical diagnosis (brain tumor)}
+        \textbf{Neural:} CNN analyzes MR image, identifies tumor features \\
+        \textbf{Symbolic:} Rule-based classification according to \href{https://publications.iarc.who.int/Book-And-Report-Series/Who-Classification-Of-Tumours/Central-Nervous-System-Tumours-2021}{WHO criteria} \\
+        \textbf{Integrated:} Combines image findings with clinical rules for diagnosis
+    \end{block}
+    }
+\end{frame}
+
+% =====================================================================
+% SECTION: Knowledge Graphs
+% =====================================================================
+\section{Knowledge Graphs and Ontologies}
+
+\begin{frame}{S03: Describe what a knowledge graph is}
+    \textbf{\href{https://en.wikipedia.org/wiki/Knowledge_graph}{Knowledge Graph}:}
+    \begin{itemize}
+        \item Structured representation of knowledge as a \textbf{graph}
+        \item Nodes = \textbf{entities} (persons, diseases, drugs)
+        \item Edges = \textbf{relations} (``is treated with'', ``causes'')
+    \end{itemize}
+    
+    \vspace{0.1cm}
+    \textbf{Triple representation:}
+    \begin{center}
+        (Subject, Predicate, Object) -- \textit{(Diabetes, treated\_with, Metformin)}
+    \end{center}
+    
+    \vspace{0.1cm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Applications:}
+            \begin{itemize}
+                \item \href{https://en.wikipedia.org/wiki/Google_Knowledge_Graph}{Google Knowledge Graph}
+                \item Medical decision support
+                \item Drug interactions
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{Advantages:}
+            \begin{itemize}
+                \item Machine-readable knowledge
+                \item Reasoning over relations
+                \item \href{https://en.wikipedia.org/wiki/Linked_data}{Linked Data}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.05cm}
+    {\scriptsize
+    \begin{block}{Technologies}
+        \href{https://en.wikipedia.org/wiki/Resource_Description_Framework}{RDF}, \href{https://en.wikipedia.org/wiki/Web_Ontology_Language}{OWL}, \href{https://en.wikipedia.org/wiki/SPARQL}{SPARQL}, \href{https://en.wikipedia.org/wiki/SHACL}{SHACL} -- standards for knowledge representation, querying and validation
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{S04: Know about medical ontologies}
+    \textbf{\href{https://en.wikipedia.org/wiki/Ontology_(information_science)}{Ontology} = formal specification of concepts and relations in a domain}
+    
+    \vspace{0.3cm}
+    \textbf{Important medical ontologies/terminologies:}
+    \begin{center}
+        \footnotesize
+        \begin{tabular}{lp{5cm}l}
+            \toprule
+            \textbf{Name} & \textbf{Description} & \textbf{Application} \\
+            \midrule
+            \href{https://www.snomed.org/}{SNOMED CT} & Clinical terms, 350,000+ concepts & \href{https://en.wikipedia.org/wiki/Electronic_health_record}{EHR}, classification \\
+            \href{https://www.who.int/standards/classifications/classification-of-diseases}{ICD-10/11} & International disease classification & Reporting, statistics \\
+            \href{https://loinc.org/}{LOINC} & Laboratory investigations & Lab results \\
+            \href{https://www.nlm.nih.gov/research/umls/rxnorm/}{RxNorm} & Medications & Prescribing \\
+            \midrule
+            \href{https://publications.iarc.who.int/Book-And-Report-Series/Who-Classification-Of-Tumours/Central-Nervous-System-Tumours-2021}{WHO CNS 2021} & CNS tumor classification & Glioma diagnosis \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    
+    \vspace{0.3cm}
+    \begin{block}{\href{https://publications.iarc.who.int/Book-And-Report-Series/Who-Classification-Of-Tumours/Central-Nervous-System-Tumours-2021}{WHO 2021 CNS classification}}
+        Integrates histological and molecular criteria. Example: \href{https://en.wikipedia.org/wiki/IDH1}{IDH-mutant} \href{https://en.wikipedia.org/wiki/Astrocytoma}{astrocytoma} requires both histology \textbf{and} IDH mutation status.
+    \end{block}
+\end{frame}
+
+\begin{frame}{S05: Discuss advantages of neurosymbolic AI in medicine}
+    \textbf{Potential advantages:}
+    
+    \vspace{0.3cm}
+    \begin{enumerate}
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Explainable_artificial_intelligence}{Explainability}:} Symbolic component provides interpretable reasoning
+        
+        \item \textbf{Data efficiency:} Symbolic knowledge compensates for limited data
+        
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Robustness_(computer_science)}{Robustness}:} Rule-based constraints prevent absurd predictions
+        
+        \item \textbf{Updatability:} New medical knowledge added as rules/facts
+        
+        \item \textbf{Guideline compliance:} Encode WHO criteria, guidelines directly
+        
+        \item \textbf{Validation:} Check if predictions are consistent with known knowledge
+    \end{enumerate}
+    
+    \vspace{0.3cm}
+    \begin{alertblock}{Why this is important in medicine}
+        Medicine is a domain where expert knowledge is rich, explainability is critical, and errors can be fatal. Pure deep learning is often insufficient.
+    \end{alertblock}
+\end{frame}
+
+% =====================================================================
+% SECTION: Case: Glioma Diagnosis
+% =====================================================================
+\section{Case: Neurosymbolic Glioma Diagnosis}
+
+\begin{frame}{S06: Neurosymbolic AI for glioma diagnostics}
+    \textbf{Case study from Lab 3, Notebook 08:}
+    
+    \vspace{0.3cm}
+    \textbf{The problem:}
+    \begin{itemize}
+        \item Glioma classification requires both \textbf{image analysis} (MRI) and \textbf{molecular markers} (IDH, MGMT, 1p/19q)
+        \item WHO 2021 requires integration of multiple information sources
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \textbf{Neurosymbolic solution:}
+    \begin{enumerate}
+        \item \textbf{Neural component:} CNN segments tumor in MRI (BraTS)
+        \item \textbf{Symbolic component:} WHO criteria encoded as knowledge graph
+        \item \textbf{Integration:} Rule-based classification uses CNN output + molecular markers
+    \end{enumerate}
+    
+    \vspace{0.3cm}
+    \begin{block}{Result}
+        Diagnosis that is both \textbf{image-based} (CNN) and \textbf{criteria-compliant} (WHO) -- with explainable reasoning.
+    \end{block}
+\end{frame}
+
+\begin{frame}{S07: Explain how knowledge graphs can validate neuro-oncological predictions}
+    \textbf{Validation of \href{https://en.wikipedia.org/wiki/Neuro-oncology}{neuro-oncological} predictions with symbolic knowledge:}
+    
+    \vspace{0.2cm}
+    \textbf{Scenario:}
+    \begin{itemize}
+        \item CNN predicts: ``Glioblastoma with IDH mutation''
+        \item Knowledge graph contains: ``Glioblastoma is by definition IDH wild-type (WHO 2021)''
+        \item \textbf{Conflict detected!}
+    \end{itemize}
+    
+    \vspace{0.15cm}
+    \textbf{Validation mechanisms:}
+    \begin{enumerate}
+        \item \textbf{Consistency check:} Is the prediction logically consistent?
+        \item \textbf{Rule validation:} Does the prediction satisfy necessary criteria?
+        \item \textbf{Plausibility check:} Is the combination of findings realistic?
+    \end{enumerate}
+    
+    {\small
+    \begin{alertblock}{Value}
+        Catches potential CNN errors \textbf{before} they reach the clinician. Increases trust in the system.
+    \end{alertblock}
+    }
+\end{frame}
+
+% =====================================================================
+% SECTION: Agentic AI
+% =====================================================================
+\section{Agentic AI}
+
+\begin{frame}{S08: Define agentic AI and its core characteristics}
+    \textbf{\href{https://en.wikipedia.org/wiki/Agentic_AI}{Agentic AI} = AI that acts autonomously toward goals}
+    
+    \vspace{0.2cm}
+    \textbf{Core characteristics:}
+    \begin{enumerate}
+        \item \textbf{Autonomy:} Acts (often iteratively) without continuous human input
+        \item \textbf{Goal-oriented:} Works toward defined goals
+        \item \textbf{Planning:} Breaks down complex goals into subtasks
+        \item \textbf{Tool use:} Can use external tools (APIs, databases)
+        \item \textbf{Reflection:} Evaluates own progress, adjusts strategy
+        \item \textbf{Memory:} Remembers context across multiple interactions and iterations
+    \end{enumerate}
+    
+    \vspace{0.2cm}
+    \textbf{LLM-based agents:}
+    \begin{itemize}
+        \item LLM as ``brain'' and ``orchestrator'' -- reasons and plans
+        \item Tool calls (\href{https://platform.openai.com/docs/guides/function-calling}{function calling}) for actions
+        \item Examples: \href{https://github.com/Significant-Gravitas/AutoGPT}{AutoGPT}, \href{https://www.langchain.com/}{LangChain}, \href{https://docs.anthropic.com/claude/docs/tool-use}{Claude tool use}, \href{https://openai.com/index/introducing-operator/}{OpenAI Operator}, \href{https://www.crewai.com/}{CrewAI}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{S09: Describe how an AI agent can orchestrate clinical workflows}
+    \textbf{Example: Agentic AI for glioma workup}
+    
+    \vspace{0.2cm}
+    \textbf{Scenario:} Physician requests ``Evaluate new MRI for possible glioma''
+    
+    \vspace{0.2cm}
+    \textbf{The agent can:}
+    \begin{enumerate}
+        \item \faSearch~\textbf{Fetch data:} Connect to \href{https://en.wikipedia.org/wiki/Picture_archiving_and_communication_system}{PACS}, download MR images
+        \item \faBrain~\textbf{Analyze:} Run \href{https://www.synapse.org/brats}{BraTS segmentation}, calculate tumor volume
+        \item \faBookMedical~\textbf{Literature:} Search \href{https://pubmed.ncbi.nlm.nih.gov/}{PubMed} for relevant studies
+        \item \faDatabase~\textbf{Biobank:} Check if molecular analysis is available
+        \item \faFile*~\textbf{Classify:} Use WHO criteria for tentative diagnosis
+        \item \faClipboard~\textbf{Report:} Generate structured report for \href{https://en.wikipedia.org/wiki/Multidisciplinary_team}{MDT meeting}
+    \end{enumerate}
+    
+    \vspace{0.1cm}
+    {\small
+    \begin{block}{Orchestration}
+        The agent \textbf{coordinates} multiple AI systems and data sources toward one clinical goal -- without the physician having to do each step manually.
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{S10: Explain the concept of human-in-the-loop in agentic systems}
+    \textbf{\href{https://en.wikipedia.org/wiki/Human-in-the-loop}{Human-in-the-loop} (HITL) in agentic AI:}
+    
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item Even autonomous agents need \textbf{\href{https://en.wikipedia.org/wiki/Human_oversight_of_AI}{human oversight}}
+        \item Especially important for decisions with serious consequences
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \textbf{Implementation patterns:}
+    \begin{enumerate}
+        \item \textbf{Approval points:} Agent pauses for approval before critical actions
+        \item \textbf{Confidence threshold:} Human involved when agent is uncertain
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Audit_trail}{Audit trail}:} All actions logged for review
+        \item \textbf{\href{https://en.wikipedia.org/wiki/Override}{Overriding}:} Human can interrupt or correct agent
+    \end{enumerate}
+    
+    \vspace{0.3cm}
+    \begin{alertblock}{In medical context}
+        Agent can gather data and suggest diagnosis, but the \textbf{physician} makes the final decision. The agent is a ``super-powered assistant'', not an autonomous decision-maker.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{S11: Discuss ethical challenges with autonomous AI agents in healthcare}
+    \textbf{Ethical challenges:}
+    
+    \vspace{0.3cm}
+    \begin{enumerate}
+        \item \textbf{Responsibility:} Who is responsible when an agent makes an error?
+        \begin{itemize}
+            \item Developer? Hospital? Physician who ``unleashed'' the agent?
+        \end{itemize}
+        
+        \item \textbf{Autonomy and control:} How much autonomy is too much?
+        \begin{itemize}
+            \item Risk of unintended actions
+        \end{itemize}
+        
+        \item \textbf{Transparency:} Can we understand why the agent made its decisions?
+        
+        \item \textbf{Security:} Agents with system access = attack surface
+        
+        \item \textbf{Dehumanization:} Risk of reducing human contact in healthcare
+        
+        \item \textbf{Over-reliance:} ``\href{https://en.wikipedia.org/wiki/Automation_bias}{Automation bias}'' -- blindly trusting the agent
+    \end{enumerate}
+    
+    \vspace{0.3cm}
+    \begin{block}{Principles for responsible agentic AI}
+        Gradual autonomy, robust HITL, clear responsibility allocation, comprehensive testing, continuous monitoring
+    \end{block}
+\end{frame}
+
+% =====================================================================
+% SUMMARY
+% =====================================================================
+\section*{Summary}
+
+\begin{frame}{Summary: Neurosymbolic AI and Agentic AI}
+    \textbf{Neurosymbolic AI:}
+    \begin{itemize}
+        \item S01--S02: Combines neural (learning) and symbolic (reasoning)
+        \item S03--S04: Knowledge graphs and medical ontologies
+        \item S05--S07: Advantages in medicine, glioma diagnosis case, validation
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \textbf{Agentic AI:}
+    \begin{itemize}
+        \item S08: Autonomous, goal-oriented AI systems with planning
+        \item S09: Orchestration of clinical workflows
+        \item S10--S11: HITL and ethical challenges
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \begin{block}{Lab 3, Notebook 08}
+        Explore a detailed case study demonstrating neurosymbolic glioma classification and agentic orchestration.
+    \end{block}
+\end{frame}
+
+\end{document}

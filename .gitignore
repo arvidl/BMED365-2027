@@ -1,0 +1,149 @@
+.DS_Store
+__MACOSX/
+.ipynb_checkpoints
+.vscode
+__pycache__/
+*.pyc
+
+# Environment variables and API keys (NEVER commit these!)
+.env
+.env.local
+.env.*.local
+
+# Ignore large dataset (>= 100 MB)
+
+# Ignore Lab1 data
+Lab1-mpMRI-glioma/data/Task01_BrainTumour*
+
+# Ignore Lab4 medical imaging data (large NIfTI files)
+Lab4-Comp-Imag/mpMRI-glioma/data/brats_subset/
+Lab4-Comp-Imag/mpMRI-glioma/data/decathlon_brain/
+
+# Ignore Lab0 stuff
+Lab0-ML/Lab0-begin-python-pandas-medim/._assets
+Lab0-ML/Lab0-begin-python-pandas-medim/._kiwi_data
+Lab0-ML/Lab0-begin-python-pandas-medim/.vscode
+
+# Avoid interference with the BMRD365-2026 repo when using private notebooks etc. for experimentation
+MyStuff/
+
+# Local agent translation dumps (do not track)
+agent-tools-cell32-current.md
+agent-tools-diabetes-cells.txt
+agent-tools-translation-dump.txt
+agent-tools-webapp-cells.txt
+
+# Ignore saved models
+test.pkl
+logs.log
+saved_model.pkl
+
+# Ignore pycaret stuff
+test.py
+catboost_info
+mlruns
+flagged
+.gradio
+
+
+
+# Lab2-DL generated files and data (loaded automatically at execution)
+Lab2-DL/data/MNIST/
+Lab2-DL/data/flowers/
+Lab2-DL/data/ecg/
+Lab2-DL/data/oasis_mri_sample/
+Lab2-DL/data/ansiktsuttrykk/
+Lab2-DL/notebooks/mnist_images/
+Lab2-DL/notebooks/bonn_eeg_data/
+Lab2-DL/notebooks/catboost_info/
+Lab2-DL/notebooks/*.joblib
+Lab2-DL/notebooks/*.npy
+Lab2-DL/notebooks/*.csv
+Lab2-DL/notebooks/*.csv.gz
+Lab2-DL/notebooks/data/
+Lab2-DL/notebooks/mnist_data/
+
+# Lab2-DL models and training data
+Lab2-DL/notebooks/*.pth
+Lab2-DL/notebooks/*.pkl
+Lab2-DL/modeller/
+Lab2-DL/notebooks/tmp/
+Lab2-DL/notebooks/modeller/
+
+# Lab5 DCE-MRI data (downloaded at runtime via gdown)
+Lab5-Comp-Mod/notebooks/data/
+Lab5-Comp-Mod/notebooks/assets/*
+!Lab5-Comp-Mod/notebooks/assets/william_harvey.jpg
+!Lab5-Comp-Mod/notebooks/assets/windkessel_model.svg
+!Lab5-Comp-Mod/notebooks/assets/kidney_anatomy.png
+
+# Lab5 fine-tuning outputs (LoRA adapters and fused models)
+Lab5-Comp-Mod/**/adapters/
+Lab5-Comp-Mod/**/fused_model/
+
+# Lab2-DL large media files (can be streamed from YouTube)
+Lab2-DL/assets/*.mp4
+
+# Old stuff
+2024-Project
+2024-Lab0-ML
+
+# Bonn EEG - track zip-files only, ignore unziped folders
+Lab2-DL/data/bonn_eeg_data/setA/
+Lab2-DL/data/bonn_eeg_data/setE/
+
+# =====================================================================
+# LaTeX auxiliary files (global - applies to all LaTeX/Beamer projects)
+# Track: .tex, .bib, .pdf, .png, .jpg, .eps
+# Ignore: All LaTeX-generated auxiliary files
+# =====================================================================
+
+# Core auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+
+# latexmk
+*.fls
+*.fdb_latexmk
+
+# SyncTeX
+*.synctex.gz
+*.synctex(busy)
+*.synctex.gz(busy)
+
+# Bibliography
+*.blg
+*.bbl
+*.run.xml
+*.bcf
+*-blx.bib
+
+# Beamer-specific
+*.nav
+*.snm
+*.vrb
+
+# Other formats
+*.dvi
+*.ps
+*.xdv
+
+# pythontex
+*.pytxcode
+
+# Misc
+*.brf
+*.idx
+*.ilg
+*.ind
+*.glo
+*.gls
+*.glg
+*.ist
+*.acn
+*.acr
+*.alg
