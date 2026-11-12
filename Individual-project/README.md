@@ -5,12 +5,12 @@
 
 ## Summary
 
-The Individual Project is a **mandatory component** of BMED365 that provides students with an opportunity to independently explore a topic within computational imaging, modeling, and AI in biomedicine. During Weeks 5–7 (2026), you will develop a digital poster and deliver a speed-poster presentation, demonstrating your ability to communicate scientific concepts effectively to a multidisciplinary audience.
+The Individual Project is a **mandatory component** of BMED365 that provides students with an opportunity to independently explore a topic within computational imaging, modeling, and AI in biomedicine. During Weeks 4–6 (2027), you will develop a digital poster and deliver a speed-poster presentation, demonstrating your ability to communicate scientific concepts effectively to a multidisciplinary audience.
 
 **Key Dates:**
-- **Project period:** Weeks 5–7 (Monday 26 January – Saturday 14 February 2026)
-- **Poster submission deadline:** Tuesday 10 February 2026, 23:59 via Mitt UiB
-- **Speed-poster presentation session:** Wednesday 11 February 2026, 08:15–12:00, Hist 1
+- **Project period:** Weeks 4–6 (Monday 25 January – Saturday 13 February 2027)
+- **Poster submission deadline:** Tuesday 9 February 2027, 23:59 via Mitt UiB
+- **Speed-poster presentation session:** Wednesday 10 February 2027, 08:15–12:00, Hist 1
 
 **Two Distinct Deliverables:**
 1. **Digital Poster** — A static visual artifact submitted for review
@@ -68,7 +68,7 @@ Your project may originate from any of the following sources:
 Faculty guidance is available during the project period. You may:
 - Consult with the course coordinator 
 - Post questions in the bmed365-channel on Discord
-- Request feedback on your topic selection during Week 5
+- Request feedback on your topic selection during Week 4
 
 ---
 
@@ -83,7 +83,7 @@ The digital poster is a **static visual artifact** that presents your topic in a
 | **Dimensions** | 70 cm × 120 cm (portrait orientation) |
 | **File format** | PDF |
 | **Submission** | Mitt UiB |
-| **Deadline** | Tuesday 10 February 2026, 23:59 |
+| **Deadline** | Tuesday 9 February 2027, 23:59 |
 | **Filename** | `BMED365_Poster_[YourLastName].pdf` |
 
 ### 3.2 Template Options
@@ -325,9 +325,9 @@ To pass, you must:
 
 | Week | Dates | Milestones |
 |------|-------|------------|
-| **5** | 26 Jan – 1 Feb | Topic selection; begin poster development; Mon 26 Jan: Motivation and demonstration session |
-| **6** | 2–8 Feb | Poster development; presentation preparation |
-| **7** | 9–14 Feb | **Mon 9 Feb:** Lab 4 (Computational Imaging); **Tue 10 Feb 23:59:** Poster submission deadline; **Wed 11 Feb 08:15–12:00:** Speed-poster presentation session |
+| **4** | 25–31 Jan | Topic selection; begin poster development; Mon 25 Jan: Motivation and demonstration session |
+| **5** | 1–7 Feb | Poster development; presentation preparation |
+| **6** | 8–13 Feb | **Mon 8 Feb:** Lab 4 (Computational Imaging); **Tue 9 Feb 23:59:** Poster submission deadline; **Wed 10 Feb 08:15–12:00:** Speed-poster presentation session |
 
 ### 6.2 Resources
 
@@ -353,7 +353,7 @@ To pass, you must:
 
 The Individual Project prepares you for the **final digital home exam in Inspera**:
 
-- **Date:** Friday 6 March 2026, 09:00–11:00
+- **Date:** Friday 5 March 2027, 09:00–11:00
 - **Duration:** 2 hours
 - **Format:** Multiple choice questions and essays
 - **AI Policy:** Explicit and transparent use of AI is encouraged
@@ -607,6 +607,6 @@ Use in text: `\textcolor{colorTwo}{highlighted text}`
 ---
 
 *BMED365: Computational Imaging, Modeling and AI in Biomedicine*  
-*University of Bergen, Spring 2026*
+*University of Bergen, Spring 2027*
 
 

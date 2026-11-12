@@ -3,7 +3,7 @@
 This document provides important information about the exam for the BMED365 course (last updated: 2025-12-15)
 
 ## Date and Time
-The digital home exam (expected workload ≈ 2 hr) will take place on Friday March 6th, 2026, 09:00-11:00.
+The digital home exam (expected workload ≈ 2 hr) will take place on Friday March 5th, 2027, 09:00-11:00.
 
 ## Location and Preparation
 The digital home exam will take place in [Inspera](https://www.inspera.com). Please make sure you are able to login to [UiB/Inspera](https://vurdering.uib.no) at least 15 minutes before the scheduled start time (more details at https://www.uib.no/en/student/125772/preparing-exams). Note: In addition to preparing yourself academically, you must also remember to check that your computer and login are ready to use at the examination. This is your responsibility as a student.

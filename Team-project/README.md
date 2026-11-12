@@ -46,11 +46,11 @@ The project is designed to accommodate this diversity of backgrounds while encou
 
 ## Team Project Presentation
 
-**Tuesday 27.01.2026, 08:15-10**  (20 min per team, all team members participate)
+**Tuesday 26.01.2027, 08:15-10**  (20 min per team, all team members participate)
 
 ## Team Project Report Submission
 
-**Deadline: Thursday 29.01.2026, 16:00**  - One member submits the team report (as a PDF file) to Mitt-UiB on behalf of the team
+**Deadline: Thursday 28.01.2027, 16:00**  - One member submits the team report (as a PDF file) to Mitt-UiB on behalf of the team
 
 ---
 
@@ -502,7 +502,7 @@ Before you start, make sure everyone on the team has completed these tasks:
 - [ ] Page limits are respected (3 to 5 pages research plan + 1.5 to 2.5 pages DMP/ethics)
 
 ### Submission Deadline
-- [ ] Thursday 29.01.2026, 16:00 - One member submits the team report (as a PDF file) to Mitt-UiB on behalf of the team
+- [ ] Thursday 28.01.2027, 16:00 - One member submits the team report (as a PDF file) to Mitt-UiB on behalf of the team
 
 ---
 

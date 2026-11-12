@@ -361,7 +361,7 @@ After reviewing the material, write a short reflection (300-500 words) addressin
 
 ---
 
-## Lecture Schedule: Tuesday, January 20, 2026
+## Lecture Schedule: Tuesday, January 19, 2027
 
 **Time:** 08:15-12:00 (3h 45min)  
 **Location:** Hist 1  
@@ -371,7 +371,7 @@ After reviewing the material, write a short reflection (300-500 words) addressin
 
 This 4-hour lecture provides a comprehensive introduction to Generative AI and Large Language Models with focus on biomedical applications. The schedule balances theory (50%) with hands-on practice (50%), incorporating high-quality videos, live demos, and short breaks to maintain engagement.
 
-> **Looking Ahead:** This lecture prepares you for the **Team Project on Glioblastoma** (presentation: Jan 27, report due: Jan 29). Pay special attention to how AI concepts apply to medical imaging and precision medicine. Notebook 08 includes a dedicated glioma case study.
+> **Looking Ahead:** This lecture prepares you for the **Team Project on Glioblastoma** (presentation: Jan 26, report due: Jan 28). Pay special attention to how AI concepts apply to medical imaging and precision medicine. Notebook 08 includes a dedicated glioma case study.
 
 ---
 
@@ -475,8 +475,8 @@ This 4-hour lecture provides a comprehensive introduction to Generative AI and L
 **11:58-12:00** (2 min) | **Closing & Next Steps**
 - Reminder about reflection exercise (300-500 words)
 - **Team Project timeline:**
-  - Presentations: Tuesday, January 27, 2026
-  - Report deadline: Thursday, January 29, 2026
+  - Presentations: Tuesday, January 26, 2027
+  - Report deadline: Thursday, January 28, 2027
 - Encourage students to explore remaining notebooks independently, especially:
   - Notebook 08 for glioma/neuro-oncology context
   - Notebook 05 (XAI) for understanding how to interpret AI predictions

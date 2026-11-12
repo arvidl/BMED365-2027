@@ -162,7 +162,7 @@ Lab2-DL/
 
 ## Lab 2 Deep Learning - Tentative Time Schedule
 
-**Date:** Friday, January 16, 2026  
+**Date:** Friday, January 15, 2027  
 **Time:** 08:15 - 13:00 (4h 45min)  
 **Location:** Hist 1  
 **Instructor:** Arvid Lundervold  

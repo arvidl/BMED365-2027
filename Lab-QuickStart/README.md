@@ -1,6 +1,6 @@
 # Quick Start: AI-Assisted Python Programming
 
-**Date:** January 13, 2026, 09:15–13:00  
+**Date:** January 12, 2027, 09:15–13:00  
 **Location:** Hist 1  
 **Lecturer:** Arvid Lundervold  
 **Target audience:** Medical students with no prior programming experience

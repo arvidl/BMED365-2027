@@ -152,4 +152,4 @@ Use in text: `\textcolor{colorTwo}{highlighted text}`
 ---
 
 *BMED365: Computational Imaging, Modeling and AI in Biomedicine*  
-*University of Bergen, Spring 2026*
+*University of Bergen, Spring 2027*
