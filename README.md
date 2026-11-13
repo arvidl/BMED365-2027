@@ -63,7 +63,7 @@ All course material is openly available at [this](https://github.com/arvidl/BMED
 
 *Block 1 (January): foundational AI and computational medicine. Block 2 (February): computational imaging and modeling.*
 
-*Lecturers: Arvid Lundervold (AL), UiB; Alexander S. Lundervold (ASL), HVL/MMIV*
+*Lecturer: Arvid Lundervold (AL), UiB*
 
 | Week | Date       | Time           | Activity                                                        | Lecturer | Location | Block         |
 |------|------------|----------------|------------------------------------------------------------------|----------|----------|---------------|
@@ -73,7 +73,7 @@ All course material is openly available at [this](https://github.com/arvidl/BMED
 | 2    | Tue 12.01.2027 | 09:15–13:00    | [Quick Start](./Lab-QuickStart/README.md): AI-assisted Python programming <br>  [[beamer slides](https://github.com/arvidl/BMED365-2027/blob/main/Lab-QuickStart/Beamer/main.pdf)]   [[google slides](https://docs.google.com/presentation/d/e/2PACX-1vQElKecXDNz4Ae-3TxnYTqw6QxtcEYEkkTjI1AYdG2o7eMFFLnyuX4rqVjyuxmWfanpwii1y7d4y6ZZ/pub?start=false&loop=false&delayms=3000)]          | AL       | 9a110bp  |    1          |
 | 2    | Fri 15.01.2027 | 08:15–13:00    | [Lab 2](./Lab2-DL) (Deep Learning) <br> [[beamer slides](https://github.com/arvidl/BMED365-2027/blob/main/Course-description-topics/Beamer/D-DeepLearning/main.pdf)]  [[google slides](https://docs.google.com/presentation/d/e/2PACX-1vTpEYzlrPDMGTQuVLmyefOLEjBT13gtfoHGIBy6o9o-WrdnOHgvy3zApOPx8ekD3E3a4irp7CkaFDHN/pub?start=false&loop=false&delayms=3000)]                                     | AL       | 9a110bp  |    1          |
 | 3    | Mon 18 - Sun 24 |                | [TEAM PROJECT](./Team-project) (team collaboration during the week)        |          |          |    1          |
-| 3    | Tue 19.01.2027 | 08:15–12:00    | [Lab 3](./Lab3-GenAI-LLM) (Generative AI + Large Language Models) <br> [[beamer slides](https://github.com/arvidl/BMED365-2027/blob/main/Course-description-topics/Beamer/G-GenerativeAI/main.pdf)] [[google  slides](https://docs.google.com/presentation/d/e/2PACX-1vRj03HAo4CfsxUD9l9JgzbXXiGvmEqgKoMZdmEBtMuR0hl46fMINr2noPaUJnSmNS9wRknTfGiqyWh1/pub?start=false&loop=false&delayms=3000)]               | ASL      | 9a110bp  |    1          |
+| 3    | Tue 19.01.2027 | 08:15–12:00    | [Lab 3](./Lab3-GenAI-LLM) (Generative AI + Large Language Models) <br> [[beamer slides](https://github.com/arvidl/BMED365-2027/blob/main/Course-description-topics/Beamer/G-GenerativeAI/main.pdf)] [[google  slides](https://docs.google.com/presentation/d/e/2PACX-1vRj03HAo4CfsxUD9l9JgzbXXiGvmEqgKoMZdmEBtMuR0hl46fMINr2noPaUJnSmNS9wRknTfGiqyWh1/pub?start=false&loop=false&delayms=3000)]               | AL       | 9a110bp  |    1          |
 | 3    | Tue 19.01.2027 | 13:15–16:00    | Meet-up for [Team Project](./Team-project) – brainstorming and coaching           | AL       | 9a110bp  |    1          |
 | 4    | Mon 25 - Sat 30 |                | INDIVIDUAL PROJECT (on your own during the week)                |          |          |    2          |
 | 4    | Mon 25.01.2027 | 10:15–12:00    | Motivation, demonstration<br> - image processing [[slides](https://docs.google.com/presentation/d/e/2PACX-1vQCte3ePgPi9Yu-BQ_P5Zg8oUlKqGwol6tCU0Zd0W0e4sYp69fcVJkgFD_SgRv8cbIX-Vi7_dZYUWr2/pub?start=false&loop=false&delayms=3000)]                          | AL       | 9a110bp  |    2          |

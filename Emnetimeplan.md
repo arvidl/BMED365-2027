@@ -10,7 +10,7 @@ Kilde: [TP Timeplan](https://tp.educloud.no/uib/timeplan/timeplan.php?id=BMED365
 | ti. 12.01.2027 | 09:15 - 13:00 | BMED365: Crash-course in Python programming | 9a110bp | A. Lundervold |
 | fr. 15.01.2027 | 08:15 - 13:00 | BMED365: Lab 2 (Deep learning) | 9a110bp | A. Lundervold |
 | ma. 18.01.2027 | 07:15 - 08:00 | BMED365: TEAM PROJECT - team-wise collaboration during the week | | A. Lundervold |
-| ti. 19.01.2027 | 08:15 - 12:00 | BMED365: Lab 3 (Generative AI + Large Language Models) | 9a110bp | A.S. Lundervold |
+| ti. 19.01.2027 | 08:15 - 12:00 | BMED365: Lab 3 (Generative AI + Large Language Models) | 9a110bp | A. Lundervold |
 | ti. 19.01.2027 | 13:15 - 16:00 | BMED365: Meet-up for team project brainstorming and coaching | 9a110bp | A. Lundervold |
 | ma. 25.01.2027 | 07:15 - 08:00 | BMED365: PERSONAL PROJECT - on your own during the week | | A. Lundervold |
 | ma. 25.01.2027 | 10:15 - 12:00 | BMED365: Motivation, demonstration - imaging | 9a110bp | A. Lundervold |
