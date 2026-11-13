@@ -68,7 +68,7 @@ The [`MLX-Bio-Qwen/`](MLX-Bio-Qwen/) subfolder contains notebooks that use **Lar
 
 | Platform | Backend | Model | Setup |
 |:---|:---|:---|:---|
-| **Apple Silicon** (M1–M4) | [MLX](https://github.com/ml-explore/mlx) (local) | [Qwen 2.5 72B Instruct](https://huggingface.co/mlx-community/Qwen2.5-72B-Instruct-4bit) | `mlx-bio` Conda env |
+| **Apple Silicon** (M1–M5) | [MLX](https://github.com/ml-explore/mlx) (local) | [Qwen 2.5 72B Instruct](https://huggingface.co/mlx-community/Qwen2.5-72B-Instruct-4bit) | `mlx-bio` uv env |
 | **Google Colab** (free tier) | [`google.colab.ai`](https://medium.com/google-colab/all-colab-users-now-get-access-to-gemini-and-gemma-models-via-colab-python-library-at-no-cost-a392599977c4) | Gemini 2.5 Flash | No API key, no billing — zero config |
 
 On Apple Silicon the full 72B-parameter model runs locally. On Colab, the notebook seamlessly falls back to Google's free Gemini API — all features (personas, controls, conversation history, LaTeX post-processing) work identically on both backends. Standard Python code (NumPy, SciPy, Matplotlib) always runs regardless of backend.

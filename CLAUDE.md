@@ -43,7 +43,7 @@ The repo is developed on two machines (a MacBook Pro M4 Max and a Dell Precision
 - The lockfile must keep resolving for macOS Apple Silicon, Linux (CUDA) and Intel Macs. Intel Macs are pinned to older torch/TensorFlow through platform markers in `pyproject.toml`; do not remove those markers.
 - `.venv/` and the Jupyter kernel are per machine and not in git. Register the kernel once per machine:
   `uv run python -m ipykernel install --user --name bmed365-2027`
-- Three sub-projects keep their own separate conda environments and are not part of the uv environment: PyCaret (`Lab0-ML/pycaret-environment.yml`), IMC (`Lab4-Comp-Imag/IMC-example/environment-imc.yml`) and MLX (`Lab5-Comp-Mod/MLX-Bio-Qwen`).
+- Three sub-projects keep their own separate `uv` environments (`pyproject.toml` + `uv.lock`) and are not part of the root `uv` environment: PyCaret (`Lab0-ML/pycaret-env`), IMC (`Lab4-Comp-Imag/IMC-example`) and MLX (`Lab5-Comp-Mod/MLX-Bio-Qwen`).
 
 ## Platforms
 

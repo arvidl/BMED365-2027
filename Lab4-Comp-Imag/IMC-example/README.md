@@ -1,6 +1,13 @@
 # Lab 4: IMC-example using the [steinbock](https://bodenmillergroup.github.io/steinbock) toolkit
 
-This lab is part of our journey through computational imaging and modeling techniques, and the use of AI in biomedical applications related to Imaging Mass Cytometry (IMC). We will explore IMC data ([readimc](https://bodenmillergroup.github.io/readimc)) and use the _steinbock_ [toolkit](https://bodenmillergroup.github.io/steinbock). This requires the `bmed365imc` environment - check [here](./environment-imc.yml). <br>  _update: 2024-01-29_
+This lab is part of our journey through computational imaging and modeling techniques, and the use of AI in biomedical applications related to Imaging Mass Cytometry (IMC). We will explore IMC data ([readimc](https://bodenmillergroup.github.io/readimc)) and use the _steinbock_ [toolkit](https://bodenmillergroup.github.io/steinbock). This uses an isolated `uv` environment defined in [pyproject.toml](./pyproject.toml):
+
+```bash
+cd Lab4-Comp-Imag/IMC-example
+uv sync
+uv run python -m ipykernel install --user --name bmed365imc --display-name "BMED365IMC"
+uv run jupyter lab
+```
 
 - "_Explain Imaging Mass Cytometry (IMC) to me_"
 - "_How to read an .mcd-file in Python using readimc_?" 
@@ -26,7 +33,8 @@ Download Patient1.zip (from https://zenodo.org/records/7575859) and save it in t
 │   ├── Patient1_pos1_1_1.txt
 │   ├── Patient1_pos1_2_2.txt
 │   └── Patient1_pos1_3_3.txt
-├── environment-imc.yml
+├── pyproject.toml
+├── uv.lock
 ├── nbs
 └── refs
 ```

@@ -69,15 +69,13 @@ We use Python, the most popular programming language for machine learning. The p
 
 **Main environment:** Use the course uv environment (`uv sync` in the root directory, see the main [README](../README.md)) for notebooks 01 and 02.
 
-**PyCaret environment:** Notebook 03 requires PyCaret, which has dependencies that may conflict with TensorFlow/PyTorch. We recommend a separate Conda environment:
+**PyCaret environment:** Notebook 03 requires PyCaret, which pins older dependencies that conflict with TensorFlow/PyTorch in the main environment. Use its isolated `uv` sub-environment in [`pycaret-env/`](pycaret-env/pyproject.toml):
 
 ```bash
-# Create PyCaret environment
-conda env create -f pycaret-environment.yml
-conda activate pycaret-bmed365
-
-# Start Jupyter
-jupyter notebook
+cd Lab0-ML/pycaret-env
+uv sync
+uv run python -m ipykernel install --user --name pycaret-bmed365 --display-name "Python (BMED365 - PyCaret)"
+uv run jupyter lab ..
 ```
 
 **Alternative: Google Colab** – All notebooks can be run in Colab without local installation. PyCaret is installed automatically when running.

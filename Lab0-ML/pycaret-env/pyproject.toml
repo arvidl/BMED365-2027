@@ -1,0 +1,35 @@
+# =============================================================================
+# PyCaret sub-environment for BMED365-2027 Lab0-ML (managed with uv)
+# =============================================================================
+# PyCaret pins older versions of scikit-learn/pandas that conflict with the
+# main BMED365-2027 environment, so it lives in its own isolated uv project.
+#
+# Setup (from the repo root):
+#   cd Lab0-ML/pycaret-env
+#   uv sync
+#   uv run python -m ipykernel install --user --name pycaret-bmed365 --display-name "Python (BMED365 - PyCaret)"
+#   uv run jupyter lab ..
+# =============================================================================
+
+[project]
+name = "pycaret-bmed365"
+version = "2027.0.0"
+description = "Isolated PyCaret environment for BMED365 Lab0-ML (Notebook 03)"
+requires-python = ">=3.11,<3.12"
+
+dependencies = [
+    "jupyter>=1.0.0",
+    "jupyterlab>=4.0.0",
+    "ipykernel>=6.25.0",
+    "ipywidgets>=8.0.0",
+    "pycaret>=3.3.0",
+    "shap>=0.44.0",
+    "lightgbm>=4.0.0",
+    "xgboost>=2.0.0",
+    "catboost>=1.2.0",
+    "plotly>=5.15.0",
+    "seaborn>=0.12.0",
+]
+
+[tool.uv]
+package = false

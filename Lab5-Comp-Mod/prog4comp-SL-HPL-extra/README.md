@@ -70,7 +70,7 @@ complex software, avoiding pitfalls, and become a safe user.
 
 ***
 
-**NOTE**: If you install Anaconda (as you have), the only additional package you "need" (i.e. recommended*) for running all the software in the present book, is `Odespy`(https://github.com/thomasantony/odespy/tree/py36/odespy) to demonstrate how ordinary differential equations alternatively may be solved with ready-made software.
+**NOTE**: With the course `uv` environment, `NumPy`, `Matplotlib`, and `IPython` are already installed; add `sympy` if needed (`uv run --with sympy python ...`). In the original book, [`Odespy`](https://github.com/thomasantony/odespy/tree/py36/odespy) was also used to demonstrate ready-made ODE solvers.
 
 *) only `NumPy`, `Matplotlib`, `IPython`, and `SymPy` (symbolic mathematics) are required
 
@@ -84,8 +84,4 @@ This is Python 2.7, so you will need `SciTools3` (https://github.com/onnoeberhar
 
 Trying to convert selected .py files to .ipynb using [ipynb-py-convert](https://github.com/kiwi0fruit/ipynb-py-convert)
 
-`conda install -c defaults -c conda-forge ipynb-py-convert`
-
-e.g.
-
-`ipynb-py-convert src/Taylor_exp.py notebooks/Taylor_exp.ipynb`   (with some editing due to package updates)
+`uvx ipynb-py-convert src/Taylor_exp.py notebooks/Taylor_exp.ipynb`   (with some editing due to package updates)

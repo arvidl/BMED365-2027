@@ -6,7 +6,7 @@ Arvid Lundervold, 2026-02-11
 
 **Model:** Qwen 2.5 72B (Instruct) via `mlx-lm`
 
-**Environment:** Conda (`mlx-bio`) + Cursor IDE
+**Environment:** uv (`mlx-bio`, see [`pyproject.toml`](./pyproject.toml)) + JupyterLab or Cursor IDE
 
 ## 1. Overview
 
@@ -14,65 +14,35 @@ This module sets up a high-performance local Large Language Model (LLM) environm
 
 ## 2. Prerequisites
 
-* **MacOS:** Sequoia (15.0) or later recommended for best Metal support.
+* **macOS (Apple Silicon):** Sequoia (15.0) or later recommended for best Metal support.
 * **Terminal:** You can use the built-in Terminal or the terminal inside Cursor.
-* **Package Manager:** `Miniforge` (recommended for Apple Silicon) or `Anaconda`/`Miniconda`.
+* **Package Manager:** [`uv`](https://docs.astral.sh/uv/) (same as the main BMED365-2027 environment).
 
-## 3. Environment Setup (The "mlx-bio" Environment)
+## 3. Environment Setup (The `mlx-bio` uv Environment)
 
-We use a hybrid approach: **Conda** for biological libraries (binary stability) and **Pip** for Apple's MLX framework (latest optimizations).
+All dependencies—including scientific/biological libraries (`numpy`, `scipy`, `biopython`, `scanpy`) and Apple's MLX framework (`mlx`, `mlx-lm[train]`)—are pinned in [`pyproject.toml`](./pyproject.toml) and [`uv.lock`](./uv.lock).
 
-### Step 3.1: Create the Environment
+### Step 3.1: Create and Sync the Environment
 
-Run the following commands in your terminal:
+Run the following commands in your terminal from the repository root:
 
 ```bash
-# 1. Create a clean environment with Python 3.11 (Optimal for MLX)
-conda create -n mlx-bio python=3.11 -y
-
-# 2. Activate the environment
-conda activate mlx-bio
-
+cd Lab5-Comp-Mod/MLX-Bio-Qwen
+uv sync
 ```
 
-### Step 3.2: Install Biological & Scientific Libraries
+### Step 3.2: Register Kernel for Jupyter / Cursor (once)
 
-We install these via Conda to ensure we get the ARM64-optimized binaries for complex math libraries.
+This step ensures JupyterLab, VS Code, and Cursor can select the `mlx-bio` kernel:
 
 ```bash
-# Core Data Science & Bio Stack
-conda install -c conda-forge \
-    jupyterlab \
-    ipykernel \
-    pandas \
-    numpy \
-    scipy \
-    matplotlib \
-    seaborn \
-    scikit-learn \
-    biopython \
-    scanpy \
-    -y
-
+uv run python -m ipykernel install --user --name mlx-bio --display-name "Python (BMED365 - MLX Bio)"
 ```
 
-### Step 3.3: Install Apple MLX & LLM Tools
-
-We install `mlx-lm` via pip to access the specific Metal Performance Shaders (MPS) optimizations.
+### Step 3.3: Launch JupyterLab (optional)
 
 ```bash
-# MLX Native Library and HuggingFace Hub
-pip install mlx-lm huggingface_hub
-
-```
-
-### Step 3.4: Register Kernel for Jupyter/Cursor
-
-This step ensures your IDE can "see" this specific environment.
-
-```bash
-python -m ipykernel install --user --name=mlx-bio --display-name "Python (BMED365 - MLX Bio)"
-
+uv run jupyter lab
 ```
 
 ## 4. Cursor IDE Integration

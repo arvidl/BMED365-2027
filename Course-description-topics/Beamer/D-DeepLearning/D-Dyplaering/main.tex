@@ -118,43 +118,43 @@
                 \tikzstyle{neuron}=[circle, draw=uibblue, fill=uibblue!20, minimum size=0.6cm]
                 
                 % Input layer
-                \foreach \y in {1,2,3} {
-                    \node[neuron] (i\y) at (0, -\y) {};
+                \foreach \y/\name in {1/i1,2/i2,3/i3} {
+                    \node[neuron] (\name) at (0, -\y) {};
                 }
                 \node at (0, -4.2) {\footnotesize Input};
                 
                 % Hidden layer 1
-                \foreach \y in {0.5,1.5,2.5,3.5} {
-                    \node[neuron, fill=uibblue!40] (h1\y) at (2, -\y) {};
+                \foreach \y/\name in {0.5/h1a,1.5/h1b,2.5/h1c,3.5/h1d} {
+                    \node[neuron, fill=uibblue!40] (\name) at (2, -\y) {};
                 }
                 \node at (2, -4.7) {\footnotesize Skjult 1};
                 
                 % Hidden layer 2
-                \foreach \y in {1,2,3} {
-                    \node[neuron, fill=uibblue!60] (h2\y) at (4, -\y) {};
+                \foreach \y/\name in {1/h2a,2/h2b,3/h2c} {
+                    \node[neuron, fill=uibblue!60] (\name) at (4, -\y) {};
                 }
                 \node at (4, -4.2) {\footnotesize Skjult 2};
                 
                 % Output layer
-                \foreach \y in {1.5,2.5} {
-                    \node[neuron, fill=uibred!40] (o\y) at (6, -\y) {};
+                \foreach \y/\name in {1.5/o1,2.5/o2} {
+                    \node[neuron, fill=uibred!40] (\name) at (6, -\y) {};
                 }
                 \node at (6, -4.2) {\footnotesize Output};
                 
                 % Connections (simplified)
-                \foreach \i in {1,2,3} {
-                    \foreach \h in {0.5,1.5,2.5,3.5} {
-                        \draw[gray!50, thin] (i\i) -- (h1\h);
+                \foreach \i in {i1,i2,i3} {
+                    \foreach \h in {h1a,h1b,h1c,h1d} {
+                        \draw[gray!50, thin] (\i) -- (\h);
                     }
                 }
-                \foreach \ha in {0.5,1.5,2.5,3.5} {
-                    \foreach \hb in {1,2,3} {
-                        \draw[gray!50, thin] (h1\ha) -- (h2\hb);
+                \foreach \ha in {h1a,h1b,h1c,h1d} {
+                    \foreach \hb in {h2a,h2b,h2c} {
+                        \draw[gray!50, thin] (\ha) -- (\hb);
                     }
                 }
-                \foreach \h in {1,2,3} {
-                    \foreach \o in {1.5,2.5} {
-                        \draw[gray!50, thin] (h2\h) -- (o\o);
+                \foreach \h in {h2a,h2b,h2c} {
+                    \foreach \o in {o1,o2} {
+                        \draw[gray!50, thin] (\h) -- (\o);
                     }
                 }
             \end{tikzpicture}
