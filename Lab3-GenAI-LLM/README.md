@@ -141,7 +141,7 @@ For those who want to go deeper into special topics:
 ### Technical Supplement
 | # | Notebook | Description | 1-Click Colab |
 |---|----------|-------------|---------------|
-| 00 | [Test LLM Locally](00-test-llm.ipynb) | Running local models with Ollama | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab3-GenAI-LLM/00-test-llm.ipynb) |
+| 00 | [Test LLM Locally](../Lab5-Comp-Mod/00-test-llm.ipynb) | Running local models with Ollama | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/00-test-llm.ipynb) |
 
 ---
 
@@ -311,8 +311,7 @@ Lab3-GenAI-LLM/
 │   ├── radiology_report.txt          # Imaging report templates
 │   ├── grant_writing.txt             # Grant application templates ⭐
 │   └── project_pitch.txt             # Pitch & panel Q&A prep ⭐
-├── resources/               # Figures and references
-└── 00-test-llm.ipynb        # Technical supplement
+└── assets/                  # Figures and references
 ```
 
 ---

@@ -42,7 +42,7 @@ The quick start is specially designed for medical students without programming e
 
 | File | Description |
 |:-----|:------------|
-| [01-Simple_examples-slides.pptx](slides/BMED365-2026_Lab0-ML_01-Simple_examples-slides.pptx) | Introduction to machine learning |
+| [Beamer/main.pdf](Beamer/main.pdf) | Introduction to machine learning and PyCaret |
 
 ### Notebooks:
 

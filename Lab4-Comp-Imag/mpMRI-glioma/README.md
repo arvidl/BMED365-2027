@@ -27,7 +27,7 @@ The following notebook is essentially a copy of the multi-class semantic segment
 <!--
 
 ### Going deeper (wider)?
-Some additional (optional) example-based introductions to (bio)medical imaging is in [Lab-optional-imganing](./Lab-optional-imaging)
+Some additional (optional) example-based introductions to (bio)medical imaging are in [Lab4-Comp-Imag](..)
 
 | Notebook    |      1-Click Notebook      |
 |:----------|------|

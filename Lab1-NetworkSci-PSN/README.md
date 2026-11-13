@@ -73,22 +73,7 @@ All notebooks can be run in Google Colab or locally with the uv environment `bme
 |:---------|:------------|:-----:|
 | [02a-patient_similarity_network_iris_solutions.ipynb](./notebooks/02a-patient_similarity_network_iris_solutions.ipynb) | Solutions for exercises in notebook 02 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/notebooks/02a-patient_similarity_network_iris_solutions.ipynb) |
 | [02b-patient_similarity_network_iris_extended.ipynb](./notebooks/02b-patient_similarity_network_iris_extended.ipynb) | Extended version of IRIS PSN analysis with more advanced techniques | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/notebooks/02b-patient_similarity_network_iris_extended.ipynb) |
-| [04-patient_similarity_network_IQ_solutions.ipynb](./notebooks/04-patient_similarity_network_IQ_solutions.ipynb) | Solutions for exercises in notebook 04 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/notebooks/04-patient_similarity_network_IQ_solutions.ipynb) |
-
----
-
-## Additional Resources: Graph Theory and Complex Networks
-
-See also the [GraphTheory-and-ComplexNetworks](./GraphTheory-and-ComplexNetworks/README.md) folder for more in-depth notebooks on graph theory:
-
-| Notebook | Topic | Colab |
-|:---------|:------|:-----:|
-| [1-Introduction.ipynb](./GraphTheory-and-ComplexNetworks/notebooks/1-Introduction.ipynb) | Introduction to graphs and networks | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/GraphTheory-and-ComplexNetworks/notebooks/1-Introduction.ipynb) |
-| [2-Fundamentals.ipynb](./GraphTheory-and-ComplexNetworks/notebooks/2-Fundamentals.ipynb) | Fundamental graph theory | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/GraphTheory-and-ComplexNetworks/notebooks/2-Fundamentals.ipynb) |
-| [3-Extensions.ipynb](./GraphTheory-and-ComplexNetworks/notebooks/3-Extensions.ipynb) | Extensions and special graph types | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/GraphTheory-and-ComplexNetworks/notebooks/3-Extensions.ipynb) |
-| [4-Network-topology.ipynb](./GraphTheory-and-ComplexNetworks/notebooks/4-Network-topology.ipynb) | Network topology | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/GraphTheory-and-ComplexNetworks/notebooks/4-Network-topology.ipynb) |
-| [5-Network-analysis-centrality.ipynb](./GraphTheory-and-ComplexNetworks/notebooks/5-Network-analysis-centrality.ipynb) | Centrality analysis | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/GraphTheory-and-ComplexNetworks/notebooks/5-Network-analysis-centrality.ipynb) |
-| [6-Network-analysis-across-time.ipynb](./GraphTheory-and-ComplexNetworks/notebooks/6-Network-analysis-across-time.ipynb) | Dynamic network analysis | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/GraphTheory-and-ComplexNetworks/notebooks/6-Network-analysis-across-time.ipynb) |
+| [04a-patient_similarity_network_IQ_solutions.ipynb](./notebooks/04a-patient_similarity_network_IQ_solutions.ipynb) | Solutions for exercises in notebook 04 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab1-NetworkSci-PSN/notebooks/04a-patient_similarity_network_IQ_solutions.ipynb) |
 
 ---
 

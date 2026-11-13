@@ -16,7 +16,7 @@ Damond et al. Cell Metabolism 2019;29:755–768.
 
 ### References and links
 
-- Damond  et al. A Map of Human Type 1 Diabetes Progression by Imaging Mass Cytometry. Celll Metabolism 2019;29(3):755-768.e5 [[link](https://www.sciencedirect.com/science/article/pii/S1550413118306910)] [[PDF](./refs/Damond_etal_A_Map_of_Human_Type_1_Diabetes_Progression_by_Imaging_Mass_Cytometry_Cell_Metabolism_2019.pdf)]
+- Damond  et al. A Map of Human Type 1 Diabetes Progression by Imaging Mass Cytometry. Cell Metabolism 2019;29(3):755-768.e5 [[link](https://www.sciencedirect.com/science/article/pii/S1550413118306910)]
 - pancreasMasks: Example CytoImageList object of segmentation masks [[link](https://rdrr.io/bioc/cytomapper/man/pancreasMasks.html)]
 - The accession number for the IMC data reported in this paper (including image stacks, single-cell data and islet-level data) is Mendeley Data: https://data.mendeley.com/datasets/cydmwsfztj/2 (version 2, 09-04-2020)
 
@@ -80,7 +80,7 @@ For each donor, a medical chart review was performed and C-peptide measured (Cam
 ![Damond_etal_2019_TabS1_Clin_data](./assets/Damond_etal_2019_TabS1_Clin_data.png)
 
 ### Antibody Testing and Validation
-All antibodies in the panel (**Table 1**) were initially tested by IF on lymphoid tissues (spleen, tonsil, and lymph node) for antibodies targeting immune markers and on pancreas for the other markers. Only antibodies that produced expression patterns consistent with the literature and a high signal intensity were conjugated to metals. After metal labeling, all antibodies were tested again by IMC to ensure that antibody specificity was not affected by conjugation. Finally, the entire antibody panel was used to stain two tissue arrays: an array containing large cores from six different tissues and a microarray containing 78 cores representing 20 different tissues from healthy subjects and cancer patients. In this way, each antibody could be positively validated on tissues known to express the target antigen and negatively validated on tissues known to be negative for that antigen. See also the .cvs file [[table1_IMC_panel_37x4.csv](./data/table1_IMC_panel_37x4.csv)].
+All antibodies in the panel (**Table 1**) were initially tested by IF on lymphoid tissues (spleen, tonsil, and lymph node) for antibodies targeting immune markers and on pancreas for the other markers. Only antibodies that produced expression patterns consistent with the literature and a high signal intensity were conjugated to metals. After metal labeling, all antibodies were tested again by IMC to ensure that antibody specificity was not affected by conjugation. Finally, the entire antibody panel was used to stain two tissue arrays: an array containing large cores from six different tissues and a microarray containing 78 cores representing 20 different tissues from healthy subjects and cancer patients. In this way, each antibody could be positively validated on tissues known to express the target antigen and negatively validated on tissues known to be negative for that antigen. See also the .csv file [[table1_IMC_panel_37x4.csv](./data/imc/table1_IMC_panel_37x4.csv)].
 
 ![Damond_etal_2019_Tab1_IMC_panel](./assets/Damond_etal_2019_Tab1_IMC_panel.png)
 
@@ -137,11 +137,11 @@ The accession number for the IMC data reported in this paper (including image st
 |----------|:-------------:|:------|
 | CellProfiler 2.2.0	|Kamentsky et al., 2011	| http://cellprofiler.org |
 | Fiji (ImageJ 1.51u)|	Schindelin et al., 2012	| https://fiji.sc |
-| histoCAT 1.73 |	Schapiro et al., 2017	| https://github.comBodenmillerGroup/histoCAT/releases |
+| histoCAT 1.73 |	Schapiro et al., 2017	| https://github.com/BodenmillerGroup/histoCAT/releases |
 | Ilastik 1.2.2	|Sommer et al., 2011	| http://www.ilastik.org |
 | Python 3.4.3	| Python Software Foundation	| https://www.python.org |
 | R 3.4.1	| R Development Core Team	| https://www.r-project.org |
-| Tools for IMC data processing|	Bodenmiller lab |	https://github.comBodenmillerGroup/imctools |
+| Tools for IMC data processing|	Bodenmiller lab |	https://github.com/BodenmillerGroup/imctools |
 | IMC data segmentation pipeline	| Bodenmiller lab	| https://github.com/BodenmillerGroup/ImcSegmentationPipeline |
 | Custom CellProfiler plugins|	Bodenmiller lab	| https://github.com/BodenmillerGroup/ImcPluginsCP |
 | Code and guidelines for spillover compensation	| Bodenmiller lab	| https://github.com/BodenmillerGroup/cyTOFcompensation|
