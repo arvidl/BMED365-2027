@@ -4,7 +4,7 @@ _NOTE: Content for Spring 2027 is under ongoing revision and updates until the c
 
 
 AI tools you may find useful:
-- **[NotebookLM](https://notebooklm.google.com/)** - AI-powered research assistant for document analysis and knowledge synthesis
+- **[Gemini Notebook (NotebookLM)](https://notebook.google.com/)** - AI-powered research assistant for document analysis and knowledge synthesis
 - **[Cursor AI](https://cursor.sh/)** - AI-assisted coding and development
 
 ----
@@ -44,7 +44,7 @@ BMED365 is an opportunity to acquire valuable skills and insights in the use of 
 All course material is openly available at [this](https://github.com/arvidl/BMED365-2027) GitHub repository.
 
 #### For Enrolled Students
-**Note**: Students enrolled in the course will find additional practical information on [MittUiB](https://mitt.uib.no/courses/50785).
+**Note**: Students enrolled in the course will find additional practical information on [MittUiB](https://mitt.uib.no/courses/62278).
 
 -  For **academic questions** about the course, contact course coordinator [Arvid Lundervold](https://www.uib.no/en/persons/Arvid.Lundervold) (UiB).
 

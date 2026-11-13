@@ -25,7 +25,7 @@
 \usepackage{tcolorbox}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{natbib}
+\usepackage[authoryear,round]{natbib}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows, positioning, mindmap}
 \usepackage{multicol}
@@ -52,6 +52,7 @@
     citecolor=uibblue,
     urlcolor=uibred
 }
+\usepackage{doi}
 
 % Title formatting
 \titleformat{\section}{\Large\bfseries\color{uibblue}}{\thesection}{1em}{}
@@ -181,7 +182,7 @@ Mohn Medical Imaging and Visualization Centre (MMIV)
 
 \subsection{Why AI in Biomedical and Health-related Contexts?}
 
-Artificial intelligence (AI) and machine learning are increasingly transforming healthcare and biomedical research \citep{topol2019high}. From image diagnostics and disease progression prediction to clinical decision support and drug development -- AI-based tools are becoming increasingly relevant for healthcare professionals and researchers.
+Artificial intelligence (AI) and machine learning are increasingly transforming healthcare and biomedical research \citep{topol2019high, goh2026superintelligence}. From image diagnostics and disease progression prediction to clinical decision support and drug development -- AI-based tools are becoming increasingly relevant for healthcare professionals and researchers.
 
 \begin{infobox}[Core Questions of the Course]
 \begin{itemize}[nosep]
@@ -295,7 +296,7 @@ Lab 0 provides a practical introduction to machine learning with focus on classi
     \item Distinguish between supervised and unsupervised learning
     \item Use train/test split and cross-validation
     \item Interpret evaluation metrics (accuracy, precision, recall, AUC)
-    \item Understand TRIPOD guidelines for medical ML
+    \item Understand TRIPOD+AI guidelines for medical ML \citep{collins2024tripodai}
 \end{itemize}
 
 \subsection{Lab 1: Network Science and PSN}
@@ -591,7 +592,7 @@ C & E06 & Calculate and interpret \emph{specificity} \\
 I & E07 & Calculate and interpret \emph{F1-score} \\
 C & E08 & Understand ROC curve and AUC as measures of model quality \\
 I & E09 & Explain when accuracy is insufficient (imbalanced datasets) \\
-I & E10 & Know TRIPOD guidelines for reporting \\
+I & E10 & Know TRIPOD+AI guidelines for reporting \citep{collins2024tripodai} \\
 \end{longtable}
 
 \subsection{Graph Theory and Network Science}
@@ -919,14 +920,14 @@ S & F14 & Compare output from different LLMs for quality assessment \\
 \toprule
 \textbf{Tool} & \textbf{Type} & \textbf{Use Area} \\
 \midrule
-Google Colab & Platform & Run Jupyter Notebooks in browser \\
-Python 3.10+ & Programming language & All coding in the course \\
-scikit-learn & Library & Machine learning (Lab 0) \\
-NetworkX & Library & Network analysis (Lab 1) \\
-PyTorch & Framework & Deep learning (Lab 2) \\
-tiktoken & Library & Tokenization (Lab 3) \\
-PyCaret & Library & AutoML (Lab 0) \\
-Overleaf & Platform & LaTeX editing (Team project) \\
+\href{https://colab.research.google.com}{Google Colab} & Platform & Run Jupyter Notebooks in browser \\
+\href{https://www.python.org}{Python 3.11+} / \href{https://docs.astral.sh/uv/}{uv} & Language \& pkg.\ manager & Reproducible local environments and coding \\
+\href{https://scikit-learn.org}{scikit-learn} & Library & Machine learning (Lab 0) \\
+\href{https://networkx.org}{NetworkX} & Library & Network analysis (Lab 1) \\
+\href{https://pytorch.org}{PyTorch} & Framework & Deep learning (Lab 2) \\
+\href{https://github.com/openai/tiktoken}{tiktoken} & Library & Tokenization (Lab 3) \\
+\href{https://www.pycaret.org}{PyCaret} & Library & AutoML (Lab 0) \\
+\href{https://www.overleaf.com}{Overleaf} & Platform & LaTeX editing (Team project) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -937,43 +938,49 @@ Overleaf & Platform & LaTeX editing (Team project) \\
 \centering
 \caption{AI tools available for students}
 \label{tab:aitools}
-\begin{tabular}{@{}llp{6cm}@{}}
+\begin{tabular}{@{}llp{5.5cm}@{}}
 \toprule
 \textbf{Tool} & \textbf{Access} & \textbf{Use Area} \\
 \midrule
-ChatGPT & Free/Plus & General AI assistant, coding help \\
-Claude & Free/Pro & Text analysis, academic writing \\
-Gemini & Built into Colab & Code generation and explanation \\
-NotebookLM & Free (Google) & Document analysis \\
-chat.uib.no & UiB login & UiB internal AI service \\
+\href{https://chatgpt.com}{ChatGPT} & Free/Plus & General AI assistant, coding help \\
+\href{https://claude.ai}{Claude} & Free/Pro & Text analysis, academic writing \\
+\href{https://gemini.google.com}{Gemini} & Free / Built into Colab & Code generation and explanation \\
+\href{https://notebook.google.com}{Gemini Notebook} {\small(NotebookLM)} & Free (Google) & Source-grounded document analysis \\
+\href{https://chat.uib.no}{chat.uib.no} & UiB login & UiB internal AI service \\
 Medical AI GPT & ChatGPT Plus & Customized for BMED365 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\newpage
 \subsection{Recommended Reading}
 
-\textbf{Books and resources (freely available):}
+\textbf{Books and resources:}
 \begin{itemize}[nosep]
-    \item \citet{barabasi2016network}: \emph{Network Science} -- \url{http://networksciencebook.com}
-    \item \citet{molnar2022interpretable}: \emph{Interpretable Machine Learning} \\ -- \url{https://christophm.github.io/interpretable-ml-book/}
-    \item \citet{goodfellow2016deep}: \emph{Deep Learning} -- \url{https://www.deeplearningbook.org}
+    \item \citet{mollick2026coexistence}: \href{https://www.penguinrandomhouse.com/books/813026/co-existence-by-ethan-mollick/}{\emph{Co-Existence: The Next Phase of AI}} -- \url{https://co-existence.ai} \\ {\small(sequel to \citet{mollick2024cointelligence}; see also \emph{One Useful Thing}: \url{https://www.oneusefulthing.org})}
+    \item \citet{barabasi2016network}: \emph{Network Science} (freely available) -- \url{http://networksciencebook.com}
+    \item \citet{molnar2022interpretable}: \emph{Interpretable Machine Learning} (freely available) \\ -- \url{https://christophm.github.io/interpretable-ml-book/}
+    \item \citet{goodfellow2016deep}: \emph{Deep Learning} (freely available) \\ -- \url{https://www.deeplearningbook.org}
 \end{itemize}
 
-\textbf{Key articles:}
+\textbf{Key articles (seminal and recent 2025--2026):}
 \begin{itemize}[nosep]
-    \item \citet{lundervold2019overview}: Deep learning in medical image processing
-    \item \citet{vaswani2017attention}: Transformer architecture
-    \item \citet{singhal2023large}: LLM and clinical knowledge
-    \item \citet{morley2020ethics}: Ethics in AI and health
-    \item \citet{garcez2020neurosymbolic}: Neurosymbolic AI -- the third wave
-    \item \citet{louis2021who}: WHO 2021 CNS classification (gliomas)
+    \item \citet{lundervold2019overview}: \href{https://doi.org/10.1016/j.zemedi.2018.11.002}{Deep learning in medical image processing (MRI)}
+    \item \citet{vaswani2017attention}: \href{https://arxiv.org/abs/1706.03762}{Transformer architecture (\emph{Attention Is All You Need})}
+    \item \citet{louis2021who}: \href{https://doi.org/10.1093/neuonc/noab106}{WHO 2021 CNS tumor classification (gliomas)}
+    \item \citet{singhal2023large} \& \citet{tu2025amie}: \href{https://doi.org/10.1038/s41586-025-08866-7}{LLMs in clinical knowledge and conversational diagnostic AI (AMIE)}
+    \item \citet{deepseek2025r1}: \href{https://doi.org/10.1038/s41586-025-09422-z}{Reasoning in LLMs via reinforcement learning (DeepSeek-R1)}
+    \item \citet{lundervold2025psn}: \href{https://doi.org/10.3390/diagnostics15040470}{Brain morphometry, cognition, and patient similarity networks in IBS}
+    \item \citet{morley2020ethics}, \citet{lekadir2025futureai} \& \citet{eu2024aiact}: \href{https://doi.org/10.1136/bmj-2024-081554}{Ethics, FUTURE-AI trustworthy healthcare AI guidelines}, and the \href{https://artificialintelligenceact.eu}{EU AI Act}
+    \item \citet{garcez2023neurosymbolic} \& \citet{prenosil2025neurosymbolic}: \href{https://doi.org/10.1038/s43856-025-01194-x}{Neurosymbolic AI -- the third wave and auditable clinical extraction}
 \end{itemize}
 
 \textbf{Advanced (optional):}
 \begin{itemize}[nosep]
-    \item \citet{nicholson2020knowledge}: Knowledge graphs in biomedicine
-    \item \citet{xi2023rise}: Agentic AI with large language models
+    \item \citet{ma2024medsam}: \href{https://doi.org/10.1038/s41467-024-44824-z}{MedSAM -- foundation model for medical image segmentation}
+    \item \citet{nicholson2020knowledge} \& \citet{gao2024biomedagents}: \href{https://doi.org/10.1016/j.cell.2024.09.022}{Biomedical knowledge graphs and AI discovery agents}
+    \item \citet{moritz2025agents} \& \citet{collaco2026agentic}: \href{https://doi.org/10.1038/s41746-026-02517-5}{Coordinated and agentic AI systems in healthcare}
+    \item \citet{gottweis2026coscientist}: \href{https://doi.org/10.1038/s41586-026-10644-y}{Accelerating scientific discovery with AI Co-Scientist}
 \end{itemize}
 
 % =====================================================================
@@ -1068,14 +1075,14 @@ The following topics may be covered in the exam:
     
     \item[Course Material:] \url{https://github.com/arvidl/BMED365-2027}
     
-    \item[MittUiB:] \url{https://mitt.uib.no/courses/50785} (enrolled only)
+    \item[MittUiB:] \url{https://mitt.uib.no/courses/62278} (enrolled only)
 \end{description}
 
 % =====================================================================
 % REFERENCES
 % =====================================================================
 \newpage
-\bibliographystyle{apalike}
+\bibliographystyle{plainnat}
 \bibliography{referanser}
 
 % =====================================================================

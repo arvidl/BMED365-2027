@@ -443,7 +443,7 @@ These tools may help with literature search, writing, and understanding complex 
 |------|----------|------|
 | **Claude** | Text analysis, academic writing, explaining concepts | [claude.ai](https://claude.ai) |
 | **ChatGPT** | General AI assistant, brainstorming | [chat.openai.com](https://chat.openai.com) |
-| **NotebookLM** | Document analysis and synthesis | [notebooklm.google.com](https://notebooklm.google.com) |
+| **Gemini Notebook (NotebookLM)** | Document analysis and synthesis | [notebook.google.com](https://notebook.google.com) |
 | **Elicit** | AI-powered literature search | [elicit.com](https://elicit.com) |
 | **Connected Papers** | Visualization of citation networks | [connectedpapers.com](https://www.connectedpapers.com) |
 | **Semantic Scholar** | Academic search with AI features | [semanticscholar.org](https://www.semanticscholar.org) |

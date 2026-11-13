@@ -1,14 +1,61 @@
-% referanser.bib - Referanser for BMED365 Emnebeskrivelse
-% Sist oppdatert: Desember 2025
+% referanser.bib - References for BMED365 Course Description
+% Last updated: November 2026
 
 % =====================================================================
-% MASKINLÆRING OG MEDISIN
+% BOOKS AND GENERAL AI RESOURCES
+% =====================================================================
+
+@book{mollick2026coexistence,
+  author = {Mollick, Ethan},
+  title = {Co-Existence: The Next Phase of AI},
+  year = {2026},
+  publisher = {Portfolio / Penguin Random House},
+  isbn = {979-8217181391},
+  url = {https://www.penguinrandomhouse.com/books/813026/co-existence-by-ethan-mollick/},
+  note = {Companion site: \url{https://co-existence.ai} and newsletter \emph{One Useful Thing}: \url{https://www.oneusefulthing.org}}
+}
+
+@book{mollick2024cointelligence,
+  author = {Mollick, Ethan},
+  title = {Co-Intelligence: Living and Working with AI},
+  year = {2024},
+  publisher = {Portfolio / Penguin Random House},
+  isbn = {978-0593716717},
+  url = {https://www.penguinrandomhouse.com/books/741805/co-intelligence-by-ethan-mollick/}
+}
+
+@book{goodfellow2016deep,
+  title = {Deep Learning},
+  author = {Goodfellow, Ian and Bengio, Yoshua and Courville, Aaron},
+  year = {2016},
+  publisher = {MIT Press},
+  url = {https://www.deeplearningbook.org}
+}
+
+@book{barabasi2016network,
+  author = {Barab{\'a}si, Albert-L{\'a}szl{\'o}},
+  title = {Network Science},
+  year = {2016},
+  publisher = {Cambridge University Press},
+  url = {http://networksciencebook.com}
+}
+
+@book{molnar2022interpretable,
+  author = {Molnar, Christoph},
+  title = {Interpretable Machine Learning: A Guide for Making Black Box Models Explainable},
+  year = {2025},
+  edition = {3rd},
+  url = {https://christophm.github.io/interpretable-ml-book/}
+}
+
+% =====================================================================
+% MACHINE LEARNING AND AI IN MEDICINE
 % =====================================================================
 
 @article{lundervold2019overview,
-  author = {Lundervold, Alexander Selvikvåg and Lundervold, Arvid},
-  title = {An overview of deep learning in medical imaging focusing on MRI},
-  journal = {Zeitschrift für Medizinische Physik},
+  author = {Lundervold, Alexander Selvikv{\aa}g and Lundervold, Arvid},
+  title = {An overview of deep learning in medical imaging focusing on {MRI}},
+  journal = {Zeitschrift f{\"u}r Medizinische Physik},
   volume = {29},
   number = {2},
   pages = {102--127},
@@ -39,16 +86,30 @@
   doi = {10.1038/s41591-018-0316-z}
 }
 
-@book{goodfellow2016deep,
-  title = {Deep Learning},
-  author = {Goodfellow, Ian and Bengio, Yoshua and Courville, Aaron},
-  year = {2016},
-  publisher = {MIT Press},
-  url = {https://www.deeplearningbook.org}
+@article{acosta2022multimodal,
+  author = {Acosta, Julio N. and Falcone, Guido J. and Rajpurkar, Pranav and Topol, Eric J.},
+  title = {Multimodal biomedical {AI}},
+  journal = {Nature Medicine},
+  volume = {28},
+  number = {9},
+  pages = {1773--1784},
+  year = {2022},
+  doi = {10.1038/s41591-022-01981-2}
+}
+
+@article{goh2026superintelligence,
+  author = {Goh, Ethan and Wu, David and Walton, Chase and McCoy, Liam G. and Singhal, Karan and Rajpurkar, Pranav and Manrai, Arjun K. and Wachter, Robert and Topol, Eric and Horvitz, Eric and Rodman, Adam and Chen, Jonathan H. and others},
+  title = {Toward a test of medical {AI} superintelligence},
+  journal = {Nature Medicine},
+  volume = {32},
+  number = {9},
+  pages = {3128--3130},
+  year = {2026},
+  doi = {10.1038/s41591-026-04539-8}
 }
 
 % =====================================================================
-% PASIENT-LIKHETSNETTVERK OG NETTVERKSVITENSKAP
+% PATIENT SIMILARITY NETWORKS AND NETWORK SCIENCE
 % =====================================================================
 
 @article{pai2019patient,
@@ -63,8 +124,8 @@
 }
 
 @article{lundervold2025psn,
-  author = {Lundervold, Arvid and others},
-  title = {Patient similarity networks for brain-cognition relationships in IBS},
+  author = {Lundervold, Arvid and Bj{\o}rsvik, Ben Ren{\'e} and Billing, Julie and Berentsen, Birgitte and Lied, G{\"u}len Arslan and Steinsvik, Elisabeth K. and Hausken, Trygve and Pfabigan, Daniela M. and Lundervold, Astri J.},
+  title = {Brain Morphometry and Cognitive Features in the Prediction of Irritable Bowel Syndrome},
   journal = {Diagnostics},
   volume = {15},
   number = {4},
@@ -73,16 +134,8 @@
   doi = {10.3390/diagnostics15040470}
 }
 
-@book{barabasi2016network,
-  author = {Barabási, Albert-László},
-  title = {Network Science},
-  year = {2016},
-  publisher = {Cambridge University Press},
-  url = {http://networksciencebook.com}
-}
-
 @article{newman2003structure,
-  author = {Newman, Mark EJ},
+  author = {Newman, Mark E. J.},
   title = {The structure and function of complex networks},
   journal = {SIAM Review},
   volume = {45},
@@ -93,14 +146,15 @@
 }
 
 % =====================================================================
-% GENERATIV AI OG STORE SPRÅKMODELLER
+% GENERATIVE AI AND LARGE LANGUAGE MODELS
 % =====================================================================
 
-@article{vaswani2017attention,
-  author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, Lukasz and Polosukhin, Illia},
+@inproceedings{vaswani2017attention,
+  author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, {\L}ukasz and Polosukhin, Illia},
   title = {Attention is all you need},
-  booktitle = {Advances in Neural Information Processing Systems},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
   volume = {30},
+  pages = {5998--6008},
   year = {2017},
   url = {https://arxiv.org/abs/1706.03762}
 }
@@ -127,69 +181,52 @@
   doi = {10.1038/s41591-023-02448-8}
 }
 
-@misc{openai2024gpt4,
-  author = {{OpenAI}},
-  title = {GPT-4 Technical Report},
-  year = {2024},
-  howpublished = {\url{https://arxiv.org/abs/2303.08774}},
-  note = {Accessed: 2025-12-09}
+@article{tu2025amie,
+  author = {Tu, Tao and Schaekermann, Mike and Palepu, Anil and Saab, Khaled and Freyberg, Jan and Tanno, Ryutaro and Wang, Amy and Li, Brenna and Amin, Mohamed and Cheng, Yong and Singhal, Karan and Natarajan, Vivek and others},
+  title = {Towards conversational diagnostic artificial intelligence},
+  journal = {Nature},
+  volume = {642},
+  pages = {442--450},
+  year = {2025},
+  doi = {10.1038/s41586-025-08866-7}
+}
+
+@article{deepseek2025r1,
+  author = {{DeepSeek-AI} and Guo, Daya and Yang, Dejian and Zhang, Haowei and Song, Junxiao and Wang, Peiyi and Zhu, Qihao and Xu, Runxin and Zhang, Ruoyu and Ma, Shirong and Liang, Wenfeng and others},
+  title = {{DeepSeek-R1} incentivizes reasoning in {LLMs} through reinforcement learning},
+  journal = {Nature},
+  volume = {645},
+  pages = {633--638},
+  year = {2025},
+  doi = {10.1038/s41586-025-09422-z}
 }
 
 % =====================================================================
-% FORKLARBAR AI (XAI) OG TRUSTWORTHY AI
+% EXPLAINABLE AI (XAI), TRUSTWORTHY AI, ETHICS AND REGULATION
 % =====================================================================
 
-@article{ribeiro2016lime,
+@inproceedings{ribeiro2016lime,
   author = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
-  title = {"Why should I trust you?": Explaining the predictions of any classifier},
+  title = {``Why should {I} trust you?'': Explaining the predictions of any classifier},
   booktitle = {Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
   pages = {1135--1144},
   year = {2016},
   doi = {10.1145/2939672.2939778}
 }
 
-@article{lundberg2017shap,
+@inproceedings{lundberg2017shap,
   author = {Lundberg, Scott M. and Lee, Su-In},
   title = {A unified approach to interpreting model predictions},
-  booktitle = {Advances in Neural Information Processing Systems},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
   volume = {30},
+  pages = {4765--4774},
   year = {2017},
   url = {https://arxiv.org/abs/1705.07874}
 }
 
-@book{molnar2022interpretable,
-  author = {Molnar, Christoph},
-  title = {Interpretable Machine Learning: A Guide for Making Black Box Models Explainable},
-  year = {2022},
-  edition = {2nd},
-  url = {https://christophm.github.io/interpretable-ml-book/}
-}
-
-@misc{eu2024aiact,
-  author = {{European Commission}},
-  title = {Regulation (EU) 2024/1689 (AI Act)},
-  year = {2024},
-  howpublished = {\url{https://artificialintelligenceact.eu}},
-  note = {Verdens første omfattende AI-regulering}
-}
-
-@article{vollmer2020ml,
-  author = {Vollmer, Sebastian and Mateen, Bilal A. and Bohner, Gergo and Király, Franz J. and Ghani, Rayid and Jonsson, Pall and Cumbers, Sarah and Jonas, Adrian and McAllister, Katherine S. L. and Myles, Puja and Grainger, David and Birse, Marc and Branson, Richard and Moons, Karel G. M. and Collins, Gary S. and Ioannidis, John P. A. and Holmes, Chris and Hemingway, Harry},
-  title = {Machine learning and artificial intelligence research for patient benefit: 20 critical questions on transparency, replicability, ethics, and effectiveness},
-  journal = {BMJ},
-  volume = {368},
-  pages = {l6927},
-  year = {2020},
-  doi = {10.1136/bmj.l6927}
-}
-
-% =====================================================================
-% AI-ETIKK I MEDISIN
-% =====================================================================
-
 @article{morley2020ethics,
   author = {Morley, Jessica and Machado, Caio C. V. and Burr, Christopher and Cowls, Josh and Joshi, Indra and Taddeo, Mariarosaria and Floridi, Luciano},
-  title = {The ethics of AI in health care: A mapping review},
+  title = {The ethics of {AI} in health care: A mapping review},
   journal = {Social Science \& Medicine},
   volume = {260},
   pages = {113172},
@@ -197,34 +234,41 @@
   doi = {10.1016/j.socscimed.2020.113172}
 }
 
-@article{rigby2019ethical,
-  author = {Rigby, Michael J.},
-  title = {Ethical dimensions of using artificial intelligence in health care},
-  journal = {AMA Journal of Ethics},
-  volume = {21},
-  number = {2},
-  pages = {E121--E124},
-  year = {2019},
-  doi = {10.1001/amajethics.2019.121}
+@misc{eu2024aiact,
+  author = {{European Union}},
+  title = {Regulation ({EU}) 2024/1689 ({Artificial Intelligence Act})},
+  year = {2024},
+  url = {https://artificialintelligenceact.eu},
+  note = {Official Journal of the European Union, OJ L 2024/1689}
 }
 
-@incollection{bostrom2014ethics,
-  author = {Bostrom, Nick and Yudkowsky, Eliezer},
-  title = {The ethics of artificial intelligence},
-  booktitle = {The Cambridge Handbook of Artificial Intelligence},
-  publisher = {Cambridge University Press},
-  year = {2014},
-  pages = {316--334},
-  url = {https://intelligence.org/files/EthicsofAI.pdf}
+@article{collins2024tripodai,
+  author = {Collins, Gary S. and Moons, Karel G. M. and Dhiman, Paula and Riley, Richard D. and Beam, Andrew L. and Van Calster, Ben and Ghassemi, Marzyeh and Liu, Xiaoxuan and Reitsma, Johannes B. and van Smeden, Maarten and Boulesteix, Anne-Laure and Camaradou, Jennifer C. and Celi, Leo Anthony and Denaxas, Spiros and Denniston, Alastair K. and Glocker, Ben and Golub, Robert M. and Harvey, Hugh and Heinze, Georg and Hoffman, Michael M. and Kengne, Andre Pascal and Lam, Edmund and Lee, Naomi and Loder, Elizabeth W. and Maier-Hein, Lena and Mateen, Bilal A. and McCradden, Melissa D. and Oakden-Rayner, Lauren and Ordish, Johan and Parnell, Richard and Rose, Sherri and Singh, Karandeep and Wynants, Laure and Logullo, Patricia},
+  title = {{TRIPOD+AI} statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods},
+  journal = {BMJ},
+  volume = {385},
+  pages = {e078378},
+  year = {2024},
+  doi = {10.1136/bmj-2023-078378}
+}
+
+@article{lekadir2025futureai,
+  author = {Lekadir, Karim and Frangi, Alejandro F. and Porras, Antonio R. and Glocker, Ben and Cintas, Celia and Langlotz, Curtis P. and Weicken, Eva and Asselbergs, Folkert W. and Prior, Fred and Collins, Gary S. and Kaissis, Georgios and Tsakou, Gianna and Buvat, Ir{\`e}ne and Kalpathy-Cramer, Jayashree and Mongan, John and Schnabel, Julia A. and Kushniruk, Andre and others},
+  title = {{FUTURE-AI}: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare},
+  journal = {BMJ},
+  volume = {388},
+  pages = {e081554},
+  year = {2025},
+  doi = {10.1136/bmj-2024-081554}
 }
 
 % =====================================================================
-% HJERNESVULSTER OG MEDISINSK BILDEANALYSE
+% BRAIN TUMORS AND MEDICAL IMAGE ANALYSIS
 % =====================================================================
 
 @article{louis2021who,
   author = {Louis, David N. and Perry, Arie and Wesseling, Pieter and Brat, Daniel J. and Cree, Ian A. and Figarella-Branger, Dominique and Hawkins, Cynthia and Ng, H. K. and Pfister, Stefan M. and Reifenberger, Guido and Soffietti, Riccardo and von Deimling, Andreas and Ellison, David W.},
-  title = {The 2021 WHO Classification of Tumors of the Central Nervous System: a summary},
+  title = {The 2021 {WHO} Classification of Tumors of the Central Nervous System: a summary},
   journal = {Neuro-Oncology},
   volume = {23},
   number = {8},
@@ -235,7 +279,7 @@
 
 @article{menze2015multimodal,
   author = {Menze, Bjoern H. and Jakab, Andras and Bauer, Stefan and others},
-  title = {The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)},
+  title = {The Multimodal Brain Tumor Image Segmentation Benchmark ({BRATS})},
   journal = {IEEE Transactions on Medical Imaging},
   volume = {34},
   number = {10},
@@ -254,52 +298,23 @@
   doi = {10.1038/s41467-022-33407-5}
 }
 
-% =====================================================================
-% PROGRAMVARE OG VERKTØY
-% =====================================================================
-
-@software{scikit-learn,
-  author = {Pedregosa, Fabian and others},
-  title = {scikit-learn: Machine Learning in Python},
-  journal = {Journal of Machine Learning Research},
-  volume = {12},
-  pages = {2825--2830},
-  year = {2011},
-  url = {https://scikit-learn.org}
-}
-
-@software{networkx,
-  author = {Hagberg, Aric A. and Schult, Daniel A. and Swart, Pieter J.},
-  title = {Exploring network structure, dynamics, and function using NetworkX},
-  booktitle = {Proceedings of the 7th Python in Science Conference (SciPy2008)},
-  pages = {11--15},
-  year = {2008},
-  url = {https://networkx.org}
-}
-
-@software{pytorch,
-  author = {Paszke, Adam and others},
-  title = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
-  booktitle = {Advances in Neural Information Processing Systems},
-  volume = {32},
-  year = {2019},
-  url = {https://pytorch.org}
-}
-
-@software{pycaret,
-  author = {Ali, Moez},
-  title = {PyCaret: An open source, low-code machine learning library in Python},
-  year = {2020},
-  url = {https://www.pycaret.org}
+@article{ma2024medsam,
+  author = {Ma, Jun and He, Yuting and Li, Feifei and Han, Lin and You, Chenyu and Wang, Bo},
+  title = {Segment anything in medical images},
+  journal = {Nature Communications},
+  volume = {15},
+  pages = {654},
+  year = {2024},
+  doi = {10.1038/s41467-024-44824-z}
 }
 
 % =====================================================================
-% ÅPEN VITENSKAP OG REPRODUSERBARHET
+% OPEN SCIENCE AND REPRODUCIBILITY
 % =====================================================================
 
 @article{wilkinson2016fair,
   author = {Wilkinson, Mark D. and others},
-  title = {The FAIR Guiding Principles for scientific data management and stewardship},
+  title = {The {FAIR} Guiding Principles for scientific data management and stewardship},
   journal = {Scientific Data},
   volume = {3},
   pages = {160018},
@@ -307,48 +322,30 @@
   doi = {10.1038/sdata.2016.18}
 }
 
-@article{collins2015tripod,
-  author = {Collins, Gary S. and Reitsma, Johannes B. and Altman, Douglas G. and Moons, Karel G. M.},
-  title = {Transparent reporting of a multivariable prediction model for individual prognosis or diagnosis (TRIPOD): the TRIPOD statement},
-  journal = {BMJ},
-  volume = {350},
-  pages = {g7594},
-  year = {2015},
-  doi = {10.1136/bmj.g7594}
-}
-
-@article{acosta2022multimodal,
-  author = {Acosta, Julio N. and Falcone, Guido J. and Rajpurkar, Pranav and Topol, Eric J.},
-  title = {Multimodal biomedical AI},
-  journal = {Nature Medicine},
-  volume = {28},
-  number = {9},
-  pages = {1773--1784},
-  year = {2022},
-  doi = {10.1038/s41591-022-01981-2}
-}
-
 % =====================================================================
-% NEVROSYMBOLSK AI OG AGENTISK AI
+% NEUROSYMBOLIC AI, KNOWLEDGE GRAPHS, AND AGENTIC AI
 % =====================================================================
 
-@article{garcez2020neurosymbolic,
-  author = {Garcez, Artur d'Avila and Lamb, Luis C.},
-  title = {Neurosymbolic AI: The 3rd Wave},
-  journal = {arXiv preprint arXiv:2012.05876},
-  year = {2020},
-  url = {https://arxiv.org/abs/2012.05876},
-  note = {Oversikt over nevrosymbolsk AI som kombinerer nevrale og symbolske metoder}
+@article{garcez2023neurosymbolic,
+  author = {Garcez, Artur d'Avila and Lamb, Lu{\'\i}s C.},
+  title = {Neurosymbolic {AI}: the 3rd wave},
+  journal = {Artificial Intelligence Review},
+  volume = {56},
+  number = {11},
+  pages = {12387--12406},
+  year = {2023},
+  doi = {10.1007/s10462-023-10448-w}
 }
 
-@article{hitzler2022neuro,
-  author = {Hitzler, Pascal and Sarker, Md Kamruzzaman},
-  title = {Neuro-Symbolic Artificial Intelligence: The State of the Art},
-  journal = {Frontiers in Artificial Intelligence and Applications},
-  volume = {342},
-  year = {2022},
-  doi = {10.3233/FAIA210348},
-  publisher = {IOS Press}
+@article{prenosil2025neurosymbolic,
+  author = {Prenosil, George A. and Weitzel, Thomas K. and Bello, Simone C. and Mingels, Clemens and Manzini, Gianmarco and Meier, Lukas P. and others},
+  title = {Neuro-symbolic {AI} for auditable cognitive information extraction from medical reports},
+  journal = {Communications Medicine},
+  volume = {5},
+  number = {1},
+  pages = {491},
+  year = {2025},
+  doi = {10.1038/s43856-025-01194-x}
 }
 
 @article{nicholson2020knowledge,
@@ -361,38 +358,44 @@
   doi = {10.1016/j.csbj.2020.05.017}
 }
 
-@misc{yao2023react,
-  author = {Yao, Shunyu and Zhao, Jeffrey and Yu, Dian and Du, Nan and Shafran, Izhak and Narasimhan, Karthik and Cao, Yuan},
-  title = {ReAct: Synergizing Reasoning and Acting in Language Models},
-  year = {2023},
-  howpublished = {\url{https://arxiv.org/abs/2210.03629}},
-  note = {Grunnleggende rammeverk for agentisk AI med LLM}
-}
-
-@article{xi2023rise,
-  author = {Xi, Zhiheng and Chen, Wenxiang and Guo, Xin and He, Wei and Ding, Yiwen and Hong, Boyang and Zhang, Ming and Wang, Junzhe and Jin, Senjie and Zhou, Enyu and Zheng, Rui and Fan, Xiaoran and Wang, Xiao and Xiong, Limao and Zhou, Yuhao and Wang, Weiran and Jiang, Changhao and Zou, Yicheng and Liu, Xiangyang and Yin, Zhangyue and Dou, Shihan and Weng, Rongxiang and Cheng, Wensen and Zhang, Qi and Qin, Wenjuan and Zheng, Yongyan and Qiu, Xipeng and Huang, Xuanjing and Gui, Tao},
-  title = {The Rise and Potential of Large Language Model Based Agents: A Survey},
-  journal = {arXiv preprint arXiv:2309.07864},
-  year = {2023},
-  url = {https://arxiv.org/abs/2309.07864}
-}
-
-@article{wang2024agents,
-  author = {Wang, Lei and Ma, Chen and Feng, Xueyang and Zhang, Zeyu and Yang, Hao and Zhang, Jingsen and Chen, Zhiyuan and Tang, Jiakai and Chen, Xu and Lin, Yankai and Zhao, Wayne Xin and Wei, Zhewei and Wen, Ji-Rong},
-  title = {A Survey on Large Language Model based Autonomous Agents},
-  journal = {Frontiers of Computer Science},
-  volume = {18},
-  number = {6},
-  pages = {186345},
+@article{gao2024biomedagents,
+  author = {Gao, Shanghua and Fang, Ada and Huang, Yepeng and Giunchiglia, Valentina and Noori, Ayush and Schwarz, Jonathan Richard and Ektefaie, Yasha and Kondic, Jovana and Zitnik, Marinka},
+  title = {Empowering biomedical discovery with {AI} agents},
+  journal = {Cell},
+  volume = {187},
+  number = {22},
+  pages = {6125--6151},
   year = {2024},
-  doi = {10.1007/s11704-024-40231-1}
+  doi = {10.1016/j.cell.2024.09.022}
 }
 
+@article{moritz2025agents,
+  author = {Moritz, Michael and Topol, Eric and Rajpurkar, Pranav},
+  title = {Coordinated {AI} agents for advancing healthcare},
+  journal = {Nature Biomedical Engineering},
+  volume = {9},
+  number = {4},
+  pages = {432--438},
+  year = {2025},
+  doi = {10.1038/s41551-025-01363-2}
+}
 
+@article{collaco2026agentic,
+  author = {Collaco, Bernardo Gabriele and Haider, Syed Ali and Prabha, Srinivasagam and Gomez-Cabello, Cesar Abraham and Genovese, Ariana and Wood, Nadia G. and Bagaria, Sanjay P. and Gopala, Narayanan and Tao, Cui and Forte, Antonio Jorge},
+  title = {The role of agentic artificial intelligence in healthcare: a scoping review},
+  journal = {npj Digital Medicine},
+  volume = {9},
+  year = {2026},
+  doi = {10.1038/s41746-026-02517-5}
+}
 
-
-
-
-
-
-
+@article{gottweis2026coscientist,
+  author = {Gottweis, Juraj and Weng, Wei-Hung and Daryin, Alexander and Tu, Tao and Palepu, Anil and Sirkovic, Petar and Myaskovsky, Artiom and Weissenberger, Felix and Rong, Keran and Tanno, Ryutaro and Saab, Khaled and Popovici, Dan and Blum, Jacob and Zhang, Fan and Chou, Katherine and Hassabis, Demis and Karthikesalingam, Alan and Natarajan, Vivek and others},
+  title = {Accelerating scientific discovery with {Co-Scientist}},
+  journal = {Nature},
+  volume = {655},
+  number = {8122},
+  pages = {487--496},
+  year = {2026},
+  doi = {10.1038/s41586-026-10644-y}
+}

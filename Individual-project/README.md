@@ -372,7 +372,7 @@ You are encouraged to use AI tools appropriately during project development. Con
 | **ChatGPT / Claude / Gemini** | Literature review support, concept explanation, draft feedback |
 | **DALL-E / Midjourney** | Conceptual illustrations (with disclosure) |
 | **Grammarly / LanguageTool** | Writing polish and grammar checking |
-| **NotebookLM** | Document analysis and synthesis |
+| **[Gemini Notebook (NotebookLM)](https://notebook.google.com)** | Document analysis and synthesis |
 | **Cursor AI** | Code assistance (if your project involves programming) |
 
 **Important:** When using AI tools, maintain academic integrity by:

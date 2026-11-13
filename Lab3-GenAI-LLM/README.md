@@ -319,7 +319,7 @@ Lab3-GenAI-LLM/
 ## Resources and Tools
 
 ### AI Assistants
-- [NotebookLM](https://notebooklm.google.com/) - Google's AI for document analysis
+- [Gemini Notebook (NotebookLM)](https://notebook.google.com/) - Google's AI for document analysis
 - [Claude](https://claude.ai/) - Anthropic's AI assistant
 - [ChatGPT](https://chat.openai.com/) - OpenAI's AI assistant
     - [Prompting Guide](https://cookbook.openai.com/examples/gpt-5/gpt-5-2_prompting_guide) - GPT-5.2 Prompting Guide
