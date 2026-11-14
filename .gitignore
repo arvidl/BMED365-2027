@@ -72,6 +72,10 @@ Lab2-DL/notebooks/*.pkl
 Lab2-DL/modeller/
 Lab2-DL/notebooks/tmp/
 Lab2-DL/notebooks/modeller/
+Lab2-DL/notebooks/checkpoints/
+Lab2-DL/notebooks/models/training_history_*.pkl
+Lab2-DL/notebooks/resources/*_model_history_*
+Lab2-DL/notebooks/thebat.npy
 
 # Lab5 DCE-MRI data (downloaded at runtime via gdown)
 Lab5-Comp-Mod/notebooks/data/
