@@ -1,5 +1,11 @@
 {
-  "description": "Curated 3D Micro-Ground-Truth seed instance mask for BMED365 Kiwi Challenge (upper-right central sector)",
+  "description": "Semi-automated ('silver-standard') 3D Micro-Ground-Truth seed instance mask for the BMED365 Kiwi Challenge (upper-right equatorial sector)",
+  "curation_method": {
+    "standard": "silver-standard (semi-automated algorithmic curation + multi-slice visual audit)",
+    "generator_script": "Lab4-Comp-Imag/Kiwi-challenge/scripts/curate_micro_gt.py",
+    "pipeline_summary": "Padded 3D sub-volume (x=120..216, y=120..216, z=51..77) processed with multi-scale physical-mm 3D Laplacian-of-Gaussian (0.34, 0.44, 0.56 mm) + anisotropic ellipsoidal grey closing (1.15 x 1.15 x 1.50 mm) normalized by local bright-locule envelope (> 11,500) inside 0.24 <= r/R <= 0.60, segmented via 3D marker-controlled watershed, filtered for jet-black core/mean intensity to reject grey radial septa, and split on fused pairs (> 3.2 mm^3) via 3D physical-mm K-means.",
+    "manual_refinement_ready": "Saved on the full 256 x 256 x 128 grid with identical NIfTI affine so users can inspect or manually refine voxel boundaries in ITK-SNAP or 3D Slicer."
+  },
   "source_scan": "kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz",
   "label_nifti": "kiwi_micro_gt_labels.nii.gz",
   "roi_bounds_voxel_xyz": {
@@ -31,6 +37,7 @@
   "n_boundary_crossing_centroid_in_roi": 23,
   "median_seed_vol_mm3": 1.524,
   "stereological_extrapolation": {
+    "note": "Equatorial seed density exceeds polar density; prefer ratio calibration N_raw * P / R in Notebook 03 (~1,440 seeds) over unadjusted equatorial volume extrapolation.",
     "bright_locule_voxels_in_roi": 43184,
     "bright_locule_voxels_whole_kiwi": 870165,
     "volume_extrapolation_factor": 20.15,
