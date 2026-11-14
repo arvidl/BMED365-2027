@@ -26,6 +26,12 @@ This lab is part of our journey through computational imaging and modeling techn
 |  [02-mri-intro.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/02-mri-intro.ipynb)<br> Introduction to Magnetic Resonance Imaging   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/02-mri-intro.ipynb)|
 |  [03-imc-intro.ipynb](https://github.com/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/03-imc-intro.ipynb)<br> Introduction to Imaging Mass Cytometry   | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/03-imc-intro.ipynb)|
 
+### Sub-modules & Extended Challenges
+
+- **[mpMRI-glioma](./mpMRI-glioma/)**: Multiparametric MRI brain tumor (glioma) imaging with MONAI (`01_medical_imaging.ipynb`) and 3D multi-class BraTS segmentation with `fastMONAI` (`1-BRATS-3D-fastMONAI-extended.ipynb` — **Google Colab only**, T4 GPU).
+- **[Kiwi-challenge](./Kiwi-challenge/)**: 7T MRI kiwi seed segmentation challenge (`01-kiwi-explore.ipynb`, `02-kiwi-seeds-explore.ipynb`).
+- **[IMC-example](./IMC-example/)**: Deep dive into `.mcd` Imaging Mass Cytometry data with `readimc` (uses its own isolated `uv` sub-environment; see [IMC-example/README.md](./IMC-example/README.md)).
+
 ---
 
 
@@ -61,7 +67,7 @@ Spend some time playing around with the provided examples. You'll find some ques
 
 - Tian D et al. _The role of large language models in medical image processing: a narrative review_ (article published online 3 Jan 2024) Quant Imaging Med Surg 2024;14(1):1108-1121 [[link](https://qims.amegroups.org/article/view/119330/html)] CC-BY-4.0
 
-- Hu M et al. _Advancing medical imaging with language models: A journey from n-grams to ChatGPT_ ( preprint published online 11 Apr 20234) 	ArXiv 2023, /abs/2304.04920  [[link](https://arxiv.org/abs/2304.04920)]
+- Hu M et al. _Advancing medical imaging with language models: A journey from n-grams to ChatGPT_ (preprint published online 11 Apr 2023) ArXiv 2023, /abs/2304.04920  [[link](https://arxiv.org/abs/2304.04920)]
 
 - Srivastav S et al. _ChatGPT in radiology: The advantages and limitations of artificial intelligence for medical imaging diagnosis_ (published online Jul 6 2023) Cureus 2023; 15(7): e41435 [[link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10404120)] CC-BY-4.0
 

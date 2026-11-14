@@ -258,7 +258,8 @@ Run a cell with `Shift+Enter`, or everything with **Runtime → Run all**. The f
 | **API keys** | Some notebooks use keys for e.g. Kaggle, Hugging Face, OpenAI or Anthropic. Never paste a key into a notebook. Store it under **Secrets** (key icon on the left) and give the notebook access to it. |
 | **GPU quota** | The free GPU has usage limits. Switch back to CPU when you don't need it, and close the tab when you are done. |
 | **AI help** | Click the Gemini icon to ask questions about the code or have an error explained. |
-| **Local-only notebooks** | A few notebooks cannot run in Colab because they use local models (Ollama in Lab 3, MLX in Lab 5, which needs a Mac with Apple Silicon). Run these locally instead. |
+| **Local-only notebooks** | A few notebooks cannot run in Colab because they use local models (Ollama in Lab 3; local 72B MLX mode in Lab 5, which needs a Mac with Apple Silicon). Run these locally instead. |
+| **Colab-only notebook** | [`1-BRATS-3D-fastMONAI-extended.ipynb`](./Lab4-Comp-Imag/mpMRI-glioma/1-BRATS-3D-fastMONAI-extended.ipynb) uses `fastMONAI` (whose `fastai` pins conflict with the local `uv` environment) and is intended to run in Google Colab with a free T4 GPU. |
 
 > **Tip:** Regardless of which option you choose, all course material is free and openly available. Choose the solution that works best for you!
 

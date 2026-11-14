@@ -21,7 +21,7 @@ The following notebook is essentially a copy of the multi-class semantic segment
 
 | Notebook    |      1-Click Notebook      |
 |:----------|------|
-|  [1-BRATS-3D-fastMONAI-extended.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/mpMRI-glioma/1-BRATS-3D-fastMONAI-extended.ipynb)<br> Multi-class semantic segmentation of a glioma from mpMRI recordings<br> *If on Colab*: Remember to attach a GPU to your Colab Runtime:<br>1. From the **Runtime** menu select **Change Runtime Type**<br>2. Choose **GPU** (T4 GPU) from the drop-down menu<br>3. Click **'SAVE'** (~3 min to install fastMONAI with GPU attached) | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/mpMRI-glioma/1-BRATS-3D-fastMONAI-extended.ipynb)|
+|  [1-BRATS-3D-fastMONAI-extended.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/mpMRI-glioma/1-BRATS-3D-fastMONAI-extended.ipynb)<br> Multi-class semantic segmentation of a glioma from mpMRI recordings<br> **Run in Google Colab** (*`fastMONAI` pins older `fastai`/`torch` dependencies that conflict with the local `uv` environment*). Attach a GPU to your Colab Runtime:<br>1. From the **Runtime** menu select **Change Runtime Type**<br>2. Choose **GPU** (T4 GPU) from the drop-down menu<br>3. Click **'SAVE'** (~3 min to install fastMONAI with GPU attached) | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/mpMRI-glioma/1-BRATS-3D-fastMONAI-extended.ipynb)|
 
 
 <!--
