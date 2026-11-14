@@ -1,56 +1,110 @@
-# Lab 4 Computational imaging (BMED365)
+# Lab 4: The Kiwi Fruit 3D Seed Segmentation Challenge
 
-Last updated 2024-01-18 (using the `bmed365` kernel) by Arvid Lundervold
-
-### The KIWI fruit seed segmentation challenge
+*Updated for BMED365 Spring 2027 (`bmed365-2027` kernel / Google Colab) — Arvid Lundervold*
 
 ![problem](./assets/photo_mri_kiwi_20050219.jpg)
 
-## [Problem formulation](https://docs.google.com/presentation/d/1B_E-Pcwfvj3hgG2o02vsxmez_Bm6x72uI5tzIu0dymU/edit?usp=sharing)
+## Overview: One Simple Fruit, Six Weeks of Computational Thinking
+
+Everyone knows what the inside of a kiwifruit looks like. Yet teaching a computer to accurately **find, separate, and count every single seed in 3D** from a real Magnetic Resonance Imaging (MRI) scan turns out to be surprisingly challenging — and closely mirrors real clinical tasks in biomedical imaging.
+
+In **BMED365**, the Kiwi Challenge serves as a **recurring benchmark problem** ("red thread") from the first lecture in January to **Lab 4 (Computational Imaging)** in February:
+
+- **Intuitive biology, real MRI physics:** No medical jargon is needed on Day 1, yet the 3D scan exhibits partial-volume blurring, intensity shading, closely packed instances, and dark fibrous structures that mimic seeds.
+- **Clinical analogy:** Replace the kiwifruit with the **human brain** and the seeds with **multiple sclerosis (MS) white-matter plaques**, **cerebral microbleeds**, or **micrometastases** (or replace the MRI with 3D microscopy of **cell nuclei**). The computational questions are identical.
+- **Methodological playground:** You can attack the exact same 3D dataset with rule-based filters, classical machine learning, graph/spatial priors, deep learning, vision foundation models, neurosymbolic rules, and AI coding agents.
+
+Slides from the original problem formulation: **[Problem formulation (Google Slides)](https://docs.google.com/presentation/d/1B_E-Pcwfvj3hgG2o02vsxmez_Bm6x72uI5tzIu0dymU/edit?usp=sharing)**
 
 ![task](./assets/kiwi-seed-segmentation-task.png)
 
-From the course website [https://github\.com/computational\-medicine/BMED360\-2021](https://github.com/computational-medicine/BMED360-2021) download the [KIWI](http://en.wikipedia.org/wiki/Kiwi_(fruit)) fruit data as [DICOM](https://www.dicomstandard.org) files (mentioned in [this](https://github.com/computational-medicine/BMED360-2021/tree/master/Lab0-beginners-guide/03-begin-image_processing_basics.ipynb) Lab0 Jupyter notebook), or as a single [NIFTI file](https://github.com/computational-medicine/BMED360-2021/tree/master/midterm-project/data).
+---
 
-## Data description
+## The Challenge Tasks
 
-The 3D dataset, consisting of 128 transaxial slices through the long axis of the kiwi, was acquired with the 7 T [Bruker Pharmascan](https://www.bruker.com/en/products-and-solutions/preclinical-imaging/mri/pharmascan-new.html) MRI scanner at the *Molecular Imaging Center* ([MIC/Vivarium](https://wikihost.uib.no/mriwiki/index.php/Main_Page)), University of Bergen, using the 2D [RARE](http://www.mr-tip.com/serv1.php?type=seq&sub=12) pulse sequence (Echo Train Length = 8, TR = 18520 ms, TE = 63.9 ms, No. of Averages = 2, Flip Angle = 180 deg, Slice thickness = 0.5 mm, In-plane pixel resolution = 0.234 x 0.234 mm$^2$, Acquisition matrix = 256 x 256, Number of slices = 128).
+Starting from the 3D 7T MRI scan of an intact kiwifruit:
 
-## Tentative methods
-[Segment](https://en.wikipedia.org/wiki/Image_segmentation) the seeds **from the background** using all the clever tricks / ideas you can come up with (e.g. adaptive thresholding, template matching / a priori structural information, Fourier space methods, deep convolutional neural networks, …).
-Try out both **2D** and **3D** approaches.   [Use PYTHON, JAVA ([ImageJ](https://imagej.net/Welcome)/[Fiji](https://imagej.net/Fiji)/[MIPAV](https://mipav.cit.nih.gov)) or MATLAB or R or  …]
+1. **3D Seed Segmentation & Counting:**
+   Segment the dark seeds from the surrounding fruit tissue and estimate the **total number of seeds** ($N$) in the kiwifruit. If your method has tunable parameters or probabilistic outputs, provide an **uncertainty / sensitivity range** for your count.
+2. **Biomedical Biomarker Analogy ("Lesion Load"):**
+   Treat the whole kiwifruit as a "brain" and the segmented seeds as focal pathological lesions (e.g., [MS plaques](https://pubmed.ncbi.nlm.nih.gov/23084503/)). Using the physical voxel dimensions of the scan, estimate:
+   - Whole-fruit volume $V_{\text{kiwi}}$ ($\text{mm}^3$ or $\text{cm}^3$)
+   - Total seed volume $V_{\text{seeds}}$ ($\text{mm}^3$) and mean single-seed volume ($\text{mm}^3$)
+   - **"Lesion load"** ([volume fraction](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0120754)): $V_{\text{seeds}} / V_{\text{kiwi}}$
+3. **Verification Without Complete Ground Truth:**
+   Nobody manually segmented all ~700–1,200 seeds across all 128 slices, and the physical fruit from 2005 was never dissected to count the seeds. **How can you verify whether your count and segmentation are trustworthy?** (See [Evaluation & Semi-Verifiability](#evaluation--semi-verifiability-how-do-we-know-an-answer-is-right) below.)
 
-From your segmentation results:
+---
 
-- Make an estimate of the **number of seeds** in the Kiwi.
-- If you are using probabilistic methods you might also provide a confidence interval for your estimate.
-- Try to assess the **goodness of your segmentation method**  by cutting out a portion of the volume (e.g. some contiguous slices) and do a manual count of the number of seeds and compare with your segmentation results (e.g. *false positive detections*, *false negative detections*).
-- Now, consider the Kiwi to be the brain and the seeds to be pathological lesions, such as [MS plaques](https://www.ncbi.nlm.nih.gov/pubmed/23084503).
-- Make an estimate of the [“lesion load”](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0120754) i.e. the ratio: volume of lesions (seeds) / volume of whole brain (kiwi), using the voxel size information from the scan and your [instance segmentation](https://paperswithcode.com/task/instance-segmentation) results.
+## Data & Notebooks
 
+All data files are included directly in [`./data/`](./data/) — no external downloads are required.
 
-## Report
-Write a **short scientific report** (preferably in LaTeX / Overleaf) from your investigation, including:
-- **Title** and **Author** (your name, e-mail address, and date of submission)
-- “**Introduction**” with background and problem formulation
-- “**Materials and methods**” regarding test object (kiwifruit), image acquisition and the image analysis methods being used (your algorithm / code can be given in an Appendix)
-- “**Experimental results**” (seed counts for given algorithmic parameter settings, processing time, etc., use Figures and Tables to describe your results)
-- “**Discussion**” (main results, strength and weaknesses of your approach, suggestions for improvement, relevance to similar problems, and "Conclusions").
-- “**Bibliography**” (try to find some relevant literature to this image analysis task, and your algorithmic approach).
+### Dataset Summary
 
-The Report should be sent by e-mail at latest on the day before the 2nd period of the course (i.e. Thursday May 27th)
+The 3D dataset was acquired on **17 February 2005** using the preclinical **7 T [Bruker Pharmascan](https://www.bruker.com/en/products-and-solutions/preclinical-imaging/mri/pharmascan-new.html)** (`Pharmascan300`) MRI scanner at the *Molecular Imaging Center* (MIC / Vivarium), University of Bergen.
 
+| Property | Value | Why it matters for segmentation |
+|:---------|:------|:--------------------------------|
+| **Pulse sequence** | 2D RARE (Rapid Acquisition with Relaxation Enhancement) | $T_2$-weighted contrast: water-rich locular gel is bright; seeds, dense central core (*columella*), radial septa, and peel appear dark |
+| **Sequence parameters** | `TR = 18,520.8 ms`, `TE = 63.9 ms`, `ETL = 8`, `Flip Angle = 180°`, `Averages = 2` | High in-plane SNR, but slight smooth intensity shading across the field of view |
+| **Volume matrix** | `256 × 256 × 128` voxels | 128 transaxial slices along the long axis of the fruit (`8,388,608` voxels total) |
+| **Voxel spacing** | `0.2344 × 0.2344 × 0.5000 mm³` (`≈ 0.0275 mm³/voxel`) | **Anisotropic voxels:** slice thickness (`0.5 mm`) is more than twice the in-plane pixel size (`0.234 mm`), causing partial-volume averaging between slices |
+| **Files in [`data/`](./data/)** | [`kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz`](./data/kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz)<br>[`kiwi_20050217191129_131073_RARE_high_res_axial.json`](./data/kiwi_20050217191129_131073_RARE_high_res_axial.json)<br>[`dicom/`](./data/dicom/) (128 files) & [`kiwi_064.png`](./data/kiwi_064.png) | Ready for Python (`nibabel`, `pydicom`, `SimpleITK`, `MONAI`, `scikit-image`) as well as [3D Slicer](https://www.slicer.org/), [ITK-SNAP](http://www.itksnap.org/), or [Fiji/ImageJ](https://imagej.net/software/fiji/) |
 
-## Some additional information
+### Starter Notebooks
 
-#### Visualizations from Department of Informatics, UoB:  
- http://www.ii.uib.no/vis/resources/kiwi-vis
+The notebooks run in the main course `uv` environment (`bmed365-2027` kernel) or directly in Google Colab:
 
-- [Visualization](http://ii.uib.no/vis_old/resources/kiwi-vis/kiwi-ove-vis.mp4) by Ove Daae Lampe
-- [Visualization](http://ii.uib.no/vis_old/resources/kiwi-vis/kiwi-stian-vis.mov) by Stian Eikeland
-- Visualization by Veronika Šoltészová: ![Visualization](http://ii.uib.no/vis_old/resources/kiwi-vis/vero-kiwi-vis.png)
+| Notebook | Description | 1-Click Notebook |
+|:---------|:------------|:-----------------|
+| [01-kiwi-explore.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/01-kiwi-explore.ipynb) | Load the 3D NIfTI / DICOM kiwi scan, inspect header metadata, and visualize axial, coronal, and sagittal slices | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/01-kiwi-explore.ipynb) |
+| [02-kiwi-seeds-explore.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/02-kiwi-seeds-explore.ipynb) | Initial 2D experiments with intensity thresholding, spatial filtering, and multispectral K-means clustering | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/02-kiwi-seeds-explore.ipynb) |
+| [03-kiwi-paradigms-and-verification.ipynb](https://github.com/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/03-kiwi-paradigms-and-verification.ipynb) | **Lab 4 Live Walkthrough:** Rung 1 (naive 3D thresholding) → Rung 2A (2D top-hat + K-means) → Rung 2B (3D anisotropic top-hat + watershed) evaluated on the **4-Panel Semi-Verifiability Dashboard** | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/03-kiwi-paradigms-and-verification.ipynb) |
 
+---
 
-#### "All" about [kiwi seeds](https://www.zespri.com/en-IN/blogdetail/all-about-kiwi-seeds).
+## A Spectrum of Approaches Across the Course
 
-#### How to [grow kiwifruit](https://www.wikihow.com/Grow-Kiwifruit).
+As we progress through BMED365, consider how each family of methods handles (or fails on) the kiwi seeds:
+
+1. **Classical Rule-Based & Signal Processing (2D vs. 3D):**
+   - Global or adaptive thresholding, background bias-field correction, morphological opening/closing, distance-transform watershed, Laplacian/Difference of Gaussians (LoG/DoG) blob detection, or 3D ellipsoidal template matching.
+   - *Watch out for:* Dark peel voxels, radial vascular bundles, and adjacent seeds merging into single large connected components.
+2. **Classical Machine Learning & Radiomics (cf. [Lab 0](../../Lab0-ML/README.md)):**
+   - Stack filtered volumes (intensity, gradient magnitude, Hessian/blobness at seed scale, distance from fruit center) into a multi-feature matrix for unsupervised clustering (K-means, GMM) or supervised pixel/voxel classification (Random Forest / XGBoost, or interactive tools like [ilastik](https://www.ilastik.org/)).
+3. **Spatial Graphs & Structural Priors (cf. [Lab 1](../../Lab1-NetworkSci-PSN/README.md)):**
+   - Kiwifruit seeds are not scattered at random: they are arranged inside bright radial locules surrounding the central fibrous core (*columella*, which looks white optically but appears dark in $T_2$-weighted MRI). Representing candidate seed centroids as a 3D spatial graph helps spot outliers and merged clusters.
+4. **Deep Learning, Self-Supervised & Foundation Models (cf. [Lab 2](../../Lab2-DL) & [Lab 4](../README.md)):**
+   - Train a compact 2D/3D U-Net on a handful of manually labeled slices, apply biomedical instance segmenters ([StarDist](https://github.com/stardist/stardist), [Cellpose](https://www.cellpose.org/)), or test zero-shot / promptable vision foundation models ([SAM 2](https://github.com/facebookresearch/sam2), [MedSAM](https://github.com/bowang-lab/MedSAM), [MicroSAM](https://github.com/computational-cell-analytics/micro-sam)).
+5. **Neurosymbolic / Prior-Constrained Segmentation:**
+   - Combine neural seed proposals with explicit botanical and physical constraints (anatomical pericarp ring mask, non-overlapping 3D ellipsoids, plausible single-seed volume in $\text{mm}^3$).
+6. **AI-Assisted Coding & Agentic Workflows (cf. [Quick Start](../../Lab-QuickStart/README.md) & [Lab 3](../../Lab3-GenAI-LLM)):**
+   - Ask a multimodal LLM directly *"How many seeds are in `kiwi_064.png`?"* and observe why raw visual counting fails.
+   - Then use an **AI coding partner or agent** (Gemini, Claude, ChatGPT, Cursor) to write a 3D Python pipeline, inspect diagnostic overlay plots, check physical constraints, and iteratively refine the algorithm.
+
+---
+
+## Evaluation & Semi-Verifiability: How Do We Know an Answer Is Right?
+
+In many real biomedical problems — and in AI-assisted coding — running code that produces *a number* is easy; **verifying** that the number reflects biological reality is the hard part. Because complete voxel-by-voxel ground truth does not exist for this scan, the Kiwi Challenge is **semi-verifiable** through multiple independent checks:
+
+- **Manual Sub-Volume Audit ("Micro-Ground-Truth"):** Crop a manageable 3D sub-volume (e.g., 5–8 contiguous axial slices or one wedge in [ITK-SNAP](http://www.itksnap.org/) / [3D Slicer](https://www.slicer.org/)), count the seeds manually, and compute **true positives, false positives, false negatives, Precision, Recall, and F1-score**.
+- **Physical Volume Sanity Checks:** At `0.0275 mm³/voxel`, a realistic kiwifruit seed (`~1–3 mm³`) spans roughly **35–110 voxels**. Plotting the histogram of connected-component volumes immediately reveals tiny noise specks (`< 10 voxels`) and fused multi-seed blobs (`> 200 voxels`).
+- **Anatomical Zone Constraints:** Seeds only exist in the inner pericarp ring — zero detections should fall in the central fibrous columella, the outer skin, or air outside the fruit.
+- **3D Multi-Planar Consistency:** A real seed spans ~3–5 consecutive axial slices and remains compact when viewed in **coronal** and **sagittal** cross-sections.
+- **Perturbation & Cross-Method Consensus:** Does changing a threshold by 5% double your seed count? Do two very different methods (e.g., 3D LoG blob detection vs. a deep instance segmenter) agree on the same seed locations?
+
+---
+
+## How We Use This Challenge in BMED365
+
+- **Lecture 1 → Lab 4 Thought Experiment:** Keep this dataset in mind throughout Block 1 as you learn ML, networks, deep learning, and prompt/agentic engineering. In **Lab 4 (Mon 8 Feb 2027)**, we compare approaches side-by-side — from naive thresholding failures to modern foundation-model and agentic pipelines — and examine how each method is evaluated.
+- **Optional [Individual Project](../../Individual-project/README.md) Topic (Block 2):** If you are looking for a concrete, self-contained dataset for your Block 2 digital poster and speed-poster presentation, you are welcome to use the Kiwi Challenge (for example, benchmarking classical vs. deep/agentic segmentation methods and designing a rigorous validation protocol).
+
+---
+
+## Additional Background & Visualizations
+
+- **3D Volume Rendering (Dept. of Informatics, UiB):** Example 3D rendering from the UiB visualization group in [`./assets/kiwi-stian-eikeland-vis-video-to-gif.png`](./assets/kiwi-stian-eikeland-vis-video-to-gif.png) (visualizations originally created by Ove Daae Lampe, Stian Eikeland, and Veronika Šoltészová).
+- **Botanical background:** [All about kiwi seeds (Zespri)](https://www.zespri.com/en-IN/blogdetail/all-about-kiwi-seeds) | [Kiwifruit (*Actinidia deliciosa*) morphology](https://en.wikipedia.org/wiki/Kiwifruit)
