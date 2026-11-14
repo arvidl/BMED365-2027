@@ -29,7 +29,7 @@ This lab is part of our journey through computational imaging and modeling techn
 ### Sub-modules & Extended Challenges
 
 - **[mpMRI-glioma](./mpMRI-glioma/)**: Multiparametric MRI brain tumor (glioma) imaging with MONAI (`01_medical_imaging.ipynb`) and 3D multi-class BraTS segmentation with `fastMONAI` (`1-BRATS-3D-fastMONAI-extended.ipynb` — **Google Colab only**, T4 GPU).
-- **[Kiwi-challenge](./Kiwi-challenge/)**: 7T MRI kiwi seed segmentation challenge (`01-kiwi-explore.ipynb`, `02-kiwi-seeds-explore.ipynb`, `03-kiwi-paradigms-and-verification.ipynb`).
+- **[Kiwi-challenge](./Kiwi-challenge/)**: Course-wide 7T MRI 3D kiwi seed segmentation & "lesion load" benchmark ([Lecture 1 teaser slides](./Kiwi-challenge/Beamer/main.pdf), notebooks `01`–`03`, curated 3D Micro-Ground-Truth sector, and 4-panel semi-verifiability harness).
 - **[IMC-example](./IMC-example/)**: Deep dive into `.mcd` Imaging Mass Cytometry data with `readimc` (uses its own isolated `uv` sub-environment; see [IMC-example/README.md](./IMC-example/README.md)).
 
 ---

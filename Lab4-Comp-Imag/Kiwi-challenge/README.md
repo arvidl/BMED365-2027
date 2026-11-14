@@ -14,9 +14,15 @@ In **BMED365**, the Kiwi Challenge serves as a **recurring benchmark problem** (
 - **Clinical analogy:** Replace the kiwifruit with the **human brain** and the seeds with **multiple sclerosis (MS) white-matter plaques**, **cerebral microbleeds**, or **micrometastases** (or replace the MRI with 3D microscopy of **cell nuclei**). The computational questions are identical.
 - **Methodological playground:** You can attack the exact same 3D dataset with rule-based filters, classical machine learning, graph/spatial priors, deep learning, vision foundation models, neurosymbolic rules, and AI coding agents.
 
-Slides from the original problem formulation: **[Problem formulation (Google Slides)](https://docs.google.com/presentation/d/1B_E-Pcwfvj3hgG2o02vsxmez_Bm6x72uI5tzIu0dymU/edit?usp=sharing)**
+Slides & visual teasers:
+- **[Lecture 1 Teaser Slides (Beamer PDF, 10 min)](https://github.com/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/Beamer/main.pdf)** *(source: [`./Beamer/main.tex`](./Beamer/main.tex))*
+- **[Original Problem Formulation (Google Slides)](https://docs.google.com/presentation/d/1B_E-Pcwfvj3hgG2o02vsxmez_Bm6x72uI5tzIu0dymU/edit?usp=sharing)**
 
-![task](./assets/kiwi-seed-segmentation-task.png)
+<p align="center">
+  <img src="./assets/kiwi_7T_flythrough.gif" alt="7T MRI axial flythrough of intact kiwifruit" width="240"/>
+</p>
+
+![teaser](./assets/kiwi_lecture1_teaser_card.png)
 
 ---
 
@@ -50,17 +56,17 @@ The 3D dataset was acquired on **17 February 2005** using the preclinical **7 T 
 | **Sequence parameters** | `TR = 18,520.8 ms`, `TE = 63.9 ms`, `ETL = 8`, `Flip Angle = 180°`, `Averages = 2` | High in-plane SNR, but slight smooth intensity shading across the field of view |
 | **Volume matrix** | `256 × 256 × 128` voxels | 128 transaxial slices along the long axis of the fruit (`8,388,608` voxels total) |
 | **Voxel spacing** | `0.2344 × 0.2344 × 0.5000 mm³` (`≈ 0.0275 mm³/voxel`) | **Anisotropic voxels:** slice thickness (`0.5 mm`) is more than twice the in-plane pixel size (`0.234 mm`), causing partial-volume averaging between slices |
-| **Files in [`data/`](./data/)** | [`kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz`](./data/kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz)<br>[`kiwi_20050217191129_131073_RARE_high_res_axial.json`](./data/kiwi_20050217191129_131073_RARE_high_res_axial.json)<br>[`dicom/`](./data/dicom/) (128 files) & [`kiwi_064.png`](./data/kiwi_064.png) | Ready for Python (`nibabel`, `pydicom`, `SimpleITK`, `MONAI`, `scikit-image`) as well as [3D Slicer](https://www.slicer.org/), [ITK-SNAP](http://www.itksnap.org/), or [Fiji/ImageJ](https://imagej.net/software/fiji/) |
+| **Files in [`data/`](./data/)** | [`kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz`](./data/kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz)<br>[`kiwi_20050217191129_131073_RARE_high_res_axial.json`](./data/kiwi_20050217191129_131073_RARE_high_res_axial.json)<br>[`kiwi_micro_gt_labels.nii.gz`](./data/kiwi_micro_gt_labels.nii.gz) & [`kiwi_micro_gt_roi.json`](./data/kiwi_micro_gt_roi.json)<br>[`dicom/`](./data/dicom/) (128 files) & [`kiwi_064.png`](./data/kiwi_064.png) | Ready for Python (`nibabel`, `pydicom`, `SimpleITK`, `MONAI`, `scikit-image`) as well as [3D Slicer](https://www.slicer.org/), [ITK-SNAP](http://www.itksnap.org/), or [Fiji/ImageJ](https://imagej.net/software/fiji/). Includes a curated `80 × 80 × 16` **3D Micro-Ground-Truth** label volume (`98` verified 3D seed instances) aligned to the scan affine |
 
 ### Notebook Trilogy
 
-The three notebooks form a step-by-step progression and run in the main course `uv` environment (`bmed365-2027` kernel) or directly in Google Colab:
+The three notebooks form a step-by-step progression and run in the main course `uv` environment (`bmed365-2027` kernel) or directly in Google Colab *(note: in Colab, `resolve_kiwi_file(...)` downloads data and Micro-GT files automatically from the `main` branch)*:
 
 | Notebook | Description | 1-Click Notebook |
 |:---------|:------------|:-----------------|
 | [01-kiwi-explore.ipynb](https://github.com/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/01-kiwi-explore.ipynb) | **Part 1:** Load the 3D NIfTI / DICOM kiwi scan, inspect header metadata, voxel geometry, and affine coordinate systems | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/01-kiwi-explore.ipynb) |
 | [02-kiwi-seeds-explore.ipynb](https://github.com/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/02-kiwi-seeds-explore.ipynb) | **Part 2:** 2D single-slice filtering, thresholding, unsupervised K-means clustering, & the 2011–2012 Dagstuhl / CUHK 3D variational milestone | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/02-kiwi-seeds-explore.ipynb) |
-| [03-kiwi-paradigms-and-verification.ipynb](https://github.com/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/03-kiwi-paradigms-and-verification.ipynb) | **Part 3 (Lab 4 Live Walkthrough):** Full 3D segmentation ladder (Rung 1 → Rung 2B → Foundation Models & Agents), quantitative "lesion load", & the **4-Panel Semi-Verifiability Dashboard** | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/03-kiwi-paradigms-and-verification.ipynb) |
+| [03-kiwi-paradigms-and-verification.ipynb](https://github.com/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/03-kiwi-paradigms-and-verification.ipynb) | **Part 3 (Lab 4 Live Walkthrough):** Full 3D segmentation ladder (Rung 1 → Rung 2B → Foundation Models & Agents), quantitative "lesion load", Curated 3D Micro-GT scoring (`P/R/F1` + calibrated count), & the **4-Panel Semi-Verifiability Dashboard** | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab4-Comp-Imag/Kiwi-challenge/notebooks/03-kiwi-paradigms-and-verification.ipynb) |
 
 ---
 
@@ -89,7 +95,7 @@ As we progress through BMED365, consider how each family of methods handles (or 
 
 In many real biomedical problems — and in AI-assisted coding — running code that produces *a number* is easy; **verifying** that the number reflects biological reality is the hard part. Because complete voxel-by-voxel ground truth does not exist for this scan, the Kiwi Challenge is **semi-verifiable** through multiple independent checks:
 
-- **Manual Sub-Volume Audit ("Micro-Ground-Truth"):** Crop a manageable 3D sub-volume (e.g., 5–8 contiguous axial slices or one wedge in [ITK-SNAP](http://www.itksnap.org/) / [3D Slicer](https://www.slicer.org/)), count the seeds manually, and compute **true positives, false positives, false negatives, Precision, Recall, and F1-score**.
+- **Curated 3D Sub-Volume Audit ("Micro-Ground-Truth"):** [`data/kiwi_micro_gt_labels.nii.gz`](./data/kiwi_micro_gt_labels.nii.gz) (and [`kiwi_micro_gt_roi.json`](./data/kiwi_micro_gt_roi.json)) provides a curated `80 × 80 × 16` equatorial validation sector (`x=[128, 208), y=[128, 208), z=[56, 72)`, `98` verified 3D seed instances, `75` strictly interior) on the exact scan affine grid so it overlays directly in [ITK-SNAP](http://www.itksnap.org/) or [3D Slicer](https://www.slicer.org/). Notebook `03` computes 3D instance **Precision, Recall, F1**, and a **bias-calibrated whole-fruit seed count** ($\hat{N}_{\text{cal}} = \hat{N} \cdot \text{Precision} / \text{Recall}$), and you can curate a second wedge to test spatial generalization.
 - **Physical Volume Sanity Checks:** At `0.0275 mm³/voxel`, a realistic kiwifruit seed (`~1–3 mm³`) spans roughly **35–110 voxels**. Plotting the histogram of connected-component volumes immediately reveals tiny noise specks (`< 10 voxels`) and fused multi-seed blobs (`> 200 voxels`).
 - **Anatomical Zone Constraints:** Seeds only exist in the inner pericarp ring — zero detections should fall in the central fibrous columella, the outer skin, or air outside the fruit.
 - **3D Multi-Planar Consistency:** A real seed spans ~3–5 consecutive axial slices and remains compact when viewed in **coronal** and **sagittal** cross-sections.

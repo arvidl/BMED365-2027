@@ -48,7 +48,7 @@ Your topic should engage with one or more themes relevant to BMED365. The follow
 
 | Theme | Example Topics |
 |-------|----------------|
-| **Computational Imaging** | MRI analysis, image segmentation, imaging mass cytometry (IMC), quantitative imaging biomarkers, PET/CT reconstruction, computational pathology |
+| **Computational Imaging** | MRI analysis, 3D instance segmentation & semi-verifiable AI evaluation (e.g., the [Kiwi 7T MRI benchmark](../Lab4-Comp-Imag/Kiwi-challenge/README.md)), imaging mass cytometry (IMC), quantitative imaging biomarkers, PET/CT reconstruction, computational pathology |
 | **Computational Modeling** | Physiological modeling, tumor growth models, cardiovascular flow simulation, pharmacokinetic models, neural network architectures |
 | **Reasoning and Data Analysis** | Machine learning for diagnosis or prediction, patient similarity networks (PSN) or use of graph representation and network science in biomedicine, explainable AI (XAI), clinical or biomedical decision support, natural language processing in biomedicine or healthcare |
 
@@ -61,6 +61,7 @@ Your project may originate from any of the following sources:
 - **Your own research:** A topic from your master's thesis, ongoing research project, or planned future work
 - **Research group context:** A question or problem relevant to your supervisor's research group
 - **Literature-based:** Analysis or critique of a published scientific article
+- **Course benchmark dataset:** A hands-on comparative or methodological study using a self-contained course dataset — for example, benchmarking classical, foundation-model (`SAM 2`, `MedSAM`, `Cellpose`), or agentic 3D segmentation pipelines on the **[7T MRI Kiwi Seed Challenge](../Lab4-Comp-Imag/Kiwi-challenge/README.md)** (complete with a curated 3D Micro-Ground-Truth validation sector)
 - **Future-oriented:** A research question you wish to explore in your future career in biomedical AI
 
 ### 2.3 Faculty Support
