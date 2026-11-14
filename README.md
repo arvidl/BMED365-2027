@@ -6,6 +6,7 @@ _NOTE: Content for Spring 2027 is under ongoing revision and updates until the c
 AI tools you may find useful:
 - **[Gemini Notebook (NotebookLM)](https://notebook.google.com/)** - AI-powered research assistant for document analysis and knowledge synthesis
 - **[Cursor AI](https://cursor.sh/)** - AI-assisted coding and development
+- **[Google Antigravity](https://antigravity.google)** - AI-assisted coding and agent platform
 
 ----
 <!--
@@ -283,4 +284,4 @@ _"In Vivo Imaging and Physiological Modelling"_
 |2021 |https://github.com/computational-medicine/BMED360-2021 |
 |2020 |https://github.com/computational-medicine/BMED360-2020 |
 
-Updated: 2026-11-13
+Updated: 2026-11-14
