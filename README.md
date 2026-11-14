@@ -16,7 +16,7 @@ AI tools you may find useful:
 -->
 
 #### Course Overview
-[BMED365](https://www.uib.no/en/course/BMED365) explores how artificial intelligence and computational tools are shaping modern biomedicine and healthcare. The course is offered in collaboration with the [Department of Biomedicine](https://www.uib.no/en/biomedisin) at the University of Bergen (UiB) and the Medical AI group at the [Mohn Medical Imaging and Visualization Center](https://mmiv.no) (MMIV).
+[BMED365](https://www4.uib.no/en/studies/courses/bmed365?start_semester=2027V) explores how artificial intelligence and computational tools are shaping modern biomedicine and healthcare. The course is offered in collaboration with the [Department of Biomedicine](https://www.uib.no/en/biomedisin) at the University of Bergen (UiB) and the Medical AI group at the [Mohn Medical Imaging and Visualization Center](https://mmiv.no) (MMIV).
 
 The course consists of **two blocks**: Block 1 (January) covers foundational AI and computational medicine, and Block 2 (February) focuses on computational imaging and modeling.
 
