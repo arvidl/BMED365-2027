@@ -1,13 +1,13 @@
 # Lab 4: Computational imaging
 
-This lab is part of our journey through computational imaging and modeling techniques, and the use of AI in biomedical applications. It is designed to give you a comprehensive understanding of how computational imaging is transforming society in general and biomedicine in particular and the role it will play in the future of biomedical research.<br>  _update: 2026-02-08_
+This lab is part of our journey through computational imaging and modeling techniques, and the use of AI in biomedical applications. It is designed to give you a comprehensive understanding of how computational imaging is transforming society in general and biomedicine in particular and the role it will play in the future of biomedical research.<br>  _update: 2026-11-15_
 
 
 ---------------
 
 ## Slides
 
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vQX01gO0c6tJ_TRz2OQjlFkwQXc0OsNSxnKRGUw58sLZp6uGy17txIy5aUbDSiBy3tABEmqfibNtNwV/pub?start=false&loop=false&delayms=3000"><img src="assets/Lab4-slide-0_2026.png"></a>
+[![Lab 4: Computational imaging (BMED365-2027)](assets/Lab4-slide-0_2027.png)](https://docs.google.com/presentation/d/e/2PACX-1vQX01gO0c6tJ_TRz2OQjlFkwQXc0OsNSxnKRGUw58sLZp6uGy17txIy5aUbDSiBy3tABEmqfibNtNwV/pub?start=false&loop=false&delayms=3000)
 
 
 <!--

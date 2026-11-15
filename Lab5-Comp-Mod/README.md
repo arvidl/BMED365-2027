@@ -2,7 +2,7 @@
 
 This lab is part of our journey through computational modeling techniques, and the use of AI in biomedical applications. It is designed to give you a comprehensive understanding of how computational modeling is transforming society in general and biomedicine in particular and the role it will play in the future of biomedical research.<br>  
 
-Arvid Lundervold, 2026-02-11 (updated 2026-02-20)
+Arvid Lundervold, 2026-02-11 (updated 2026-11-15)
 
 
 ---------------
@@ -10,11 +10,11 @@ Arvid Lundervold, 2026-02-11 (updated 2026-02-20)
 ## Slides modeling
 
 <!--
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vQ379CEck_b_rA7prSAi3S7vsRTpgCFymsTSUyO8ZwyCgjniQzSbBiyuM6OmABiIWkl5Aa4-FaQmkP2/pub?start=false&loop=false&delayms=3000"><img src="./assets/Lab5-slide-0.png"></a>
+<a href="https://docs.google.com/presentation/d/e/2PACX-1vQ379CEck_b_rA7prSAi3S7vsRTpgCFymsTSUyO8ZwyCgjniQzSbBiyuM6OmABiIWkl5Aa4-FaQmkP2/pub?start=false&loop=false&delayms=3000"><img src="./assets/Lab5-slide-0_2027.png"></a>
 
 -->
 
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vTN-ccwXAH4e4zPwH_XW7mBC2bjy08wtwo9zvn6wQnxBUjy5Cbls1YyunhjgprbvNvU8cGR8YDRqyxz/pub?start=false&loop=false&delayms=3000"><img src="./assets/Lab5-slide-0-NotebookLM.png"></a>
+[![Lab 5: Computational modeling (BMED365-2027)](./assets/Lab5-slide-0-NotebookLM_2027.png)](https://docs.google.com/presentation/d/e/2PACX-1vTN-ccwXAH4e4zPwH_XW7mBC2bjy08wtwo9zvn6wQnxBUjy5Cbls1YyunhjgprbvNvU8cGR8YDRqyxz/pub?start=false&loop=false&delayms=3000)
 
 <!--
 <img src="assets/Lab3-slide-0.png">
