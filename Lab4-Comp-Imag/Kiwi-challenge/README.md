@@ -136,7 +136,9 @@ If you scan a fresh kiwifruit tomorrow to benchmark a segmentation pipeline, dis
 > 2. **Acquire 3D image & lock predictions:** Scan the intact berry (preclinical 7T MRI, clinical 3T MRI, or fiducial-guided serial optical slices) and pre-register your algorithm's predicted $\hat{N}$, $\hat{V}_{\text{kiwi}}$, $\hat{V}_{\text{seeds}}$, and lesion load $\hat{V}_{\text{seeds}}/\hat{V}_{\text{kiwi}}$ *before* opening the fruit (*blinding against experimenter bias!*).
 > 3. **Enzymatic release:** Halve the berry, scoop all pulp into `100 mL` warm water (`40 °C`, `pH ~4.2`) with `0.5–1%` food-grade wine/juice **pectinase** (`45 min` gentle stirring), and rinse over a **`500 μm` sieve** until 100% clean seeds remain.
 > 4. **SSD mass & ethanol pycnometry ($M_{\text{seeds}}, V_{\text{seeds}}$):** Gently blot seeds to **saturated surface-dry (`SSD`)** state on lint-free paper, weigh total $M_{\text{seeds,SSD}}$ (`±0.1 mg`), and measure displaced volume $V_{\text{seeds}}$ in a calibrated `10 mL` **ethanol pycnometer** at `20 °C`:
+>
 >    $$V_{\text{seeds}} = \frac{m_{\text{pyc+EtOH}} + M_{\text{seeds,SSD}} - m_{\text{pyc+EtOH+seeds}}}{\rho_{\text{EtOH}}(20\,^\circ\text{C})}$$
+>
 > 5. **Monolayer optical census ($N_{\text{true}}$ & $\{v_i\}$):** Spread all seeds without touching on a backlit glass/acrylic plate, scan at `600 dpi`, count exact $N_{\text{true}}$ (`±1` seed) + prolate-spheroid volumes $v_i = \frac{4}{3}\pi a_i b_i^2$, and audit where your 3D MRI pipeline over- or under-estimated reality!
 
 ---
