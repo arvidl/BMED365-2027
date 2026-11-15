@@ -254,8 +254,8 @@ Team Project & Precision Medicine & Research plan for glioblastoma & 15 \\
 \midrule
 \multicolumn{4}{l}{\textit{Block 2}} \\
 \midrule
-Lab 4 & Comp.\ Imaging & MRI, imaging mass cytometry, segmentation & 6 \\
-Lab 5 & Comp.\ Modeling & Physiological models, ODEs, simulations & 6 \\
+Lab 4 & Comp.\ Imaging & MRI, 3D segmentation, Kiwi 7T benchmark, IMC & 6 \\
+Lab 5 & Comp.\ Modeling & ODE/PDE physiology, Kiwi Digital Twin, LLMs & 6 \\
 Individual Project & Topic of Choice & Digital poster and speed presentation & 10 \\
 \bottomrule
 \end{tabular}
@@ -450,63 +450,73 @@ Students can use this as inspiration for the team project.
 
 \subsection{Lab 4: Computational Imaging}
 
-Lab 4 introduces computational imaging with focus on medical imaging modalities, image processing, and AI-based analysis.
+Lab 4 introduces computational imaging with focus on medical imaging modalities, 3D image processing, foundation models, and semi-verifiable AI analysis.
 
 \begin{table}[htbp]
 \centering
-\caption{Notebooks in Lab 4}
+\caption{Core notebooks and sub-modules in Lab 4}
 \label{tab:lab4}
-\begin{tabular}{@{}clp{7cm}@{}}
+\begin{tabular}{@{}clp{7.2cm}@{}}
 \toprule
-\textbf{No.} & \textbf{Notebook} & \textbf{Content} \\
+\textbf{No.} & \textbf{Notebook / Module} & \textbf{Content} \\
 \midrule
 00 & Test installation & Verify environment and dependencies \\
 01 & Imaging intro & Basic concepts in digital imaging \\
 02 & MRI intro & Introduction to Magnetic Resonance Imaging \\
 03 & IMC intro & Introduction to Imaging Mass Cytometry \\
+\midrule
+-- & \texttt{mpMRI-glioma/} & Multiparametric brain tumor MRI (MONAI \& 3D BraTS segmentation) \\
+00--04 & \texttt{Kiwi-challenge/} & \textbf{7\,T MRI 3D Seed Challenge:} \texttt{DICOM$\to$NIfTI/BIDS} (\texttt{00}), 3D exploration (\texttt{01--02}), classical/deep paradigms \& semi-verifiability (\texttt{03}), interactive 3D GT + \texttt{STAPLE} inter-rater (\texttt{03b}), 3D semantic vs.\ instance/Panoptic \texttt{U-Net} (\texttt{04}), \& wet-lab GT protocols \\
+-- & \texttt{IMC-example/} & Multiplexed \texttt{.mcd} tissue imaging pipeline (\texttt{readimc}) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{Learning Objectives:}
 \begin{itemize}[nosep]
-    \item Understand fundamental concepts in computational imaging
-    \item Explain basic principles of MRI and common sequences
-    \item Describe imaging mass cytometry and its applications
-    \item Apply image segmentation techniques
-    \item Understand the role of AI in medical image analysis
+    \item Understand fundamental concepts in computational imaging and \texttt{DICOM}/\texttt{NIfTI} voxel-to-world geometry
+    \item Explain basic principles of MRI and common sequences ($T_1$, $T_2$, FLAIR, DWI)
+    \item Describe imaging mass cytometry (IMC) and multiplexed spatial tissue analysis
+    \item Distinguish semantic, instance, and panoptic 3D segmentation (\texttt{PQ}) and multi-rater \texttt{STAPLE} consensus
+    \item Audit AI segmentation outputs under partial ground truth (semi-verifiability \& prospective wet-lab validation)
 \end{itemize}
 
 \subsection{Lab 5: Computational Modeling}
 
-Lab 5 explores computational modeling in biomedicine, including physiological models described by ordinary differential equations (ODEs).
+Lab 5 explores mechanistic computational modeling in biomedicine -- progressing from algebraic scaling laws and coupled ordinary differential equations (ODEs) to spatial reaction--diffusion PDEs, inverse problems, physics-based MRI Digital Twins, and LLM-assisted modeling.
 
 \begin{table}[htbp]
 \centering
-\caption{Notebooks in Lab 5}
+\caption{Core notebooks and sub-modules in Lab 5}
 \label{tab:lab5}
-\begin{tabular}{@{}clp{6.5cm}@{}}
+\begin{tabular}{@{}clp{7.0cm}@{}}
 \toprule
-\textbf{No.} & \textbf{Notebook} & \textbf{Content} \\
+\textbf{No.} & \textbf{Notebook / Module} & \textbf{Content} \\
 \midrule
-00 & Test LLM & Local LLM installation (DeepSeek-R1) \\
-01 & Action potentials & Hodgkin-Huxley model of neuronal firing \\
-02 & Tumor growth & Tumor growth and angiogenesis modeling \\
-03 & Cardiovascular flow & Blood flow, ECG, and pressure waveforms \\
-04 & Muscle force & Muscle force generation models \\
-05 & Cell signaling & Cell signaling and gene regulatory networks \\
-06 & Kidney filtration & LLM-assisted model generation \\
+00 & Test LLM & Local reasoning LLM exploration (DeepSeek-R1) \\
+01 & Action potentials & Hodgkin--Huxley model of neuronal firing \\
+02 & Tumor growth & Exponential, logistic, Gompertz, \& angiogenesis dynamics \\
+03 & Cardiovascular flow & Windkessel hemodynamics, ECG, and pressure waveforms \\
+04 & Muscle force & Hill-type and cross-bridge muscle force models \\
+05 & Cell signaling & Signaling cascades, toggle switches, \& gene networks \\
+06 & Kidney filtration & Starling forces, GFR physiology, \& tubular transport \\
+07 & Kidney DCE-MRI & Tracer kinetics \& pharmacokinetic GFR modeling \\
+08 & Wound healing & Cybernetic feedback \& Fisher--KPP spatial PDE repair \\
+09 & Consciousness in LLMs & Speculative comparator ODE \& MNI glass-brain dynamics \\
+\midrule
+00--02 & \texttt{Kiwi-challenge/} & \textbf{\texttt{Lab 4$\leftrightarrow$5} Morphogenesis \& Digital Twin:} Step~0 visual math primer (\texttt{00}), Step~0a multi-scale anatomical/histological/7\,T MRI atlas (\texttt{00a}), ODE/Turing PDE morphogenesis (\texttt{01}), 3D point processes, Tikhonov inverse problem, \& synthetic 3D Bloch-MRI Digital Twin (\texttt{02}) \\
+01--03 & \texttt{MLX-Bio-Qwen/} & LLM-assisted modeling \& LoRA fine-tuning (MLX 72B / Colab Gemini) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{Learning Objectives:}
 \begin{itemize}[nosep]
-    \item Understand the role of mathematical models in biomedicine
-    \item Describe and simulate the Hodgkin-Huxley model
-    \item Model tumor growth dynamics
-    \item Simulate cardiovascular flow and waveforms
-    \item Use AI/LLM to assist in model development
+    \item Understand mechanistic vs.\ phenomenological modeling across spatial and temporal scales
+    \item Formulate and simulate physiological ODEs (Hodgkin--Huxley, tumor growth, hemodynamics, GFR)
+    \item Understand spatial reaction--diffusion PDEs (Turing morphogenesis, wound healing) and 3D point processes
+    \item Explain Hadamard ill-posedness, Tikhonov regularization, and physics-based MRI Digital Twins
+    \item Use AI/LLMs responsibly to assist in formulating, coding, and critiquing biophysical models
 \end{itemize}
 
 \subsection{Individual Project: Digital Poster and Speed Presentation}
@@ -846,6 +856,8 @@ I & Y08 & Describe \emph{image segmentation} approaches (classical vs. deep lear
 I & Y09 & Know about \emph{MedSAM} (Segment Anything in Medical Images) \\
 S & Y10 & Discuss how \emph{LLMs are integrated} with medical imaging \\
 S & Y11 & Describe \emph{multimodal imaging} approaches (combining MRI, PET, IMC) \\
+I & Y12 & Distinguish \emph{semantic, instance, and panoptic} 3D segmentation (\texttt{PQ}) and multi-rater consensus (\texttt{STAPLE}) \\
+I & Y13 & Understand \emph{DICOM vs.\ NIfTI/BIDS} voxel-to-world affine geometry and semi-verifiable ground-truth validation \\
 \end{longtable}
 
 \subsection{Computational Modeling (BMED365)}
@@ -874,6 +886,8 @@ S & Z10 & Explain \emph{cell signaling pathways} and gene regulatory networks \\
 I & Z11 & Describe how to use \emph{LLMs to assist model development} \\
 S & Z12 & Know about \emph{systems biology} approaches and multi-scale modeling \\
 S & Z13 & Discuss \emph{model validation} and comparison with experimental data \\
+I & Z14 & Describe spatial \emph{reaction--diffusion PDEs} (Turing morphogenesis, paracrine gradients) and 3D point processes \\
+S & Z15 & Explain \emph{ill-posed inverse problems} (Tikhonov regularization) and physics-based \emph{MRI Digital Twins} \\
 \end{longtable}
 
 \subsection{Practical Skills}
@@ -946,6 +960,8 @@ S & F14 & Compare output from different LLMs for quality assessment \\
 \href{https://claude.ai}{Claude} & Free/Pro & Text analysis, academic writing \\
 \href{https://gemini.google.com}{Gemini} & Free / Built into Colab & Code generation and explanation \\
 \href{https://notebook.google.com}{Gemini Notebook} {\small(NotebookLM)} & Free (Google) & Source-grounded document analysis \\
+\href{https://antigravity.google}{Google Antigravity} & Free/Pro & Agentic IDE \& scientific coding workflows \\
+\href{https://cursor.com}{Cursor} & Free/Pro & AI-assisted IDE for Python, notebooks, \& LaTeX \\
 \href{https://chat.uib.no}{chat.uib.no} & UiB login & UiB internal AI service \\
 Medical AI GPT & ChatGPT Plus & Customized for BMED365 \\
 \bottomrule

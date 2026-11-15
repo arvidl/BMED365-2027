@@ -1,7 +1,7 @@
 
 # Individual Project (BMED365): Digital Poster and Speed-Poster Presentation
 
-*Last updated: 4 January 2026*
+*Last updated: 15 November 2026*
 
 ## Summary
 
@@ -61,7 +61,7 @@ Your project may originate from any of the following sources:
 - **Your own research:** A topic from your master's thesis, ongoing research project, or planned future work
 - **Research group context:** A question or problem relevant to your supervisor's research group
 - **Literature-based:** Analysis or critique of a published scientific article
-- **Course benchmark dataset:** A hands-on comparative or methodological study using a self-contained course dataset — for example, benchmarking classical, foundation-model (`SAM 2`, `MedSAM`, `Cellpose`), or agentic 3D segmentation pipelines on the **[7T MRI Kiwi Seed Challenge (`Lab 4`)](../Lab4-Comp-Imag/Kiwi-challenge/README.md)**, or exploring mechanistic ODE/PDE morphogenesis, inverse problems, and synthetic Bloch-MRI phantoms in its **[Computational Digital Twin companion (`Lab 5`)](../Lab5-Comp-Mod/Kiwi-challenge/README.md)**
+- **Course benchmark dataset:** A hands-on comparative, methodological, or combined wet-lab/computational study using a self-contained course dataset — for example, benchmarking classical, foundation-model (`SAM 2`, `MedSAM`, `Cellpose`), or agentic 3D segmentation pipelines (and/or prospective wet-lab `Pectinase + Ethanol Pycnometry` ground-truth validation) on the **[7T MRI Kiwi Seed Challenge (`Lab 4`, Notebooks `00`–`04`)](../Lab4-Comp-Imag/Kiwi-challenge/README.md)**, or exploring multi-scale anatomy (`00a`), mechanistic ODE/PDE morphogenesis (`01`), inverse problems, and synthetic Bloch-MRI phantoms (`02`) in its **[Computational Digital Twin companion (`Lab 5`)](../Lab5-Comp-Mod/Kiwi-challenge/README.md)**
 - **Future-oriented:** A research question you wish to explore in your future career in biomedical AI
 
 ### 2.3 Faculty Support

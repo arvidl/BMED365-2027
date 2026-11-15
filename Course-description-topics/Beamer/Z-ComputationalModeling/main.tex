@@ -34,7 +34,7 @@
 % TITLE INFO
 % =====================================================================
 \title{Computational Modeling}
-\subtitle{BMED365: Topic List Z01--Z10}
+\subtitle{BMED365: Topic List Z01--Z15}
 \author{BMED365}
 \date{Spring 2027}
 
@@ -72,9 +72,11 @@
             \item Z08: ECG and blood pressure waveforms
             \item Z09: Muscle force generation models
         \end{itemize}
-        \item \textbf{Cellular and Molecular Models}
+        \item \textbf{Cellular, Multi-Scale \& Digital Twin Models}
         \begin{itemize}
             \item Z10: Cell signaling and gene regulatory networks
+            \item Z11--Z13: Kidney DCE-MRI, PDE wound healing, \& LLM-assisted modeling
+            \item Z14--Z15: Morphogenesis PDEs, inverse problems, \& the Lab 5 Kiwi 7\,T MRI Digital Twin
         \end{itemize}
     \end{enumerate}
 \end{frame}
@@ -516,6 +518,50 @@
     \end{block}
 \end{frame}
 
+\begin{frame}{Z11--Z13: Renal Filtration, Spatial PDE Wound Repair \& LLM Co-Modeling}
+    \begin{columns}[T]
+        \begin{column}{0.49\textwidth}
+            \textbf{Organ \& Spatial PDE Physiology (Lab 5 \texttt{06--09}):}
+            \begin{itemize}\footnotesize
+                \item \textbf{\texttt{06--07} Kidney GFR \& DCE-MRI:} Starling hydrostatic/oncotic balance + dynamic contrast tracer pharmacokinetics
+                \item \textbf{\texttt{08} Cybernetics of Wound Healing:} Inflammatory ODE feedback + \textbf{Fisher--KPP reaction--diffusion PDEs} ($\partial_t u = D\nabla^2 u + f(u)$)
+                \item \textbf{\texttt{09} Comparator Neurodynamics:} Speculative Global Workspace / Gray's comparator ODEs on 22 MNI brain ROIs
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{LLMs as Modeling Colleagues (\texttt{MLX-Bio-Qwen}):}
+            \begin{itemize}\footnotesize
+                \item Formulate verbal mass/force balance sheets $\to$ dimensional ODE/PDE systems
+                \item Run locally via \textbf{Qwen 2.5 72B (MLX)} on Apple Silicon or \textbf{Gemini 2.5 Flash} in Colab
+                \item \textbf{Z13 Validation:} Check physical units, edge regimes, parameter sensitivity, \& real experimental/MRI trajectories
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Z14--Z15: Lab 4 $\leftrightarrow$ Lab 5 Bridge --- The Kiwi 7\,T MRI Digital Twin}
+    \textbf{Closing the \texttt{Imaging $\leftrightarrow$ Modeling} loop (\href{https://github.com/arvidl/BMED365-2027/tree/main/Lab5-Comp-Mod/Kiwi-challenge}{\texttt{Lab5-Comp-Mod/Kiwi-challenge}}):}
+
+    \vspace{0.1cm}
+    \begin{columns}[T]
+        \begin{column}{0.53\textwidth}
+            \begin{itemize}\footnotesize
+                \item \textbf{\texttt{00} Visual Math Primer:} Intuition-first Rosetta Stone ($\sum, \frac{dy}{dt}, \nabla^2 c, \arg\min, T_2$/Rician MRI) for biomedicine students
+                \item \textbf{\texttt{00a} Multi-Scale Atlas:} Open histology (\texttt{PMC3797463}), optical vs.\ $T_2$-MRI contrast inversion, \& human GI MRI bridge
+                \item \textbf{\texttt{01} Morphogenesis Ladder:} Hill saturation ($r=0.85$ on MRI), bistable \texttt{XY} switch (\textit{SyGI} $\leftrightarrow$ \texttt{SRY/SOX9}), Lockhart turgor ODEs, \& \textbf{1D Turing Ring PDE} ($K^*=33$ locules $\leftrightarrow$ embryonic digit spacing)
+                \item \textbf{\texttt{02} Point Processes, Inverse \& Digital Twin:} 3D hard-core seed repulsion ($R=1.19$), \textbf{Tikhonov SVD} reconstruction ($\leftrightarrow$ \texttt{ECGi}/EEG), \& \textbf{Generative 3D Bloch-MRI Phantom}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.44\textwidth}
+            \begin{block}{\footnotesize Forward $\leftrightarrow$ Inverse Digital Twin}
+                \footnotesize
+                \textbf{Forward:} Genes/Seeds $\to$ PDE Anatomy $\to$ 7\,T Spin-Echo + Rician Noise (\textit{virtual phantom benchmarking Lab~4!}).\\[3pt]
+                \textbf{Inverse:} Noisy surface contour $\to$ Morozov Tikhonov regularization $\to$ hidden internal seed deficit ($5.2\%$ error vs.\ $>470{,}000\%$ unregularized blow-up).
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 % =====================================================================
 % SUMMARY
 % =====================================================================
@@ -523,22 +569,17 @@
 
 \begin{frame}{Summary: Computational Modeling}
     \textbf{Key points:}
-    \begin{itemize}
-        \item \textbf{Z01:} Mathematical models help understand, predict, and simulate biological systems
-        \item \textbf{Z02:} Mechanistic models describe mechanisms; phenomenological describe behavior
-        \item \textbf{Z03:} ODEs are the workhorse of dynamic biological modeling
-        \item \textbf{Z04:} Hodgkin-Huxley: ionic basis of action potentials
-        \item \textbf{Z05:} Tumor growth: exponential, logistic, Gompertz models
-        \item \textbf{Z06:} Angiogenesis models predict response to anti-VEGF therapy
-        \item \textbf{Z07:} Cardiovascular models: 0D lumped parameter to 3D CFD
-        \item \textbf{Z08:} ECG/BP waveforms arise from electrophysiology and hemodynamics
-        \item \textbf{Z09:} Muscle models: Hill's phenomenological, cross-bridge mechanistic
-        \item \textbf{Z10:} Cell signaling and gene networks: systems biology perspective
+    \begin{itemize}\footnotesize
+        \item \textbf{Z01--Z03:} Mechanistic vs.\ phenomenological models; mass/rate balance ODEs
+        \item \textbf{Z04--Z06:} Hodgkin--Huxley action potentials, tumor growth, \& VEGF angiogenesis
+        \item \textbf{Z07--Z10:} Hemodynamics/ECG, Hill/Huxley muscle mechanics, \& bistable gene networks
+        \item \textbf{Z11--Z13:} Renal Starling/DCE-MRI kinetics, PDE wound healing, \& LLM-assisted modeling
+        \item \textbf{Z14--Z15:} Turing reaction--diffusion PDEs, 3D point processes, Tikhonov inverse problems, \& physics-based \textbf{3D MRI Digital Twins} (\textbf{Lab 5 Kiwi Challenge})
     \end{itemize}
-    
-    \vspace{0.2cm}
-    \begin{block}{Key message}
-        Computational modeling bridges theory and experiment in biomedicine. From neurons to tumors to hearts, mathematical models provide quantitative frameworks for understanding disease and optimizing treatment.
+
+    \vspace{0.15cm}
+    \begin{block}{\footnotesize Key message}
+        \footnotesize Computational modeling unites physics, physiology, and medical imaging --- turning static scans into mechanistic, testable Digital Twins for precision biomedicine.
     \end{block}
 \end{frame}
 

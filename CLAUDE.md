@@ -2,7 +2,7 @@
 
 Course material (Jupyter notebooks, slides, READMEs) for BMED365 at the University of Bergen, Spring 2027. This is not a Python package.
 
-The repo is developed on two machines (a MacBook Pro M4 Max and a Dell Precision with an NVIDIA RTX A5000 running Ubuntu) and by more than one agent (Claude Code, and Cursor with other models). Git is the only thing that keeps them in sync, so the rules below matter.
+The repo is developed on two machines (a MacBook Pro M4 Max and a Dell Precision with an NVIDIA RTX A5000 running Ubuntu) and by more than one AI coding agent (Claude Code, Google Antigravity, and Cursor with other models). Git is the only thing that keeps them in sync, so the rules below matter.
 
 ## The repo is public
 
@@ -16,6 +16,7 @@ The repo is developed on two machines (a MacBook Pro M4 Max and a Dell Precision
 - Merge `dev` into `main` only when the user asks, e.g. to test in Colab or release material.
 - Run `git pull` before starting work. The other machine or another agent may have pushed.
 - Commit and push only when the user asks. Show the diff summary before pushing.
+- Include a `Co-authored-by:` trailer in commits authored with an AI agent (e.g. `Co-authored-by: Google Antigravity <noreply@antigravity.google>` or `Co-authored-by: Claude <noreply@anthropic.com>`) for provenance and transparency.
 - Never force-push or rewrite history unless the user explicitly asks.
 - Assume another agent may be editing this working tree. If files change unexpectedly, stop and tell the user rather than overwriting.
 

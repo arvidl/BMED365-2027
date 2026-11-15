@@ -22,6 +22,8 @@ This folder contains detailed course descriptions and topic-specific Beamer pres
 | **S - Neurosymbolic** | [S-Neurosymbolic](./Beamer/S-Neurosymbolic/) | Neurosymbolic AI approaches |
 | **T - Trustworthy** | [T-Trustworthy](./Beamer/T-Trustworthy/) | Trustworthy AI principles |
 | **X - XAI** | [X-XAI](./Beamer/X-XAI/) | Explainable AI (XAI) |
+| **Y - Computational Imaging** | [Y-ComputationalImaging](./Beamer/Y-ComputationalImaging/) | Computational imaging, 3D segmentation, IMC, MedSAM, and the 7T MRI Kiwi Challenge |
+| **Z - Computational Modeling** | [Z-ComputationalModeling](./Beamer/Z-ComputationalModeling/) | Mechanistic ODE/PDE physiological models, morphogenesis, inverse problems, and MRI Digital Twins |
 
 ## Building the Documents
 

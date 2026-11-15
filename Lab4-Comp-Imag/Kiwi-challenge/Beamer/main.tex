@@ -21,8 +21,8 @@
 \usecolortheme{beaver}
 \setbeamertemplate{navigation symbols}{}
 
-\title[Kiwi 3D Challenge]{The Kiwi 3D Seed Challenge}
-\subtitle{A 6-Week Red Thread in Computational Imaging, Modeling \& Semi-Verifiable AI}
+\title[Kiwi 3D Challenge]{The Kiwi 7\,T MRI Challenge}
+\subtitle{A 7-Week Red Thread in Computational Imaging, Modeling \& Digital Twins}
 \author[A. Lundervold (BMED365)]{Arvid Lundervold}
 \institute[UiB \& MMIV]{Department of Biomedicine \& MMIV, University of Bergen\\BMED365 --- Spring 2027}
 \date{Lecture 1 Teaser $\cdot$ Monday 4 January 2027}
@@ -145,30 +145,31 @@
 \end{frame}
 
 % ---------------------------------------------------------------------
-% SLIDE 6: The 6-Week Red Thread Across BMED365
+% SLIDE 6: The 7-Week Red Thread Across BMED365
 % ---------------------------------------------------------------------
-\begin{frame}{Your 6-Week Red Thread: Same 3D MRI, Evolving AI Paradigms}
+\begin{frame}{Your 7-Week Red Thread: Same 3D MRI, Imaging $\leftrightarrow$ Digital Twin}
     \centering
     {\scriptsize
-    \begin{tabular}{@{}p{0.26\textwidth}p{0.37\textwidth}p{0.29\textwidth}@{}}
+    \begin{tabular}{@{}p{0.25\textwidth}p{0.39\textwidth}p{0.28\textwidth}@{}}
         \toprule
         \textbf{Course Module} & \textbf{Paradigm on the Kiwi MRI} & \textbf{Key Question} \\
         \midrule
-        \textbf{Quick Start \& Lab 0} (Wk 1--2) & Voxel features, top-hat filters, K-means / AutoML & What separates seeds from core/peel? \\
+        \textbf{Quick Start \& Lab 0} (Wk 1--2) & Voxel features, top-hat filters, $K$-means / AutoML & What separates seeds from core/peel? \\
         \textbf{Lab 1: Networks} (Wk 1) & 3D spatial centroid graph in radial chambers & Can anatomy spot outliers \& merges? \\
-        \textbf{Lab 2: Deep Learning} (Wk 2) & 2D/3D U-Net, StarDist, Cellpose, MedSAM / SAM\,2 & Do foundation models generalize? \\
+        \textbf{Lab 2: Deep Learning} (Wk 2) & 2D/3D \texttt{U-Net}, \texttt{StarDist}, \texttt{Cellpose}, \texttt{MedSAM/SAM\,2} & Do foundation models generalize? \\
         \textbf{Lab 3: GenAI \& Agents} (Wk 3) & Prompted vs.\ verifier-guided coding agents & Can an agent optimize our harness? \\
-        \textbf{Lab 4: Comp.\ Imaging} (Wk 6) & \textbf{Live Comparative Showdown (Notebooks 00--04)} & Which paradigm wins --- and \textit{why}? \\
+        \textbf{Lab 4: Comp.\ Imaging} (Wk 6) & \textbf{3D Segmentation, \texttt{STAPLE} \& \texttt{PQ} (\texttt{NB 00--04})} & Which paradigm wins --- and \textit{why}? \\
+        \textbf{Lab 5: Comp.\ Modeling} (Wk 7) & \textbf{Atlas, Turing PDEs, Inverse \& 3D Digital Twin (\texttt{NB 00--02})} & Why 33 chambers --- \& can we synthesize 7\,T MRI? \\
         \bottomrule
     \end{tabular}
     }
 
-    \vspace{0.3cm}
+    \vspace{0.2cm}
     \begin{block}{Explore Anytime \& Optional Block 2 Individual Project}
-        \footnotesize
+        \scriptsize
         \begin{itemize}
-            \item \textbf{Repository \& 1-Click Colab Notebooks:} \href{https://github.com/arvidl/BMED365-2027/tree/main/Lab4-Comp-Imag/Kiwi-challenge}{\texttt{Lab4-Comp-Imag/Kiwi-challenge}} (\texttt{00}--\texttt{04}: \texttt{DICOM$\to$NIfTI}, 3D exploration, classical/deep paradigms \& curated 3D Micro-GT NIfTI for ITK-SNAP / 3D Slicer).
-            \item \textbf{Individual Project Idea (Weeks 4--6):} Benchmark classical, foundation-model (\texttt{SAM\,2} / \texttt{Cellpose}), or agentic 3D segmentation pipelines on this self-contained 7\,T dataset!
+            \item \textbf{Lab 4 (\href{https://github.com/arvidl/BMED365-2027/tree/main/Lab4-Comp-Imag/Kiwi-challenge}{\texttt{Lab4-Comp-Imag/Kiwi-challenge}}):} \texttt{00} \texttt{DICOM$\to$NIfTI/BIDS}, \texttt{01--03} 3D paradigms \& verification, \texttt{03b} interactive 3D GT + \texttt{STAPLE}, \texttt{04} Semantic vs.\ Instance \texttt{U-Net}, + wet-lab \textbf{pectinase \& ethanol pycnometry} GT protocol.
+            \item \textbf{Lab 5 (\href{https://github.com/arvidl/BMED365-2027/tree/main/Lab5-Comp-Mod/Kiwi-challenge}{\texttt{Lab5-Comp-Mod/Kiwi-challenge}}):} \texttt{00} Visual Math Primer, \texttt{00a} Multi-Scale Anatomical/Histological Atlas, \texttt{01} ODE/Turing Morphogenesis, \texttt{02} Point Processes, Tikhonov Inverse \& 3D Bloch-MRI Digital Twin.
         \end{itemize}
     \end{block}
 \end{frame}
