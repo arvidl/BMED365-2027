@@ -54,7 +54,7 @@ All course material is openly available at [this](https://github.com/arvidl/BMED
 
 <img src="./assets/cc_by_sa.png" width="75"> The course content is offered under a <b><a href="http://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></b> license unless otherwise stated.
 
-> **AI Co-Creation & Transparency:** Course architecture, biomedical curation, and academic quality assurance are led by [Arvid Lundervold](https://www.uib.no/en/persons/Arvid.Lundervold) (UiB & MMIV). In keeping with the open-science and AI-reflection principles taught in BMED365, notebooks, slides, and documentation in this 2027 edition have been co-developed and verified using agentic AI platforms — including **[Claude Code](https://claude.ai)** (Anthropic), **[Google Antigravity](https://antigravity.google)** (Gemini), and **[Cursor](https://cursor.com)**.
+> **AI Co-Creation & Transparency:** Course architecture, biomedical curation, and academic quality assurance are led by [Arvid Lundervold](https://www.uib.no/en/persons/Arvid.Lundervold) (`@arvidl`, UiB & MMIV). In keeping with the open-science and AI-reflection principles taught in BMED365, notebooks, slides, and documentation in this 2027 edition are co-developed, tested, and maintained using agentic AI coding platforms — **[Claude Code](https://claude.ai)** (Anthropic), **[Google Antigravity](https://antigravity.google)** (Google), **[Cursor](https://cursor.com)** (Anysphere), and **[Codex](https://openai.com/codex/)** (OpenAI) — with per-commit provenance recorded via `Co-authored-by:` Git trailers.
 
 --------
 
