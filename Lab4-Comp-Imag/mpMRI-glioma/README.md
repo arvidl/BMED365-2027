@@ -9,7 +9,7 @@ This lab will give an example-based introduction to multiparametric Magnetic Res
 
 -->
 
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vTK7ut3BT-pGtQiC53Vu7KAVt6wvtOF7Y1NhAziSyCc-E4AGuwRN778fsi86UMry7ZsNJ7rrGVAeAnM/pub?start=false&loop=false&delayms=3000"><img src="assets/Lab1_first_slide.png"></a>
+<a href="https://docs.google.com/presentation/d/e/2PACX-1vRGzmP6zmGLKR7W2l6lEHnG00dgGJglnQZDbZHAx3NaI-Rio9SBXnqW6sEAT_jZloshw0oZ8XtAgYSS/pub?start=false&loop=false&delayms=3000"><img src="assets/Lab1_first_slide.png"></a>
 
 
 <!-- Here's a short extra video that goes through a very similar notebook to the one we use in this lab: https://www.youtube.com/watch?v=OhxUgFNnj1U. You may want to watch this as well. -->

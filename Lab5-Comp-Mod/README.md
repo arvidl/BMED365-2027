@@ -10,11 +10,11 @@ Arvid Lundervold, 2026-02-11 (updated 2026-02-20)
 ## Slides modeling
 
 <!--
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vR4T7aMjdpnmoF7jz4hc72O_-deTlQv89-oAbhYxJg8s5Avn1VrZ1_MUR77O5WOB3Ppk2Wsryh6NF5q/pub?start=false&loop=false&delayms=3000"><img src="./assets/Lab5-slide-0.png"></a>
+<a href="https://docs.google.com/presentation/d/e/2PACX-1vQ379CEck_b_rA7prSAi3S7vsRTpgCFymsTSUyO8ZwyCgjniQzSbBiyuM6OmABiIWkl5Aa4-FaQmkP2/pub?start=false&loop=false&delayms=3000"><img src="./assets/Lab5-slide-0.png"></a>
 
 -->
 
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vSG6xqNPgYo31SeY0EHIs7kXqD4DQ6Up7bkIxn50fAvd_AX-uwN_hPkSZ-8JktyLTUS6H_1JLAwB4Kz/pub?start=false&loop=false&delayms=3000"><img src="./assets/Lab5-slide-0-NotebookLM.png"></a>
+<a href="https://docs.google.com/presentation/d/e/2PACX-1vTN-ccwXAH4e4zPwH_XW7mBC2bjy08wtwo9zvn6wQnxBUjy5Cbls1YyunhjgprbvNvU8cGR8YDRqyxz/pub?start=false&loop=false&delayms=3000"><img src="./assets/Lab5-slide-0-NotebookLM.png"></a>
 
 <!--
 <img src="assets/Lab3-slide-0.png">

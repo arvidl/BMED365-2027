@@ -49,7 +49,7 @@ Examples of questions you can ask:
 
 ## Slides
 
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vRvl54T7fBoOQaKCHOUcDDxuB4jDWyjw5tQMv3x5LYL7XVfB2hKGJZar1k3jrEUupYmQYOaMqyJ6MmF/pub?start=false&loop=false&delayms=3000"><img src="assets/Lab1-slide0.png"></a>
+<a href="https://docs.google.com/presentation/d/e/2PACX-1vTGlb33QLg_uIJ1a_abJKemS1_clBrsH5k8VNl7w-X2ywdjafvFzxV57BWEIIlg_0rBeafZyyRtCi-K/pub?start=false&loop=false&delayms=3000"><img src="assets/Lab1-slide0.png"></a>
 
 ---
 

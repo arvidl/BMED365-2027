@@ -7,7 +7,7 @@ This lab is part of our journey through computational imaging and modeling techn
 
 ## Slides
 
-<a href="https://docs.google.com/presentation/d/e/2PACX-1vQ7vTniYRZOgv0alhvj-G1l9vlEuvgN4T_8-dDw0oVNaAiVMxTO-HpVPUY6ofByiQObTtMW8z_0td5o/pub?start=false&loop=false&delayms=3000"><img src="assets/Lab4-slide-0_2026.png"></a>
+<a href="https://docs.google.com/presentation/d/e/2PACX-1vQX01gO0c6tJ_TRz2OQjlFkwQXc0OsNSxnKRGUw58sLZp6uGy17txIy5aUbDSiBy3tABEmqfibNtNwV/pub?start=false&loop=false&delayms=3000"><img src="assets/Lab4-slide-0_2026.png"></a>
 
 
 <!--
