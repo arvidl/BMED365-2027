@@ -118,7 +118,8 @@ In many real biomedical problems — and in AI-assisted coding — running code 
 ## How We Use This Challenge in BMED365
 
 - **Lecture 1 → Lab 4 Thought Experiment:** Keep this dataset in mind throughout Block 1 as you learn ML, networks, deep learning, and prompt/agentic engineering. In **Lab 4 (Mon 8 Feb 2027)**, we compare approaches side-by-side — from naive thresholding failures to modern foundation-model and agentic pipelines — and examine how each method is evaluated.
-- **Optional [Individual Project](../../Individual-project/README.md) Topic (Block 2):** If you are looking for a concrete, self-contained dataset for your Block 2 digital poster and speed-poster presentation, you are welcome to use the Kiwi Challenge (for example, benchmarking classical vs. deep/agentic segmentation methods and designing a rigorous validation protocol).
+- **Lab 5 Companion Module — [Computational Morphogenesis & 7T MRI Digital Twin (`Lab5-Comp-Mod/Kiwi-challenge`)](../../Lab5-Comp-Mod/Kiwi-challenge/README.md):** In Lab 5, we reverse the direction (`Biology & Physics → 3D Form & Synthetic MRI`): modeling seed-hormone allometry, `XY` floral sex determination, 160-day turgor/carbohydrate ODEs, 1D Ring Turing locule patterning (`K = 33`), 2D paracrine diffusion PDEs, 3D spatial point-process repulsion (`R = 1.19`), Tikhonov PDE inverse problems, and a **generative 3D Bloch-MRI Digital Twin** with known ground-truth seeds.
+- **Optional [Individual Project](../../Individual-project/README.md) Topic (Block 2):** If you are looking for a concrete, self-contained dataset for your Block 2 digital poster and speed-poster presentation, you are welcome to use the Kiwi Challenge — either from the **3D segmentation & validation** side (`Lab 4`) or the **mechanistic morphogenesis & Digital Twin** side ([`Lab 5`](../../Lab5-Comp-Mod/Kiwi-challenge/README.md)).
 
 ---
 

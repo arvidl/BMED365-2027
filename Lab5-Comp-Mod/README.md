@@ -62,6 +62,17 @@ Pre-rendered PDF versions of all notebooks are available in the [`PDFs/`](PDFs/)
 
 ---
 
+## Kiwi-challenge: Computational Morphogenesis & 7T MRI Digital Twin (`Lab 4 ↔ Lab 5` Bridge)
+
+The [`Kiwi-challenge/`](Kiwi-challenge/) subfolder connects **Lab 4's real 2005 7T Bruker MRI scan** directly to **mechanistic computational modeling** — progressing from simple algebraic saturation curves and coupled ODEs (genetic `XY` sex-switch + biophysical turgor/starch/sugar growth + Bloch $T_2$ contrast) to spatial reaction–diffusion PDEs (1D Ring Turing locule patterning & 2D paracrine hormone fields), 3D spatial point-process statistics, Tikhonov-regularized PDE inverse problems, and a **generative 3D Bloch-MRI Digital Twin** with explicit parallels to human organogenesis and pathology. See [`Kiwi-challenge/README.md`](Kiwi-challenge/README.md) for details.
+
+| Notebook    |      1-Click Notebook      |
+|:----------|------|
+|  [01-kiwi-growth-and-morphogenesis.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/01-kiwi-growth-and-morphogenesis.ipynb)<br> **Part 1 (Algebra → ODEs → Spatial PDEs):** MSc/PhD learning outcomes & Botanical ↔ Biomedical glossary; seed-hormone saturation & 128-slice axial MRI scaling (`r = 0.85`), *Shy Girl* (`SyGI`) `XY` toggle switch, Hall's 160-day turgor/starch/sugar ODEs + 7T Bloch $T_2$ contrast, 1D Ring Turing PDE (`K = 33` locules), 2D paracrine hormone diffusion PDE, static 4-regime snapshot + interactive `ipywidgets` explorer, & `<details>` Q&As | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/01-kiwi-growth-and-morphogenesis.ipynb)|
+|  [02-kiwi-digital-twin-and-inverse-problems.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/02-kiwi-digital-twin-and-inverse-problems.ipynb)<br> **Part 2 (Advanced Math, Inverse Problems & Digital Twin):** Analytical Turing dispersion $\text{Re}\,\lambda(q)$ across $2x/4x/6x$ ploidy, 3D spatial point-process repulsion (`R = 1.19`) on the 98 Micro-GT seeds, Hadamard ill-posedness (`SVD` & Morozov Tikhonov L-curve), **Generative 3D Synthetic Bloch-MRI Digital Twin** (`Lab 5 → Lab 4`) with Rician noise & Sim-to-Real gap critique, `<details>` Q&As, & Block 2 project directions | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/02-kiwi-digital-twin-and-inverse-problems.ipynb)|
+
+---
+
 ## MLX-Bio-Qwen: LLM-Assisted Computational Modeling on Apple Silicon
 
 The [`MLX-Bio-Qwen/`](MLX-Bio-Qwen/) subfolder contains notebooks that use **Large Language Models** as a "Senior Computational Colleague" for formulating and implementing computational models. The notebooks support **two backends** that are auto-detected at runtime:
