@@ -3,17 +3,51 @@
 *BMED365 — Computational Imaging, Modeling and AI in Biomedicine (Spring 2027)*  
 *Arvid Lundervold — runs locally with `uv` (`bmed365-2027` kernel) or in Google Colab*
 
+![7T MRI vs optical cross-section of a kiwifruit](../../Lab4-Comp-Imag/Kiwi-challenge/assets/photo_mri_kiwi_20050219.jpg)
+
 ---
 
-## Overview: Closing the Loop Between Computational Imaging (`Lab 4`) and Mechanistic Modeling (`Lab 5`)
+## Why — and How — Do We "Mathematize" a Kiwifruit? Relevance to Computational Biomedicine
 
-In **[Lab 4 (`Lab4-Comp-Imag/Kiwi-challenge`)](../../Lab4-Comp-Imag/Kiwi-challenge/README.md)**, we solved the **observational imaging problem**: reconstructing, segmenting, and counting ~1,440 seeds in a 2005 **7 Tesla Bruker Pharmascan** 3D MRI scan of an intact `'Hayward'` kiwifruit (*Actinidia chinensis* var. *deliciosa*, hexaploid $2n = 6x = 174$).
+### 1. From *"What Is Inside?"* (`Lab 4`) to *"How Did Nature Build It?"* (`Lab 5`)
 
-Here in **Lab 5 (`Computational Modeling`)**, we turn the problem upside down and ask the **generative & mechanistic question**:
+On 17 February 2005, an intact `'Hayward'` kiwifruit (*Actinidia chinensis* var. *deliciosa*, hexaploid $2n = 6x = 174$) was placed inside the preclinical **7 Tesla Bruker Pharmascan** MRI scanner at the University of Bergen — amusingly archived in the hospital-style DICOM header with `PatientSex = F`.
 
-> **Can we write down the mathematical laws of *how biology built that 3D organ* — from sex-determining genes and Turing symmetry breaking on the floral ring, to turgor-driven growth, paracrine seed hormones, and 7T Bloch spin-echo MRI contrast?**
+In **[Lab 4 (`Lab4-Comp-Imag/Kiwi-challenge`)](../../Lab4-Comp-Imag/Kiwi-challenge/README.md)**, we approached that 3D scan the way a **radiologist or quantitative image analyst** approaches a brain MRI: we converted 128 DICOM slices to NIfTI, accounted for anisotropic voxels (`0.234 × 0.234 × 0.500 mm³`), and segmented and counted **~1,440 dark seeds** ("focal lesions") inside an **`85.97 cm³`** organ.
 
-Together, the Lab 4 and Lab 5 Kiwi modules form a complete **Imaging ↔ Mechanistic Digital Twin** pipeline — mirroring how modern biomedical engineering combines patient MRI scans with biophysical ODE/PDE simulations in cardiology, nephrology, oncology, and *in silico* clinical trials.
+Yet pause for a moment and look closely at what the 7T scanner revealed inside that fruit:
+- Why did the berry stop growing right around **`86 cm³`**, and why does cross-sectional flesh area slice-by-slice track local seed density so tightly (`r = 0.85`–`0.94`)?
+- Why was `PatientSex = F` biologically literal — how did a single Y-chromosome gene on male vines prevent an ovary from forming in the first place?
+- How did a microscopic floral ring — with **no ruler, no CAD blueprint, and no central choreographer** — count out **`33` evenly spaced radial seed chambers** (*locules*), while its diploid ($2x$) wild cousin counts out **`~22`**?
+- Why do the ~1,440 seeds maintain a strict **`~0.95 mm` "personal space"** without colliding, why does losing seeds on one side flatten that side of the fruit while normal 3-fold seed jitter leaves the berry nearly circular, and why do mature seeds look **jet-black** next to **`~190×` brighter** mucilage gel at `TE = 63.9 ms`?
+
+Answering *"what is there?"* is **Computational Imaging (`Lab 4`)**. Asking *"what physical and genetic laws built this 3D organ, and what happens if we perturb them?"* is **Mechanistic Computational Modeling (`Lab 5`)**.
+
+---
+
+### 2. Why Should a Biomedicine Student or Clinician Care About a Fruit?
+
+At first glance, modeling a kiwifruit in a graduate biomedicine course might sound playful. In fact, it is a deliberate pedagogical bridge into **frontline human computational medicine** for three reasons:
+
+1. **Evolution reuses the exact same mathematics across kingdoms.** Multicellular plants and humans are separated by ~1.5 billion years of evolution, yet living tissues in both kingdoms must obey the same laws of chemical kinetics, mass conservation, fluid mechanics, and diffusion:
+   - **Receptor saturation ($E_{\max}$ / Hill curves):** Auxin/cytokinin signals from kiwifruit seeds saturate pericarp growth via the exact algebraic law used in **clinical pharmacodynamics** and **renal nephron-endowment scaling**.
+   - **Bistable gene switches (ODEs):** Kiwifruit's Y-linked ***Shy Girl* (`SyGI`)** toggle switch locks floral primordia into male vs. female fate using the same positive-feedback nonlinear dynamics by which **`SRY`/`SOX9` vs. `WNT4`/$\beta$-catenin** commits the **human embryonic gonad**.
+   - **Fluid-pressure mechanics (ODEs):** Water influx driven by osmotic starch-to-sugar conversion inflates the berry via the same hydrostatic/osmotic balance (**Starling forces**) governing **glomerular filtration, cerebral edema, tumor interstitial pressure, and polycystic kidney (`ADPKD`) cyst expansion**.
+   - **Turing symmetry breaking & paracrine morphogens (PDEs):** Short-range activation coupled to long-range inhibition spaces **33 kiwifruit chambers** by the exact mathematical instability (`BMP`–`SOX9`–`WNT`) that spaces **5 human digits** (and causes **polydactyly** when a limb bud widens), while seed hormone diffusion mirrors **hypoxic tumor `VEGF` angiogenesis gradients** and **wound healing**.
+2. **Zero clinical jargon, zero privacy barriers — 100% real 7T MRI physics.** Everyone has sliced a kiwifruit at the breakfast table, so your physical intuition works from minute one. At the same time, water protons inside the fruit obey the **exact same Bloch spin-echo relaxation and quadrature Rician noise physics** as a human brain, heart, or kidney inside a clinical scanner.
+3. **Closing the `Imaging ↔ Modeling` Digital Twin loop.** Modern precision medicine is moving rapidly from static snapshots to **patient-specific Digital Twins**: segmenting a patient's heart, tumor, or brain from 3D MRI (`Lab 4`), running individualized biophysical PDEs forward in time to test therapies *in silico* (`Lab 5`), solving **regularized inverse problems** to infer hidden internal pathology from surface data (just like **ECG imaging `ECGi`** or **EEG source localization**), and synthesizing physics-accurate **virtual phantoms** (`BrainWeb`, `XCAT`) with known ground truth to validate clinical AI algorithms.
+
+---
+
+### 3. *How* Do We Mathematize a Living Organ? (A 5-Step Craft)
+
+Mathematical equations in biology papers often look intimidating because authors only publish the finished formula, hiding the intuitive scaffolding that produced it. Across this module, we practice **mathematization** as a transparent, repeatable **five-step craft**:
+
+1. **Climb the complexity ladder one rung at a time (*"as simple as possible, but no simpler"*):** Never start with a heavy 3D partial differential equation if a one-line **algebraic curve** already answers your whole-organ question! We move up a rung (**Algebra $\to$ Time ODEs $\to$ 1D/2D Spatial PDEs $\to$ 3D Point Processes & Inverse Problems**) *only* when the biology demands time history or spatial geometry.
+2. **Write verbal balance sheets before writing Greek letters:** Every equation begins as plain English — e.g., *"rate of change equals production minus clearance"* ($\frac{dy}{dt} = \text{In} - \text{Out}$) or *"diffusion compares a cell to the average of its immediate neighbors"* ($\nabla^2 c$). If equations feel rusty, start with **[Step 0 (`00-kiwi-math-primer-for-biomedicine.ipynb`)](./notebooks/00-kiwi-math-primer-for-biomedicine.ipynb)**, which translates every symbol into plain clinical English and 5-line visual Python toys.
+3. **Anchor every variable in real physical units (`mm`, `cm³`, `days`, `MPa`, `ms`):** Assigning honest units turns abstract math into **falsifiable science** that can be overlaid directly onto calibrated NIfTI voxel coordinates from the 2005 7T scanner.
+4. **Probe counterfactuals & audit where the model breaks:** A mechanistic model lets us run *in silico* experiments we never performed in 2005 — knocking out `SyGI` (*CRISPR hermaphrodites*), changing ploidy ($2x \to 4x \to 6x$), blocking pollination on one side (*flat-sided fruit*), or scanning an unripe Day-40 berry — while honestly identifying geometric simplifications (**the Sim-to-Real gap**).
+5. **Turn the forward model around (`Inverse Inference & Synthetic Benchmarking`):** Once you can simulate `Genes/Seeds → Anatomy → 7T MRI`, you can run that pipeline backward to reconstruct hidden internal deficits from noisy outer contours (`Tikhonov regularization`) and generate synthetic 3D 7T MRI phantoms with exact seed coordinates to benchmark `Lab 4`'s segmentation pipelines!
 
 ---
 
