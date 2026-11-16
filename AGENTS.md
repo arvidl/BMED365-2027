@@ -8,5 +8,5 @@ The most important ones, in short:
 
 - The repo is public. Never commit secrets, exam material, unreleased solutions or non-shareable data.
 - Work on `dev`, never directly on `main`. Commit and push only when the user asks.
-- Do not commit notebooks that were only run as a test, and do not commit changes to a notebook's `kernelspec` metadata.
+- Do not commit notebooks that were only run as a test. If Cursor rewrites a notebook's kernelspec `name` away from `python3`, restore it before committing.
 - Use `uv` (`uv sync`, `uv run`, `uv add`). Never `pip install` into `.venv`.

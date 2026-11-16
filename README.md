@@ -172,11 +172,23 @@ This creates a folder `.venv/` inside `BMED365-2027` containing Python 3.12 and 
 
 #### Step 5 – Register the Jupyter kernel (once)
 
-The course notebooks expect a kernel named `bmed365-2027`:
+From the `BMED365-2027` folder, register the course environment as a Jupyter kernel:
 
 ```bash
 uv run python -m ipykernel install --user --name bmed365-2027
 ```
+
+In Jupyter or Cursor, choose **bmed365-2027** for every notebook except the three that have their own `uv` environment. Register each of those once, from the `BMED365-2027` folder:
+
+```bash
+(cd Lab0-ML/pycaret-env && uv run python -m ipykernel install --user --name pycaret-bmed365 --display-name "Python (BMED365 - PyCaret)")
+(cd Lab4-Comp-Imag/IMC-example && uv run python -m ipykernel install --user --name bmed365imc --display-name "BMED365IMC")
+(cd Lab5-Comp-Mod/MLX-Bio-Qwen && uv run python -m ipykernel install --user --name mlx-bio --display-name "Python (BMED365 - MLX Bio)")
+```
+
+Then choose **Python (BMED365 - PyCaret)**, **BMED365IMC**, or **Python (BMED365 - MLX Bio)** for those notebooks.
+
+Notebooks are saved so both Colab and this local kernel work. `name` stays `python3`, which is the only Python kernel Colab knows. `display_name` is the kernel you select locally (`bmed365-2027`, or one of the three names above). Colab does not use `pyproject.toml`; packages there come from the installs inside the notebook.
 
 #### Step 6 – Check the installation
 
