@@ -30,7 +30,7 @@ The repo is developed on two machines (a MacBook Pro M4 Max and a Dell Precision
 - To test a notebook without touching it, execute it into a directory outside the repo:
   `uv run jupyter nbconvert --to notebook --execute <nb>.ipynb --ExecutePreprocessor.kernel_name=python3 --output-dir <scratch dir>`
 - Commit changed outputs only when updating them is the purpose of the change.
-- Do not commit changes to a notebook's `kernelspec` metadata. Editors such as Cursor rewrite it when a kernel is selected (e.g. `"name": "python3"` becomes `"name": "bmed365-2027"` or `.venv`), and Colab only knows `python3`.
+- Keep each notebook's `kernelspec` as `"name": "python3"` and a `display_name` that matches the local uv kernel: `bmed365-2027` for the root environment, `Python (BMED365 - PyCaret)`, `BMED365IMC`, or `Python (BMED365 - MLX Bio)` for the three separate environments. Colab only knows `python3`. Selecting a kernel in Cursor rewrites `name` to that kernel (for example `bmed365-2027` or `.venv`); do not commit that rewrite. Restore `name` to `python3` before committing.
 - Many notebooks contain large embedded images. Do not print or read whole notebooks into context; search for the specific cell.
 - When editing notebook text, change only the lines involved. Do not reformat or re-serialize the JSON.
 
@@ -48,7 +48,10 @@ The repo is developed on two machines (a MacBook Pro M4 Max and a Dell Precision
 - The lockfile must keep resolving for macOS Apple Silicon, Linux (CUDA) and Intel Macs. Intel Macs are pinned to older torch/TensorFlow through platform markers in `pyproject.toml`; do not remove those markers.
 - `.venv/` and the Jupyter kernel are per machine and not in git. Register the kernel once per machine:
   `uv run python -m ipykernel install --user --name bmed365-2027`
-- Three sub-projects keep their own separate `uv` environments (`pyproject.toml` + `uv.lock`) and are not part of the root `uv` environment: PyCaret (`Lab0-ML/pycaret-env`), IMC (`Lab4-Comp-Imag/IMC-example`) and MLX (`Lab5-Comp-Mod/MLX-Bio-Qwen`).
+- Three sub-projects keep their own separate `uv` environments (`pyproject.toml` + `uv.lock`) and are not part of the root `uv` environment. Register each kernel once per machine, from that folder:
+  - PyCaret (`Lab0-ML/pycaret-env`): `uv run python -m ipykernel install --user --name pycaret-bmed365 --display-name "Python (BMED365 - PyCaret)"`
+  - IMC (`Lab4-Comp-Imag/IMC-example`): `uv run python -m ipykernel install --user --name bmed365imc --display-name "BMED365IMC"`
+  - MLX (`Lab5-Comp-Mod/MLX-Bio-Qwen`): `uv run python -m ipykernel install --user --name mlx-bio --display-name "Python (BMED365 - MLX Bio)"`
 
 ## Platforms
 
