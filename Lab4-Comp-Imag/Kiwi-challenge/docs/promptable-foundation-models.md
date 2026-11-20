@@ -5,6 +5,73 @@
 
 ---
 
+## From Chatbot LLMs (`Lab 3`) to Promptable Vision Foundation Models (`Lab 4`): Inputs, Tokens, Embeddings & Outputs
+
+If you have already worked with Large Language Models (`LLMs`) such as ChatGPT, Claude, or Gemini in **[Lab 3 (`Lab3-GenAI-LLM`)](../../../Lab3-GenAI-LLM)**, you already know 80% of the mental model behind a **Promptable Vision Foundation Model** like `SAM`, `MedSAM`, or `SAM 2.1`! Both are built on the exact same **Transformer** machinery (tokens, high-dimensional embedding vectors, positional encodings, and attention), adapted from 1D text sequences to 2D/3D spatial images.
+
+### 0.1 The Side-by-Side Rosetta Stone: Text Chatbot LLM vs. Promptable Segmentation Model
+
+| Architectural Stage | Natural-Language Chatbot LLM (`Lab 3`) | Promptable Vision Foundation Model (`SAM` / `SAM 2.1` in `Lab 4`) |
+| :--- | :--- | :--- |
+| **1. Raw Context Input** | A clinical note or research paper (1D string of characters) | A 2D MRI slice of size $H \times W$ (rescaled to `1024 × 1024 × 3`), or a 3D slice stack $z = 0 \dots Z-1$ |
+| **2. Tokenization (*"What is a token?"*)** | **Subword BPE pieces** (`tiktoken`, e.g., `"micro"`, `"bleed"` $\to$ token IDs) | **Non-overlapping `16 × 16` pixel squares (*Visual Patches*)**: slicing a `1024 × 1024` image into a $64 \times 64$ grid = **`4,096` visual tokens** |
+| **3. Token Embedding ($\mathbf{e} \in \mathbb{R}^d$)** | Lookup table maps each token ID to a vector (e.g., $d = 4{,}096$) | A single `16 × 16` strided 2D convolution projects the $16 \times 16 \times 3 = 768$ pixel values of each square into a **$256$-D visual embedding vector** |
+| **4. Positional Encoding** | **1D sequence order** (`RoPE` / sinusoidal index $i = 1, 2, \dots, L$) so `"dog bites man"` $\neq$ `"man bites dog"` | **2D spatial `(x, y)` Fourier/rotary coordinates** added to every patch vector so the Transformer knows *where* inside the organ each patch lives |
+| **5. Heavy Context Caching** | **KV-Cache** of a long uploaded PDF (computed once, queried many times) | **Image Encoder (`ViT` / `Hiera`) runs ONCE per slice** (`~80 ms` on GPU) to produce a reusable **Image Embedding Map** $\mathcal{F} \in \mathbb{R}^{256 \times 64 \times 64}$ |
+| **6. User Prompt (*"How you steer it"* )** | Text question tokens (`"List the focal lesions"`) | **Geometric Prompt Tokens**: click $(x, y)$ (`+1` foreground / `0` background) or box corners $(x_1, y_1), (x_2, y_2)$ mapped into $256$-D vectors (`< 2 ms`!) |
+| **7. Decoder Reasoning** | Causal self-attention over `[context + prompt]` tokens | **Two-Way Cross-Attention (`~4M` params)**: prompt tokens query image tokens *and* image tokens query prompt tokens to isolate the target object |
+| **8. Output Prediction** | Linear head over vocabulary $\to$ **next-word probabilities** | Dot-product between a learned **Mask Token** and upsampled pixel embeddings $\to$ **2D Mask Logit Map** $M(x,y) \in \mathbb{R}^{H\times W}$ + **self-estimated quality** $\hat{\text{IoU}} \in [0,1]$ |
+| **9. Multi-Turn Memory** | Chat history carried across turns $t = 1, 2, 3 \dots$ | **Streaming Memory Bank (`Sam2VideoModel`)**: encoding slice $z_0$'s mask into memory tokens so slices $z_0 \pm 1, \pm 2$ remember *"which seed we are tracking"* |
+
+---
+
+### 0.2 Following One Click Through the Tensors (End-to-End Dataflow)
+
+```mermaid
+flowchart LR
+    subgraph Enc["1. Heavy Image Encoder (Run ONCE per slice, ~80 ms)"]
+        I["7T MRI Slice (H×W)<br/>Resized to 1024×1024×3"] --> P["Patchify (16×16 squares)<br/>64×64 = 4,096 Visual Tokens"]
+        P --> V["ViT / Hiera Self-Attention<br/>(+ 2D Spatial Positional Encoding)"]
+        V --> F["Image Embedding Map<br/>Shape: 256 × 64 × 64<br/>(+ SAM 2.1 stride-4/8 FPN skips)"]
+    end
+
+    subgraph Prm["2. Lightweight Prompt Encoder (< 1 ms)"]
+        U["User / Detector Prompt<br/>Click (x, y) or Box [x1,y1,x2,y2]"] --> FE["2D Sinusoidal Fourier GPS<br/>+ Learned Type Vector (+1 / 0 / Box)"]
+        FE --> PT["Sparse Prompt Tokens<br/>+ 3 Learnable Mask Tokens<br/>+ 1 IoU Score Token (all 256-D)"]
+    end
+
+    subgraph Dec["3. Two-Way Cross-Attention Decoder (< 2 ms)"]
+        F --> CA["Prompt ↔ Image<br/>Two-Way Cross-Attention"]
+        PT --> CA
+        CA --> UP["Upsampled Pixel Feature Map<br/>U(x,y) ∈ ℝ^(256 × 256 × 256)"]
+        CA --> MT["Updated Mask Vectors t_m ∈ ℝ^256<br/>& IoU Token"]
+        UP --> DP["Per-Pixel Dot Product<br/>L_m(x,y) = t_m · U(x,y)"]
+        MT --> DP
+    end
+
+    DP --> OUT["Outputs Resized to H×W:<br/>• Binary Mask (L_m > 0.0)<br/>• Predicted IoÛ ∈ [0, 1]<br/>• Presence Logit (SAM 2.1)"]
+```
+
+Four intuitive insights demystify what happens inside the diagram above:
+
+1. **Why chop an image into `16 × 16` patches instead of treating every pixel as a token?**  
+   Self-attention compares every token against every other token, which scales quadratically as $\mathcal{O}(N^2)$. A `1024 × 1024` image contains $N = 1{,}048{,}576$ pixels — full pixel-to-pixel attention would require $N^2 \approx 1.1 \times 10^{12}$ pairwise attention weights per layer (hundreds of gigabytes of GPU memory!). Grouping pixels into `16 × 16` squares reduces the sequence length by $256\times$ to **$N = 64 \times 64 = 4{,}096$ visual tokens** ($N^2 \approx 1.67 \times 10^7$), roughly the same context length as a 10-page document in an LLM! *(And as we will see in Trap 1 below, that exact `16 × 16` compression is also why tiny `5-pixel` kiwifruit seeds need special care!)*
+
+2. **How does a pair of numbers `(x = 21.5, y = 4.9)` become a 256-dimensional "word" the Transformer understands?**  
+   If you feed two raw normalized coordinates $(x/W, y/H) \in [0, 1]^2$ directly into a small neural layer, smooth activations blur nearby coordinates together (*spectral bias*). Instead, the **Prompt Encoder** passes $(x/W, y/H)$ through a bank of **128 multi-frequency 2D sine and cosine waves** (*Fourier positional encoding* — a 2D spatial "GPS barcode" from coarse whole-image waves down to fine sub-pixel waves) and adds a **learned role embedding** (`foreground click`, `background click`, `top-left box corner`, or `bottom-right box corner`). The result is a sharp $256$-D vector living in the **exact same coordinate-aware vector space** as the $4{,}096$ image patch embeddings!
+
+3. **An LLM outputs one word from a dictionary — how does a Vision Transformer output a 2D pixel mask?**  
+   Alongside your prompt tokens, the decoder prepends **learnable readout tokens** (just like a `[CLS]` token in BERT/ViT): **3 Output Mask Tokens** ($\mathbf{t}_0, \mathbf{t}_1, \mathbf{t}_2 \in \mathbb{R}^{256}$) and **1 IoU Quality Token**. During Two-Way Cross-Attention, each $\mathbf{t}_m$ gathers visual appearance and boundary context around your prompt and transforms into a **custom, on-the-fly linear classifier weight vector** for that specific seed! Meanwhile, transposed convolutions upsample the `64 × 64` image embeddings (fused with high-resolution `256 × 256` `stride-4` FPN features in `SAM 2.1`) into a dense per-pixel feature map $\mathbf{U}(x, y) \in \mathbb{R}^{256}$. Finally, a simple **dot product at every pixel**:
+
+   $$L_m(x, y) = \mathbf{t}_m^\top \, \mathbf{U}(x, y) \in \mathbb{R}$$
+
+   produces the continuous **mask logit map**: pixels with $L_m(x, y) > 0$ ($\text{sigmoid}(L_m) > 0.5$) belong to the segmented object, while the sibling **IoU Token** passes through a tiny MLP to output $\hat{\text{IoU}}_m \in [0, 1]$ (`iou_scores`) — the model's own confidence estimate of how cleanly that mask fits true boundaries!
+
+4. **Why split a heavy Image Encoder from a tiny Prompt Decoder?**  
+   In interactive radiology or microscopy tools (like 3D Slicer, Napari, or our Jupyter widget in Notebook `03b`), a user may click 50 seeds on the same slice. Because the heavy `ViT`/`Hiera` Image Encoder does **not** depend on the prompt, you compute the slice embedding $\mathcal{F}$ **once** (`~80 ms`), cache it in GPU RAM, and then decode **dozens or hundreds of clicks/boxes in `< 2 ms` (`< 4M` parameters)** — instant visual feedback! And in **`SAM 2.1` (`Sam2VideoModel`)**, once slice $z_0$ is segmented, a lightweight **Memory Encoder** fuses slice $z_0$'s image features with its predicted mask and stores them in a **FIFO Memory Bank** (a visual KV-cache) so adjacent 3D MRI slices ($z_0 \pm 1, \pm 2$) can segment the rest of the 3D seed **without needing another human click**.
+
+---
+
 ## Why Test Vision Foundation Models on a 7T Kiwifruit MRI?
 
 Since 2023, **promptable vision foundation models** — starting with Meta's **[Segment Anything Model (SAM)](https://arxiv.org/abs/2304.02643)** and evolving rapidly into **[MedSAM](https://doi.org/10.1038/s41467-024-44824-z)**, **[SAM 2 / SAM 2.1](https://arxiv.org/abs/2408.00714)**, **[MedSAM2](https://huggingface.co/wanglab/MedSAM2)**, **[MicroSAM](https://doi.org/10.1038/s41592-024-02580-4)**, **[nnInteractive](https://huggingface.co/MIC-DKFZ/nnInteractive)**, and **SAM 3** — have reshaped biomedical image segmentation. Instead of training a bespoke neural network from scratch for every scanner and organ, an analyst supplies **spatial or semantic prompts** (clicks, negative background points, bounding boxes, scribbles, or text phrases) to condition a pre-trained general-purpose mask decoder at inference time.
