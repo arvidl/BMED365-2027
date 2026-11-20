@@ -1,7 +1,7 @@
 # Promptable Vision Foundation Models on the 7T MRI Kiwi Challenge
 
 *Companion Methodological & Didactic Guide for `Lab4-Comp-Imag/Kiwi-challenge` — BMED365 Spring 2027*  
-*Compatible with the root `bmed365-2027` `uv` environment (`transformers >= 4.56`) and Google Colab*
+*Compatible with the root `bmed365-2027` `uv` environment (`transformers >= 4.56`) and Google Colab — **[Download / Read Printable PDF (`promptable-foundation-models.pdf`)](./promptable-foundation-models.pdf)***
 
 ---
 
