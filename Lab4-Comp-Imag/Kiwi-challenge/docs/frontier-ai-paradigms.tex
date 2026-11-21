@@ -141,7 +141,240 @@
 \vspace{6pt}
 
 % =====================================================================
-% SECTION 1: COMPLETING THE 6-PILLAR TAXONOMY
+% SECTION 1: NON-TECHNICAL INTRODUCTION & VISUAL INTUITION
+% =====================================================================
+\section{A Non-Technical Introduction: Big Ideas, Definitions \& Visual Intuition}
+
+\begin{infobox}[Who This Section Is For (Start Here!)]
+The later sections of this guide present equations, PyTorch algorithms, and benchmark tables for four cutting-edge AI families. Before encountering any formal math, this opening section introduces the \textbf{clinical motivation}, \textbf{plain-English definitions}, and \textbf{visual intuition} behind every model and method in the document --- designed for biomedicine and life-science master's students with moderate math background.
+\end{infobox}
+
+\subsection{Why Look Beyond Standard Deep Learning (\texttt{3D U-Net}) and \texttt{SAM}?}
+
+In Notebooks~\texttt{04} and~\texttt{05}, you saw two workhorse AI tools on our 7T kiwifruit MRI: a classic \textbf{3D Convolutional Neural Network (\texttt{3D U-Net})} and a \textbf{Promptable Vision Foundation Model (\texttt{SAM 2.1})}. Both are powerful, yet in real hospital imaging and 3D microscopy, clinicians and biologists repeatedly hit \textbf{four practical walls}:
+
+\begin{enumerate}
+    \item \textbf{``We have thousands of scans, but almost no hand-labeled examples.''} Expert 3D tracing takes hours per scan. On our kiwifruit MRI, over 99\% of the volume is unlabeled. A standard \texttt{3D U-Net} trained from scratch on just 11 labeled seeds quickly memorizes noise and fails. $\longrightarrow$ \textbf{Solution: 3D Self-Supervised Learning (\texttt{SSL}).}
+    \item \textbf{``Local filters miss the big picture, while Transformers are too expensive in full 3D.''} A convolutional network looks through a tiny local keyhole ($3\times 3\times 3$ voxels), so it cannot easily tell whether a dark spot sits near the center or edge of an organ. A Vision Transformer looks everywhere at once, but comparing millions of 3D voxels to one another explodes GPU memory. $\longrightarrow$ \textbf{Solution: Selective State-Space Models (\texttt{3D U-Mamba}).}
+    \item \textbf{``I need an honest uncertainty range, not one overconfident guess.''} When MRI slices are thick, even experienced human raters disagree on fuzzy seed tips or touching pairs. Yet a standard U-Net outputs only one fixed answer, and trying to flip coins pixel-by-pixel from its confidence map shatters blurry borders into hundreds of meaningless 1-voxel specks. $\longrightarrow$ \textbf{Solution: Conditional Diffusion \& Flow Matching (\texttt{MedSegDiff} / \texttt{CIMD}).}
+    \item \textbf{``My AI works on middle slices, then hallucinates lesions in impossible places!''} When a model trained on the middle of an organ is run across the whole 3D scan, unfamiliar structures (like vascular bundles at the poles of the kiwifruit, or skull/veins in brain MRI) fool it into producing thousands of false alarms. $\longrightarrow$ \textbf{Solution: Differentiable Neurosymbolic AI (\texttt{Logic Tensor Networks} + \texttt{Organ-GPS}).}
+\end{enumerate}
+
+\subsection{Visual Intuition: The Four Frontier Pillars at a Glance}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    scale=0.97, transform shape,
+    font=\scriptsize,
+    panel/.style={rectangle, rounded corners=3pt, draw=uibblue!45, fill=lightgray!55, inner sep=4pt, minimum width=8.05cm, minimum height=3.85cm}
+]
+% --- PANEL A: 3D SSL Jigsaw ---
+\node[panel] (pA) at (0,0) {};
+\node[anchor=north west, font=\scriptsize\bfseries\color{uibblue}] at ([xshift=4pt,yshift=-3pt]pA.north west) {(A) Pillar 1: Self-Supervised Learning (Jigsaw)};
+
+\begin{scope}[shift={(-3.62,-1.10)}]
+    % Masked cube representation
+    \fill[uibblue!14, draw=uibblue, thick, rounded corners=1.5pt] (0,0.35) rectangle (1.60,1.85);
+    \fill[gray!75] (0.18,1.25) rectangle (0.60,1.65);
+    \fill[gray!75] (0.92,0.65) rectangle (1.38,1.10);
+    \fill[gray!75] (0.32,0.52) rectangle (0.68,0.88);
+    \node[font=\tiny\bfseries, color=white] at (0.39,1.45) {?};
+    \node[font=\tiny\bfseries, color=white] at (1.15,0.88) {?};
+    \node[font=\tiny\bfseries, color=white] at (0.50,0.70) {?};
+    \node[below, align=center, font=\tiny] at (0.80,0.32) {Unlabeled 3D scan\\with hidden holes};
+
+    \draw[-{Stealth[length=1.9mm]}, thick, color=kiwigreen!80!black] (1.68,1.10) -- (2.46,1.10) node[midway, above, font=\tiny\bfseries\color{kiwigreen!75!black}] {Repaint};
+
+    % Reconstructed anatomy
+    \fill[kiwigreen!16, draw=kiwigreen!85!black, thick, rounded corners=1.5pt] (2.54,0.35) rectangle (4.14,1.85);
+    \fill[amberwarn!30] (3.34,1.10) circle (0.56);
+    \fill[uibblue!25] (3.34,1.10) circle (0.23);
+    \foreach \ang in {20,80,140,200,260,320}{
+        \fill[black!85] ({3.34+0.40*cos(\ang)},{1.10+0.40*sin(\ang)}) circle (0.062);
+    }
+    \node[below, align=center, font=\tiny] at (3.34,0.32) {Learns tissue map\\with \textbf{zero} labels};
+
+    \draw[-{Stealth[length=1.9mm]}, thick, color=uibblue] (4.22,1.10) -- (5.16,1.10) node[midway, above, font=\tiny\bfseries\color{uibblue}] {11 seeds};
+
+    % Tiny probe
+    \node[rectangle, rounded corners=2pt, draw=uibred, fill=uibred!8, thick, align=center, font=\tiny, text width=1.82cm, minimum height=1.25cm] at (6.25,1.10) {\textbf{Linear Probe}\\Freeze visual eyes;\\tune only \textbf{34}\\tiny dials!};
+\end{scope}
+
+% --- PANEL B: CNN vs ViT vs Mamba ---
+\node[panel] (pB) at (8.40,0) {};
+\node[anchor=north west, font=\scriptsize\bfseries\color{uibblue}] at ([xshift=4pt,yshift=-3pt]pB.north west) {(B) Pillar 2: CNN vs.\ ViT vs.\ Mamba Notepad};
+
+\begin{scope}[shift={(4.82,-1.10)}]
+    % CNN Keyhole
+    \draw[gray!50, step=0.30] (0,0.45) grid (1.50,1.95);
+    \fill[uibblue!25, draw=uibblue, very thick] (0.60,1.05) rectangle (1.20,1.65);
+    \node[below, align=center, font=\tiny] at (0.75,0.40) {\textbf{3D CNN}\\Local keyhole\\(fast, myopic)};
+
+    % ViT All-to-All Web
+    \foreach \i in {0,1,2,3}{
+        \foreach \j in {0,1,2}{
+            \node[circle, fill=amberwarn!85!black, inner sep=1.2pt] (v\i\j) at ({2.50+\i*0.42},{0.70+\j*0.48}) {};
+        }
+    }
+    \foreach \i in {0,1,2,3}{
+        \foreach \k in {0,1,2,3}{
+            \draw[amberwarn!60, very thin] (v\i0) -- (v\k2);
+            \draw[amberwarn!45, very thin] (v\i1) -- (v\k2);
+        }
+    }
+    \node[below, align=center, font=\tiny] at (3.13,0.40) {\textbf{Transformer (ViT)}\\All-to-all web\\(huge 3D cost)};
+
+    % Mamba Selective Notepad
+    \foreach \t/\dcol/\fcol in {0/gray!65/gray!15, 1/gray!65/gray!15, 2/kiwigreen!85!black/kiwigreen!22, 3/kiwigreen!85!black/kiwigreen!22, 4/uibred/uibred!18}{
+        \node[rectangle, rounded corners=1.5pt, draw=\dcol, fill=\fcol, thick, minimum width=0.34cm, minimum height=0.45cm] (m\t) at ({5.00+\t*0.48},1.25) {};
+    }
+    \foreach \t [evaluate=\t as \tn using int(\t+1)] in {0,1,2,3}{
+        \draw[-{Stealth[length=1.4mm]}, thick, color=kiwigreen!80!black] (m\t) -- (m\tn);
+    }
+    \node[font=\tiny\bfseries, color=kiwigreen!75!black] at (5.96,1.82) {Keep / Reset Gate};
+    \draw[->, thin, color=kiwigreen!75!black] (5.92,1.72) -- (m2.north);
+    \node[below, align=center, font=\tiny] at (5.96,0.40) {\textbf{3D U-Mamba}\\Smart notepad scan\\(global + fast!)};
+\end{scope}
+
+% --- PANEL C: Diffusion Uncertainty ---
+\node[panel] (pC) at (0,-4.20) {};
+\node[anchor=north west, font=\scriptsize\bfseries\color{uibblue}] at ([xshift=4pt,yshift=-3pt]pC.north west) {(C) Pillar 3: Pixel Coin-Flips vs.\ Coherent Diffusion};
+
+\begin{scope}[shift={(-3.55,-5.30)}]
+    % Salt & pepper failure
+    \fill[white, draw=uibred, thick, rounded corners=1.5pt] (0,0.40) rectangle (1.82,1.85);
+    \foreach \x/\y in {0.2/1.6,0.4/1.5,0.3/1.2,0.7/1.4,0.6/1.0,1.1/1.6,1.3/1.3,1.5/1.5,1.4/0.9,0.9/0.7,0.5/0.6,1.2/0.6,1.6/0.7,0.8/1.1,1.0/1.2,0.3/0.8,1.5/1.1,0.7/1.7}{
+        \fill[uibred!80] (\x,\y) circle (0.045);
+    }
+    \node[below, align=center, font=\tiny] at (0.91,0.36) {\textbf{Per-pixel coin flips}\\748 noisy specks!};
+
+    % VS
+    \node[font=\scriptsize\bfseries, color=gray] at (2.18,1.12) {vs.};
+
+    % Coherent sculptor draws
+    \fill[white, draw=kiwigreen!85!black, thick, rounded corners=1.5pt] (2.55,0.40) rectangle (4.38,1.85);
+    \fill[kiwigreen!70!black] (3.03,1.45) ellipse (0.20 and 0.13);
+    \fill[kiwigreen!70!black] (3.82,1.38) ellipse (0.21 and 0.13);
+    \fill[kiwigreen!70!black] (3.27,0.82) ellipse (0.19 and 0.12);
+    \fill[amberwarn!80, draw=amberwarn!90!black, dashed] (3.94,0.78) ellipse (0.17 and 0.11);
+    \node[below, align=center, font=\tiny] at (3.46,0.36) {\textbf{12 Diffusion draws}\\Intact 3D seeds};
+
+    % Arrow to histogram
+    \draw[-{Stealth[length=1.9mm]}, thick, color=uibblue] (4.48,1.12) -- (5.02,1.12);
+
+    % Count bell curve / bars
+    \begin{scope}[shift={(5.15,0.55)}]
+        \draw[->, thin, gray] (0,0) -- (1.88,0);
+        \fill[uibblue!55] (0.18,0) rectangle (0.40,0.35);
+        \fill[uibblue!75] (0.46,0) rectangle (0.68,0.75);
+        \fill[kiwigreen!80!black] (0.74,0) rectangle (0.96,1.10);
+        \fill[uibblue!75] (1.02,0) rectangle (1.24,0.82);
+        \fill[uibblue!55] (1.30,0) rectangle (1.52,0.30);
+        \draw[uibred, thick, dashed] (0.85,0) -- (0.85,1.22);
+        \node[above, font=\tiny\bfseries, color=uibred] at (0.85,1.18) {True count};
+        \node[below, align=center, font=\tiny] at (0.90,-0.16) {\textbf{Honest error bar}\\(e.g., $55 \pm 3$ seeds)};
+    \end{scope}
+\end{scope}
+
+% --- PANEL D: Neurosymbolic + Organ-GPS ---
+\node[panel] (pD) at (8.40,-4.20) {};
+\node[anchor=north west, font=\scriptsize\bfseries\color{uibblue}] at ([xshift=4pt,yshift=-3pt]pD.north west) {(D) Pillar 4: Neurosymbolic AI (Eyes + Rules)};
+
+\begin{scope}[shift={(4.95,-5.30)}]
+    % Stylized kiwi cross-section
+    \fill[uibred!12, draw=uibred!80, thick] (1.30,1.10) ellipse (1.12 and 0.88);
+    \fill[kiwigreen!22, draw=kiwigreen!85!black, thick] (1.30,1.10) ellipse (0.74 and 0.58);
+    \fill[uibred!18, draw=uibred!80, thick] (1.30,1.10) ellipse (0.29 and 0.23);
+    \foreach \ang in {15,65,115,165,215,265,315}{
+        \fill[black!85] ({1.30+0.52*cos(\ang)},{1.10+0.40*sin(\ang)}) circle (0.055);
+    }
+    \node[font=\tiny\bfseries, color=uibred] at (1.30,1.10) {Core};
+    \node[below, align=center, font=\tiny] at (1.30,0.18) {\textcolor{kiwigreen!75!black}{\textbf{Green:}} valid ring\\ \textcolor{uibred}{\textbf{Red:}} forbidden zones};
+
+    % Rules card on right
+    \node[rectangle, rounded corners=2pt, draw=amberwarn!90!black, fill=amberwarn!8, thick, align=left, font=\tiny, text width=3.95cm, inner sep=4pt] at (4.78,1.12) {
+        \textbf{Rules Taught Inside Training:}\\[2pt]
+        1.~\textbf{Compartment Rule:} No seeds in core, outer peel, or polar caps.\\[1pt]
+        2.~\textbf{MRI Physics Rule:} Real seeds must look dark inside bright gel.\\[1pt]
+        3.~\textbf{Organ-GPS + Personal Space:} Preserve true organ coordinates \& split fused twins closer than $\sim 0.9\text{ mm}$.
+    };
+\end{scope}
+\end{tikzpicture}
+\caption{Visual intuition for the four frontier AI paradigms built in Notebook~\texttt{06}: (A)~Self-Supervised Learning builds anatomical understanding from unlabeled scans; (B)~3D U-Mamba sweeps globally with a selective memory notepad; (C)~Conditional Diffusion generates coherent 3D realizations to quantify count uncertainty; (D)~Neurosymbolic AI bakes anatomical and physical rules directly into network weights.}
+\label{fig:nontech-frontier-intuition}
+\end{figure}
+
+\newpage
+\subsection{Plain-English Definitions of Every Concept, Model \& Method}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.18}
+\rowcolors{2}{white}{rowalt}
+\begin{tabularx}{\textwidth}{L{3.55cm} Y}
+\toprule
+\rowcolor{uibblue!14}
+\textbf{Concept / Model} & \textbf{Plain-English Meaning \& Intuitive Analogy} \\
+\midrule
+\textbf{Self-Supervised Learning (\texttt{SSL}), \texttt{Models Genesis} \& \texttt{MAE}} & Teaching a network from \textbf{unlabeled} scans by creating an automatic ``fill-in-the-blank'' game (\emph{pretext task}): hide random 3D blocks of an MRI, add mild brightness jitter and noise, and ask the network to paint back the clean anatomy. To succeed, it must learn what organs, membranes, and seeds look like on its own. \\
+\textbf{Inductive vs.\ Transductive \texttt{SSL}} & \textbf{Inductive} means strictly hiding the test region even during unlabeled pretraining (no peeking at the exam!); \textbf{transductive} lets the model see the unlabeled test scan first. We enforce inductive testing to prove genuine generalization. \\
+\textbf{Emergent Features (\texttt{PCA $\to$ RGB}) \& Linear Probing} & After \texttt{SSL} pretraining, we can color every voxel by its top three learned internal patterns (\texttt{PCA $\to$ RGB}) and see distinct tissues emerge with zero labels. \textbf{Linear probing} freezes the entire pretrained brain and trains only a tiny handful of final decision weights (just 34 numbers!) on 11 labeled seeds. \\
+\textbf{Selective State-Space Model (\texttt{Mamba}, \texttt{3D U-Mamba}, \texttt{SegMamba})} & Think of reading a long medical chart with a compact \textbf{smart notepad} (\emph{hidden state}). As \texttt{Mamba} sweeps across a 3D scan along three orthogonal directions (\emph{Tri-Oriented Scanning}), a learned \textbf{selective gate} decides at every voxel: \emph{``Is this a sharp new seed edge? Write it down and flush stale background!''} or \emph{``Still inside uniform gel? Hold onto long-range organ context!''} This gives global 3D vision without the huge memory cost of Transformers. \\
+\textbf{Parallel Prefix Scan (No CUDA Lock-In)} & Reading voxels strictly one-by-one in Python is painfully slow, and official \texttt{Mamba} packages require proprietary NVIDIA-only code. A \textbf{parallel prefix scan} combines neighboring pairs simultaneously in a tournament-bracket tree (e.g., 13 fast parallel rounds instead of 6,400 slow sequential steps), giving the exact same result $30\times$ faster on MacBooks, Linux GPUs, and Colab alike. \\
+\textbf{Conditional Diffusion \& Flow Matching (\texttt{MedSegDiff}, \texttt{CIMD})} & Instead of predicting one rigid mask, a generative diffusion/flow model starts from random static (fog) and smoothly \textbf{sculpts a complete, coherent 3D segmentation} over several quick refinement steps, guided by the MRI scan. Running this sculptor 12 times from different random starting fog produces 12 plausible 3D interpretations --- just like asking 12 independent radiologists! \\
+\textbf{Aleatoric Uncertainty, Credible Intervals \& \texttt{AnoDDPM}} & \textbf{Aleatoric uncertainty} is genuine physical fuzziness in the image (e.g., thin seed poles blurred across thick MRI slices). Counting seeds across the 12 diffusion realizations gives a realistic \textbf{credible interval} (e.g., $55 \pm 3$ seeds) rather than shattered pixel noise. A related trick, \textbf{\texttt{AnoDDPM}}, trains only on healthy tissue and ``heals'' a diseased scan so anomalies pop out by subtraction. \\
+\textbf{Out-of-Distribution (\texttt{OOD}) Collapse} & When an AI encounters anatomy it never saw during training (such as the polar tips or outer rind of the kiwifruit, or a new hospital scanner) and confidently hallucinates false lesions. \\
+\textbf{Differentiable Neurosymbolic AI (\texttt{Logic Tensor Networks, LTN})} & Classic deep learning relies purely on pattern matching (\emph{neural}); textbooks rely on explicit rules (\emph{symbolic}). \textbf{\texttt{LTN}} translates textbook rules (``outside the inner ring $\Rightarrow$ not a seed''; ``seeds must be dark'') into smooth, trainable penalties applied on unlabeled regions. Using a strict ``for-all'' penalty ensures even a small pocket of wrong predictions is heavily corrected during training. \\
+\textbf{\texttt{Organ-GPS} \& Hard-Core Clump Splitting} & Standard 3D CNN normalization (\texttt{InstanceNorm}) accidentally erases absolute position inside an organ by re-centering every local crop. Adding an un-normalized \textbf{\texttt{Organ-GPS}} side-branch tells the network where each voxel lies from center-to-rim and pole-to-equator. Finally, \textbf{hard-core splitting} uses Lab~5's physical finding that real seeds keep a minimum ``personal space'' ($\sim 0.9\text{ mm}$) to cleanly separate touching twin seeds. \\
+\textbf{Beyond Voxel Grids: \texttt{INRs}, \texttt{GNNs} \& Object Queries} & Three bonus paradigms broaden your toolkit: \textbf{Implicit Neural Representations (\texttt{INRs}/\texttt{SIREN})} store a 3D scan as a smooth continuous formula (like vector graphics, free of blocky pixels); \textbf{Graph Neural Networks (\texttt{GNNs})} connect candidate seeds into a spatial constellation to spot radial patterns vs.\ stray vessels; \textbf{Object-Query Decoders (\texttt{DETR}/\texttt{Mask2Former})} dispatch learned ``detectives'' that each claim one instance directly without watershed heuristics. \\
+\bottomrule
+\end{tabularx}
+\caption{Plain-English glossary of all frontier AI concepts, models, and methods introduced in this guide.}
+\label{tab:nontech-frontier-defs}
+\end{table}
+
+\newpage
+\subsection{Recommended Starting Resources (Reviews, Visual Guides, Repos, Videos \& Podcasts)}
+
+Explore any of these accessible, well-illustrated starting points before diving into the mathematical formulations in Section~\ref{sec:frontier-pillars}:
+
+\begin{table}[H]
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.22}
+\rowcolors{2}{white}{rowalt}
+\begin{tabularx}{\textwidth}{L{2.55cm} Y}
+\toprule
+\rowcolor{uibblue!14}
+\textbf{Format} & \textbf{Curated Learning Resource (Clickable)} \\
+\midrule
+\textbf{Non-Technical Review Papers} &
+$\bullet$ \href{https://doi.org/10.1038/s41746-023-00811-0}{\textbf{Huang et al., \emph{npj Digital Medicine} (2023)}} --- \emph{Self-supervised learning for medical image classification: systematic review \& guidelines}. \newline
+$\bullet$ \href{https://doi.org/10.1016/j.media.2023.102846}{\textbf{Kazerouni et al., \emph{Medical Image Analysis} (2023)}} --- \emph{Diffusion models in medical imaging: A comprehensive survey}. \newline
+$\bullet$ \href{https://link.springer.com/article/10.1007/s10462-023-10448-w}{\textbf{Garcez \& Lamb, \emph{Artificial Intelligence Review} (2023)}} (\href{https://arxiv.org/abs/2012.05876}{arXiv}) --- \emph{Neurosymbolic AI: The 3rd Wave} (accessible roadmap of neural + symbolic reasoning). \\
+\textbf{Illustrated Tutorials \& Interactive Guides} &
+$\bullet$ \href{https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mamba-and-state}{\textbf{Maarten Grootendorst: \emph{A Visual Guide to Mamba and State Space Models}}} --- 50+ crystal-clear diagrams explaining \texttt{Mamba} with zero pain! \newline
+$\bullet$ \href{https://jalammar.github.io/illustrated-stable-diffusion/}{\textbf{Jay Alammar: \emph{The Illustrated Stable Diffusion}}} --- intuitive visual walkthrough of how diffusion sculpts images from noise. \newline
+$\bullet$ \href{https://lilianweng.github.io/posts/2021-07-11-diffusion-models/}{\textbf{Lilian Weng (Lil'Log): \emph{What are Diffusion Models?}}} --- bridges intuition gently into the underlying equations. \newline
+$\bullet$ \href{https://distill.pub/2021/gnn-intro/}{\textbf{Distill.pub: \emph{A Gentle Introduction to Graph Neural Networks}}} --- interactive visual explainer for spatial graphs (\texttt{GNNs}). \\
+\textbf{Open-Source GitHub Repos} &
+\href{https://github.com/bowang-lab/U-Mamba}{\texttt{bowang-lab/U-Mamba}} $\;\cdot\;$
+\href{https://github.com/logictensornetworks/LTNtorch}{\texttt{logictensornetworks/LTNtorch}} $\;\cdot\;$
+\href{https://github.com/logictensornetworks/logictensornetworks}{\texttt{logictensornetworks/logictensornetworks}} \\
+\textbf{Videos \& Podcasts} &
+$\bullet$ \href{https://www.youtube.com/watch?v=iv-5mZ_9CPY}{\textbf{3Blue1Brown (feat.\ Welch Labs): \emph{But how do AI images and videos actually work?}}} --- outstanding animated intuition for diffusion \& flow vector fields. \newline
+$\bullet$ \href{https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi}{\textbf{3Blue1Brown: \emph{Neural Networks / Deep Learning Playlist}}} --- foundational visual intuition if you want a quick refresher. \newline
+$\bullet$ \href{https://ai-podcast.nejm.org/}{\textbf{NEJM AI Grand Rounds}} \& \href{https://twimlai.com/}{\textbf{The TWIML AI Podcast}} --- accessible interviews on medical AI, uncertainty, self-supervision, and state-space models. \\
+\bottomrule
+\end{tabularx}
+\caption{Curated non-technical reviews, visual tutorials, GitHub repositories, videos, and podcasts for the frontier paradigms in Notebook~\texttt{06}.}
+\label{tab:nontech-frontier-resources}
+\end{table}
+
+% =====================================================================
+% SECTION 2: COMPLETING THE 6-PILLAR TAXONOMY
 % =====================================================================
 \section{Completing the 6-Pillar Biomedical AI Landscape (Notebooks 04--06)}
 
@@ -154,9 +387,10 @@ In \textbf{Notebook \texttt{04}} (3D Semantic \& Multi-Task Instance U-Nets) and
     \item \textbf{Spatial Out-of-Distribution (\texttt{OOD}) Collapse $\rightarrow$ Differentiable Neurosymbolic AI (\texttt{LTN}):} Sliding an equatorial-trained 3D CNN across all 128 whole-fruit slices triggers \textbf{$5{,}571$ unmasked blobs ($132{,}275$ OOD false-positive voxels!)} on oblique polar vascular bundles and outer-cortex parenchyma.
 \end{enumerate}
 
+\newpage
 \subsection{Architectural Rosetta Stone: Comparing the 6 Runnable AI Pillars}
 
-\begin{table}[!ht]
+\begin{table}[H]
 \centering
 \scriptsize
 \renewcommand{\arraystretch}{1.22}
@@ -177,7 +411,7 @@ In \textbf{Notebook \texttt{04}} (3D Semantic \& Multi-Task Instance U-Nets) and
 \caption{Division of labor across the 6 runnable biomedical segmentation pillars in Notebooks \texttt{04}--\texttt{06}.}
 \end{table}
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
     node distance=0.45cm and 0.65cm,
@@ -204,6 +438,7 @@ In \textbf{Notebook \texttt{04}} (3D Semantic \& Multi-Task Instance U-Nets) and
 % SECTION 2: MATHEMATICAL DEEP DIVES INTO PILLARS 1--4
 % =====================================================================
 \section{Mathematical \& Biophysical Foundations of the Four Frontier Pillars}
+\label{sec:frontier-pillars}
 
 \subsection{Pillar 1 --- 3D Self-Supervised Learning (\texttt{Models Genesis} \& \texttt{3D MAE})}
 
@@ -211,7 +446,7 @@ Given $36$ unlabeled $64\times 40\times 16$ cubes $\mathcal{D}_U$ sampled across
 \begin{equation}
     \mathcal{L}_{\text{SSL}}(\theta, \psi) = \mathbb{E}_{\mathbf{X}\sim\mathcal{D}_U}\!\left[\big\lVert (1 + 2\mathbf{M})(1 + 3\mathbf{Y}_{\text{LoG}}) \odot \big(g_\psi(f_\theta(\tilde{\mathbf{X}})) - \mathbf{Y}_{\text{self}}\big) \big\rVert_2^2\right].
 \end{equation}
-Projecting the frozen 16-channel embeddings onto 3 principal components (\texttt{PCA $\rightarrow$ RGB}, Fig.~2B) reveals \textbf{zero-label tissue parcellation} separating \emph{columella}, \emph{locular mucilage}, \emph{outer cortex}, and \emph{seeds}. On a tiny $11$-seed micro-box ($0.034\%$ of the scan), freezing all $340{,}416$ encoder weights and fitting \textbf{only $34$ linear-probe parameters} eliminates all split errors ($7 \rightarrow 0$) and raises \texttt{PQ} by \textbf{$+40.7\%$ (\texttt{0.209} $\rightarrow$ \texttt{0.294})}!
+Projecting the frozen 16-channel embeddings onto 3 principal components (\texttt{PCA $\rightarrow$ RGB}, Fig.~\ref{fig:frontier-bench}B) reveals \textbf{zero-label tissue parcellation} separating \emph{columella}, \emph{locular mucilage}, \emph{outer cortex}, and \emph{seeds}. On a tiny $11$-seed micro-box ($0.034\%$ of the scan), freezing all $340{,}416$ encoder weights and fitting \textbf{only $34$ linear-probe parameters} eliminates all split errors ($7 \rightarrow 0$) and raises \texttt{PQ} by \textbf{$+40.7\%$ (\texttt{0.209} $\rightarrow$ \texttt{0.294})}!
 
 \subsection{Pillar 2 --- Selective State-Space Models (\texttt{3D U-Mamba} via \texorpdfstring{$\mathcal{O}(\log_2 L)$}{O(log2 L)} Associative Scan)}
 
@@ -231,7 +466,7 @@ Drawing independent Bernoulli pixels from a U-Net softmax map produces \textbf{$
 \end{equation}
 Caching $\mathcal{F}_\phi(\mathbf{X}_{\text{test}})$ once allows sampling $K=12$ coherent 3D realizations ($S=8$ Euler steps) in \textbf{$0.22\text{ s}$}:
 \begin{itemize}
-    \item \textbf{Calibrated Count Credible Interval:} $P(N\mid\mathbf{X})$ yields \textbf{$54.6 \pm 3.1$ seeds ($90\%$ CI $[51, 60]$)}, cleanly bracketing \textbf{$\text{GT} = 52$} (Fig.~2C)!
+    \item \textbf{Calibrated Count Credible Interval:} $P(N\mid\mathbf{X})$ yields \textbf{$54.6 \pm 3.1$ seeds ($90\%$ CI $[51, 60]$)}, cleanly bracketing \textbf{$\text{GT} = 52$} (Fig.~\ref{fig:frontier-bench}C)!
     \item \textbf{Aleatoric Uncertainty \& Accuracy:} $\sigma_{\text{diff}}(\mathbf{x})$ highlights partial-volume seed poles and kissing clefts (mirroring human \texttt{STAPLE} disagreement in Notebook~\texttt{03b}), while the posterior ensemble achieves \textbf{\texttt{PQ = 0.447} (\texttt{Dice = 0.682}, \texttt{RQ = 0.673})}.
 \end{itemize}
 
@@ -282,6 +517,7 @@ All experiments below run end-to-end in $\sim 70\text{ s}$ on an Apple MacBook P
     \centering
     \includegraphics[width=\textwidth]{../assets/kiwi_frontier_paradigms_benchmark.png}
     \caption{Empirical benchmark executed in Notebook~\texttt{06} on Apple MacBook Pro M4 Max (\texttt{mps}, \texttt{float32}): (A)~6-pillar Panoptic Quality progression on the 52-seed held-out test wedge; (B)~zero-label 3D SSL feature PCA parcellation; (C)~calibrated Flow-Diffusion seed-count posterior $P(N\mid\mathbf{X})$ bracketing $\text{GT}=52$; (D)~complete elimination of polar OOD false positives by LTN differentiable logic without post-hoc masks.}
+    \label{fig:frontier-bench}
 \end{figure}
 
 \begin{table}[H]
