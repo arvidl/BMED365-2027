@@ -141,13 +141,196 @@
 \vspace{6pt}
 
 % =====================================================================
-% SECTION 1: LLM TO VISION FOUNDATION MODEL BRIDGE
+% SECTION 1: NON-TECHNICAL INTRODUCTION & VISUAL INTUITION
+% =====================================================================
+\section{A Non-Technical Introduction: Big Ideas, Definitions \& Visual Intuition}
+
+\begin{infobox}[Who This Section Is For (Start Here!)]
+The rest of this guide dives into tensor shapes, Vision Transformer physics, and reproducible PyTorch code. Before touching a single formula, this opening section builds a \textbf{plain-English mental model} of every concept, model family, and evaluation metric you will encounter --- written for biomedicine and health-science master's students with moderate math background.
+\end{infobox}
+
+\subsection{Why Should a Biomedical Scientist Care?}
+
+Imagine you are a radiologist or biomedical researcher looking at a high-resolution 3D MRI scan of a patient's brain --- or, in our course benchmark, an intact kiwifruit scanned at 7 Tesla. You need to answer two seemingly simple clinical questions: \textbf{``How many tiny spots (microbleeds, multiple-sclerosis plaques, cell nuclei, or kiwi seeds) are inside this 3D organ?''} and \textbf{``What percentage of the organ's volume do they occupy?''}
+
+For the past decade, answering that question with AI meant collecting hundreds of painstakingly hand-traced 3D scans, training a specialized neural network (such as a \texttt{3D U-Net}) from scratch for that exact scanner, and starting all over again whenever the hospital bought a new scanner or studied a new disease.
+
+Since 2023, \textbf{Promptable Vision Foundation Models} --- led by Meta's \textbf{Segment Anything Model (\texttt{SAM})} and its 2024--2026 successors (\texttt{SAM 2.1}, \texttt{MedSAM}, \texttt{MedSAM2}, \texttt{MicroSAM}, \texttt{nnInteractive}, and \texttt{SAM 3}) --- have flipped that workflow upside down. Instead of training a bespoke model from scratch, you start with one massive, general-purpose visual brain that has already studied millions of images, and you \textbf{steer it on the fly} by pointing at an object with a mouse click, a rough box, or even a text phrase.
+
+\subsection{Visual Intuition: Three Key Ideas Before Any Equations}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    font=\scriptsize,
+    panel/.style={rectangle, rounded corners=3pt, draw=uibblue!45, fill=lightgray!55, inner sep=4pt, minimum width=5.20cm, minimum height=4.45cm}
+]
+% --- PANEL A: Patch-Zooming ---
+\node[panel] (pA) at (0,0) {};
+\node[anchor=north west, font=\scriptsize\bfseries\color{uibblue}] at ([xshift=4pt,yshift=-3pt]pA.north west) {(A) Patch-Zooming Small Seeds};
+
+% Left mini-grid (Full FOV: 4x4 coarse grid, tiny seed inside 1 cell)
+\begin{scope}[shift={(-2.22,-0.80)}]
+    \fill[white] (0,0) rectangle (1.56,1.56);
+    \draw[step=0.39, gray!55, thin] (0,0) grid (1.56,1.56);
+    \fill[uibred!25] (0.78,0.78) rectangle (1.17,1.17);
+    \fill[black!85] (0.975,0.975) ellipse (0.11 and 0.08);
+    \draw[uibblue!80, thick] (0,0) rectangle (1.56,1.56);
+    \node[below, align=center, font=\tiny] at (0.78,-0.06) {\textbf{Full slice:}\\1 seed inside\\1 coarse tile};
+\end{scope}
+
+% Arrow
+\draw[-{Stealth[length=1.9mm]}, thick, color=kiwigreen!85!black] (-0.54,-0.02) -- (0.14,-0.02) node[midway, above, font=\tiny\bfseries\color{kiwigreen!80!black}] {Zoom};
+
+% Right mini-grid (Zoomed ROI: seed spans 3x3 tiles)
+\begin{scope}[shift={(0.26,-0.80)}]
+    \fill[white] (0,0) rectangle (1.56,1.56);
+    \draw[step=0.312, gray!45, thin] (0,0) grid (1.56,1.56);
+    \fill[kiwigreen!22] (0.312,0.312) rectangle (1.248,1.248);
+    \fill[black!85] (0.78,0.78) ellipse (0.40 and 0.28);
+    \draw[kiwigreen!85!black, thick] (0,0) rectangle (1.56,1.56);
+    \node[below, align=center, font=\tiny] at (0.78,-0.06) {\textbf{Zoomed crop:}\\1 seed spans\\many crisp tiles};
+\end{scope}
+
+% --- PANEL B: Part-Whole Ambiguity ---
+\node[panel] (pB) at (5.55,0) {};
+\node[anchor=north west, font=\scriptsize\bfseries\color{uibblue}] at ([xshift=4pt,yshift=-3pt]pB.north west) {(B) One Click, Three Scales};
+
+\begin{scope}[shift={(5.55,0.02)}]
+    % Whole fruit (M2)
+    \fill[amberwarn!16, draw=amberwarn!90!black, thick] (0,0) ellipse (1.76 and 1.10);
+    % Locule chamber (M1)
+    \fill[uibblue!16, draw=uibblue, thick] (0.36,0.04) ellipse (0.88 and 0.50);
+    % Single seed (M0)
+    \fill[kiwigreen!35, draw=kiwigreen!85!black, very thick] (0.22,0.06) ellipse (0.33 and 0.19);
+    % Click marker
+    \node[circle, fill=uibred, inner sep=1.6pt] (clk) at (0.22,0.06) {};
+    \draw[uibred, thick] (0.08,0.06) -- (0.36,0.06) (0.22,-0.08) -- (0.22,0.20);
+    % Labels
+    \node[font=\tiny\bfseries, color=kiwigreen!75!black, anchor=east] at (-0.22,0.52) {1.\ Seed ($M_0$)};
+    \draw[->, thin, color=kiwigreen!75!black] (-0.22,0.45) -- (0.06,0.20);
+    \node[font=\tiny\bfseries, color=uibblue, anchor=west] at (0.28,0.76) {2.\ Chamber ($M_1$)};
+    \draw[->, thin, color=uibblue] (0.85,0.66) -- (0.72,0.38);
+    \node[font=\tiny\bfseries, color=amberwarn!85!black, align=center, text width=4.8cm] at (0,-1.58) {3.\ Whole fruit ($M_2$)\\[-1pt]\normalfont\color{black!80}A tight box resolves which scale you meant!};
+\end{scope}
+
+% --- PANEL C: 3D Flipbook Memory ---
+\node[panel] (pC) at (11.10,0) {};
+\node[anchor=north west, font=\scriptsize\bfseries\color{uibblue}] at ([xshift=4pt,yshift=-3pt]pC.north west) {(C) 3D MRI as a ``Flipbook''};
+
+\begin{scope}[shift={(8.98,-0.88)}]
+    % Draw 5 stacked slices
+    \foreach \i/\lbl/\col in {0/$z{-}2$/gray!45, 1/$z{-}1$/kiwigreen!70!black, 2/$z_0$ click/kiwigreen!90!black, 3/$z{+}1$/kiwigreen!70!black, 4/$z{+}3$/uibred!80}{
+        \pgfmathsetmacro{\xoff}{\i*0.84}
+        \fill[white, draw=\col, thick, rounded corners=1pt] (\xoff,0.16) rectangle (\xoff+0.66,1.70);
+        \node[font=\tiny, below] at (\xoff+0.33,0.14) {\lbl};
+    }
+    % Seed 1 across z-1, z0, z+1
+    \fill[black!75] (1.17,1.00) ellipse (0.14 and 0.10);
+    \fill[black!90] (2.01,1.00) ellipse (0.19 and 0.13);
+    \node[circle, fill=uibred, inner sep=1.2pt] at (2.01,1.00) {};
+    \fill[black!75] (2.85,1.00) ellipse (0.14 and 0.10);
+    % Different seed behind on z+3
+    \fill[uibred!70] (3.69,0.68) ellipse (0.17 and 0.12);
+    % Good tracking arrows
+    \draw[-{Stealth[length=1.6mm]}, thick, color=kiwigreen!85!black] (1.88,1.22) to[bend right=25] (1.23,1.18);
+    \draw[-{Stealth[length=1.6mm]}, thick, color=kiwigreen!85!black] (2.14,1.22) to[bend left=25] (2.79,1.18);
+    % Bad jump arrow
+    \draw[-{Stealth[length=1.6mm]}, thick, dashed, color=uibred] (2.99,0.96) to[bend left=18] (3.56,0.74);
+    \node[font=\tiny\bfseries, color=uibred, align=center, text width=4.8cm] at (2.10,-0.48) {Stop at $\pm 2$ slices so memory\\[-1pt]won't jump to the next seed!};
+\end{scope}
+\end{tikzpicture}
+\caption{Visual intuition for the three central ideas behind promptable vision foundation models on 3D medical scans: (A)~Patch-Zooming rescues small lesions from coarse Transformer grids; (B)~one click admits nested part--whole interpretations; (C)~slice-by-slice video memory tracks a 3D seed like a flipbook, but needs a physical depth limit to avoid jumping onto neighboring seeds.}
+\label{fig:nontech-sam-intuition}
+\end{figure}
+
+\newpage
+\subsection{Core Concepts Defined in Plain English}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.18}
+\rowcolors{2}{white}{rowalt}
+\begin{tabularx}{\textwidth}{L{3.55cm} Y}
+\toprule
+\rowcolor{uibblue!14}
+\textbf{Concept / Term} & \textbf{Plain-English Meaning \& Everyday / Clinical Analogy} \\
+\midrule
+\textbf{Semantic vs.\ Instance Segmentation} & \textbf{Semantic segmentation} is like coloring every person in a crowd photo blue: you know where ``crowd'' pixels are, but touching people blur into one blob. \textbf{Instance segmentation} puts a separate numbered name tag on \emph{each individual person} (or each individual kiwi seed / MS plaque) so you can count them accurately. \\
+\textbf{Foundation Model \& ``Zero-Shot''} & A large AI model pre-trained on a vast, diverse library of images so it develops broad visual common sense (edges, shapes, textures, depth). \textbf{Zero-shot} means asking it to segment a brand-new type of scan (like our 7T kiwifruit MRI) \emph{without} retraining it on any labeled kiwi examples first. \\
+\textbf{Prompting (Click, Negative Click, Box, Text)} & How you tell the model \emph{which} object you want outlined: a \textbf{positive click} says ``include this spot''; a \textbf{negative click} says ``exclude this background''; a \textbf{bounding box} draws a loose frame around the target (like a radiologist's caliper); a \textbf{text prompt} (\texttt{SAM 3}) describes it in words. \\
+\textbf{Vision Transformer (\texttt{ViT}) \& Patch Tokens} & Rather than inspecting one tiny pixel at a time like a magnifying glass (the way older convolutional networks work), a Vision Transformer slices an image into a checkerboard of small square tiles called \textbf{patches} (tokens) and lets every tile compare notes with every other tile simultaneously (\emph{self-attention}). \\
+\textbf{Patch-Zooming \& Hierarchical (\texttt{Hiera}) Backbone} & If a target object (like a 1\,mm microbleed or kiwi seed) is smaller than a single checkerboard tile, the Transformer barely sees it. \textbf{Patch-Zooming} crops and enlarges a smaller region before slicing it into tiles so the seed fills several tiles. A \textbf{hierarchical backbone} (\texttt{Hiera} in \texttt{SAM 2.1}) keeps both a wide overview map and fine high-resolution detail maps at the same time. \\
+\textbf{Part--Whole Ambiguity (Multi-Mask Output)} & Clicking once inside a kiwi seed is inherently ambiguous: did you mean \emph{this one seed}, \emph{the whole chamber around it}, or \emph{the entire fruit}? (Just as clicking inside a brain tumor could mean the necrotic core, the enhancing ring, or the whole swelling.) \texttt{SAM} handles this by proposing \textbf{three nested guesses} (small, medium, large) along with its own confidence score for each. \\
+\textbf{3D Slice Memory (\emph{``Flipbook''} Tracking)} & Most foundation models were trained on 2D photos or videos, not 3D medical volumes. \texttt{SAM 2.1} and \texttt{MedSAM2} treat a 3D MRI stack like a \textbf{flipbook movie}: you click a seed on one middle slice, and the model uses a short-term \textbf{memory bank} to follow that same seed upward and downward through neighboring slices. \\
+\textbf{Occlusion \& Confidence Scores} & As the flipbook tracker moves past the top or bottom tip of a seed, it must know when to stop. \texttt{SAM 2.1} outputs an \textbf{object-presence score} (``is the seed still here, or has it ended?'') and a \textbf{predicted IoU score} (``how sharp and trustworthy is my outline?''). \\
+\textbf{``Stuff'' vs.\ ``Things'' \& Neurosymbolic Guardrails} & Large background regions (\emph{peel, fruit flesh, central core}) are \textbf{Stuff}; small countable objects (\emph{seeds, lesions}) are \textbf{Things}. Asking \texttt{SAM} to ``segment everything'' mostly finds easy Stuff. A \textbf{neurosymbolic pipeline} pairs simple biological rules (``seeds live only in the inner seed ring and look dark in bright gel'') with neural mask tracing so the computer prompts itself reliably. \\
+\textbf{How We Grade Masks (\texttt{IoU}, \texttt{Dice}, \texttt{PQ})} & \textbf{IoU} and \textbf{Dice} measure overlap between the AI's painted region and the true outline (0 = miss, 1 = perfect). However, merging two touching seeds can still score a high Dice! \textbf{Panoptic Quality (\texttt{PQ})} fixes this by multiplying \emph{how cleanly matched seeds are traced} (\textbf{Segmentation Quality, \texttt{SQ}}) by \emph{what fraction of seeds were found 1-to-1 without merges or splits} (\textbf{Recognition Quality, \texttt{RQ}}). \\
+\bottomrule
+\end{tabularx}
+\caption{Plain-English definitions of the core concepts appearing throughout this guide.}
+\label{tab:nontech-defs}
+\end{table}
+
+\subsection{Meet the Model Families (No Jargon Required)}
+
+Several model names appear throughout this guide. Here is how they fit together as a family tree:
+\begin{itemize}
+    \item \textbf{\texttt{SAM 1} \& \texttt{SAM-HQ} (2023):} Meta's original ``click-anything'' 2D photo segmenter (\texttt{SAM 1}), plus a sharpness upgrade (\texttt{SAM-HQ}) that adds fine edge detail. Great on everyday photos, but works only on one 2D slice at a time.
+    \item \textbf{\texttt{MedSAM} (2024):} The first major medical adaptation of \texttt{SAM 1}, retrained on over 1.5 million clinical CT, MRI, and ultrasound masks. Crucially, it was trained almost exclusively with \textbf{bounding boxes} (matching clinical measurement calipers), so it works poorly if you give it only a single dot click.
+    \item \textbf{\texttt{SAM 2} / \texttt{SAM 2.1} (2024--2025):} Meta's next-generation model with two breakthroughs for medical imaging: (1)~a sharper multi-scale encoder (\texttt{Hiera}) that sees smaller objects much better, and (2)~a \textbf{video memory bank} that lets a single click propagate through a 3D MRI slice stack. It is open, fast, and runs directly on laptops and Google Colab.
+    \item \textbf{\texttt{MedSAM2} \& \texttt{MicroSAM} (2025):} Domain specialists built on the \texttt{SAM} family --- \texttt{MedSAM2} adapts \texttt{SAM 2.1}'s 3D slice tracking to clinical organs and tumors, while \texttt{MicroSAM} specializes in tightly packed cells and organelles under microscopes (very similar to packed kiwi seeds!).
+    \item \textbf{\texttt{nnInteractive} (2025) \& \texttt{SAM 3} (2025--2026):} \texttt{nnInteractive} (from the German Cancer Research Center, DKFZ) ditches the 2D-video shortcut altogether and operates natively in true 3D on an NVIDIA GPU (supporting clicks, boxes, scribbles, and 3D lassos). \texttt{SAM 3} adds natural-language concept prompts (e.g., typing \emph{``dark oval seed''}) alongside clicks and video tracking.
+\end{itemize}
+
+\subsection{Recommended Starting Resources (Reviews, Visual Guides, Repos, Videos \& Podcasts)}
+
+Before or alongside the technical sections below, these curated educational links build intuition without heavy math:
+
+\begin{table}[H]
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.20}
+\rowcolors{2}{white}{rowalt}
+\begin{tabularx}{\textwidth}{L{2.55cm} Y}
+\toprule
+\rowcolor{uibblue!14}
+\textbf{Format} & \textbf{Curated Learning Resource (Clickable)} \\
+\midrule
+\textbf{Non-Technical Review Papers} &
+$\bullet$ \href{https://doi.org/10.1038/s41586-023-05881-4}{\textbf{Moor et al., \emph{Nature} (2023)}} --- \emph{Foundation models for generalist medical AI} (accessible big-picture vision for clinicians \& biologists). \newline
+$\bullet$ \href{https://doi.org/10.1038/s41592-023-02151-z}{\textbf{Maier-Hein et al., \emph{Nature Methods} (2024)}} --- \emph{Metrics reloaded} (clear visual guide to why Dice fails when counting touching objects). \newline
+$\bullet$ \href{https://doi.org/10.1038/s41467-024-44824-z}{\textbf{Ma et al., \emph{Nature Communications} (2024)}} (\texttt{MedSAM}) \& \href{https://doi.org/10.1038/s41592-024-02580-4}{\textbf{Archit et al., \emph{Nature Methods} (2025)}} (\texttt{MicroSAM}). \\
+\textbf{Interactive Demos \& Visual Tutorials} &
+$\bullet$ \href{https://sam2.metademolab.com/}{\textbf{Meta AI SAM 2 Interactive Web Demo}} --- click and track objects live in your browser (2 minutes builds immediate intuition!). \newline
+$\bullet$ \href{https://ai.meta.com/blog/segment-anything-model-2/}{\textbf{Meta AI Blog: Introducing SAM 2}} --- plain-English overview with animations of streaming memory. \newline
+$\bullet$ \href{https://jalammar.github.io/illustrated-transformer/}{\textbf{Jay Alammar: \emph{The Illustrated Transformer}}} --- the gold-standard visual walkthrough of attention and tokens. \newline
+$\bullet$ \href{https://huggingface.co/docs/transformers/model_doc/sam2}{\textbf{Hugging Face \texttt{transformers} SAM 2 Docs}} --- beginner-friendly Python usage guide for the exact API used in Notebook~\texttt{05}. \\
+\textbf{Open-Source GitHub Repos} &
+\href{https://github.com/facebookresearch/sam2}{\texttt{facebookresearch/sam2}} $\;\cdot\;$
+\href{https://github.com/bowang-lab/MedSAM}{\texttt{bowang-lab/MedSAM}} $\;\cdot\;$
+\href{https://github.com/bowang-lab/MedSAM2}{\texttt{bowang-lab/MedSAM2}} $\;\cdot\;$
+\href{https://github.com/computational-cell-analytics/micro-sam}{\texttt{computational-cell-analytics/micro-sam}} $\;\cdot\;$
+\href{https://github.com/MIC-DKFZ/nnInteractive}{\texttt{MIC-DKFZ/nnInteractive}} \\
+\textbf{Videos \& Podcasts} &
+$\bullet$ \href{https://www.3blue1brown.com/lessons/attention}{\textbf{3Blue1Brown: \emph{Attention in Transformers, Visually Explained}}} (\href{https://www.youtube.com/watch?v=eMlx5fFNoYc}{YouTube video}, $\sim 26\text{ min}$) --- best animated explanation of how Transformers think. \newline
+$\bullet$ \href{https://www.youtube.com/watch?v=1d3L0g0GzEE}{\textbf{RSNA \emph{Radiology: AI} Feature}} --- \emph{``Foundation Models in Radiology: What, How, Why, and Why Not?''} \newline
+$\bullet$ \href{https://ai-podcast.nejm.org/}{\textbf{NEJM AI Grand Rounds Podcast}} --- clinician-scientist conversations on medical foundation models and real-world validation. \\
+\bottomrule
+\end{tabularx}
+\caption{Curated non-technical readings, interactive demos, code repositories, videos, and podcasts to pair with this guide.}
+\label{tab:nontech-sam-resources}
+\end{table}
+
+\newpage
+% =====================================================================
+% SECTION 2: LLM TO VISION FOUNDATION MODEL BRIDGE
 % =====================================================================
 \section{From Chatbot LLMs (Lab 3) to Promptable Vision Foundation Models (Lab 4)}
 
 If you have worked with Large Language Models (\texttt{LLMs}) such as ChatGPT, Claude, or Gemini in \href{https://github.com/arvidl/BMED365-2027/tree/main/Lab3-GenAI-LLM}{\textbf{Lab 3 (\texttt{Lab3-GenAI-LLM})}}, you already know 80\% of the mental model behind a \textbf{Promptable Vision Foundation Model} such as \texttt{SAM}, \texttt{MedSAM}, or \texttt{SAM 2.1}. Both are built on the exact same \textbf{Transformer} primitives --- \emph{tokens}, \emph{high-dimensional embedding vectors}, \emph{positional encodings}, and \emph{attention} --- adapted from 1D text sequences to 2D and 3D biomedical images.
 
-\newpage
 \subsection{The Side-by-Side Rosetta Stone: Text Chatbot LLM vs.\ Promptable Segmentation Model}
 
 \begin{table}[!ht]
@@ -214,11 +397,12 @@ If you have worked with Large Language Models (\texttt{LLMs}) such as ChatGPT, C
 \node[anchor=north west, font=\scriptsize\bfseries\color{uibred}] at ([yshift=-1.5pt]xattn.south west) {3. Lightweight Mask Decoder ($\sim 4\text{M}$ params, $< 2\text{ ms}$)};
 \end{tikzpicture}
 \caption{End-to-end tensor dataflow inside \texttt{SAM} / \texttt{SAM 2.1}, separating one-time heavy slice encoding (top) from sub-millisecond prompt-conditioned decoding (bottom).}
+\label{fig:sam-dataflow}
 \end{figure}
 
-Four concrete insights explain what happens inside Figure~1:
+Four concrete insights explain what happens inside Figure~\ref{fig:sam-dataflow}:
 \begin{enumerate}
-    \item \textbf{Why chop an image into $16 \times 16$ patches instead of treating every pixel as a token?} Self-attention scales quadratically as $\mathcal{O}(N^2)$. A $1024 \times 1024$ image contains $N = 1{,}048{,}576$ pixels, so pixel-to-pixel attention would require $N^2 \approx 1.1 \times 10^{12}$ pairwise weights per layer! Grouping pixels into $16 \times 16$ squares compresses the sequence $256\times$ to $N = 64 \times 64 = 4{,}096$ visual tokens ($N^2 \approx 1.67 \times 10^7$) --- roughly the context length of a 10-page text document in an LLM. \emph{(As we prove in Section~4.1, this exact $16 \times 16$ compression is also why 5-pixel kiwifruit seeds require Patch-Zooming!)}
+    \item \textbf{Why chop an image into $16 \times 16$ patches instead of treating every pixel as a token?} Self-attention scales quadratically as $\mathcal{O}(N^2)$. A $1024 \times 1024$ image contains $N = 1{,}048{,}576$ pixels, so pixel-to-pixel attention would require $N^2 \approx 1.1 \times 10^{12}$ pairwise weights per layer! Grouping pixels into $16 \times 16$ squares compresses the sequence $256\times$ to $N = 64 \times 64 = 4{,}096$ visual tokens ($N^2 \approx 1.67 \times 10^7$) --- roughly the context length of a 10-page text document in an LLM. \emph{(As we prove in Section~\ref{sec:trap1}, this exact $16 \times 16$ compression is also why 5-pixel kiwifruit seeds require Patch-Zooming!)}
     \item \textbf{How do two coordinates $(x = 21.5, y = 4.9)$ become a 256-D ``word''?} Feeding two raw floats $(x/W, y/H) \in [0, 1]^2$ into a small MLP blurs nearby positions together (\emph{spectral bias}). Instead, the \textbf{Prompt Encoder} maps $(x/W, y/H)$ through 128 multi-frequency 2D sine and cosine waves (\emph{Fourier positional encoding} --- a spatial ``GPS barcode'' from coarse whole-slice waves down to sub-pixel waves) and adds a learned role vector (\texttt{foreground click}, \texttt{background click}, or \texttt{box corner}), placing the prompt in the \textbf{exact same 256-D space} as the image patches.
     \item \textbf{An LLM outputs a word from a vocabulary --- how does a Transformer output a 2D picture?} Alongside your prompt tokens, the decoder prepends learnable readout tokens (analogous to \texttt{[CLS]}): \textbf{3 Output Mask Tokens} ($\mathbf{t}_0, \mathbf{t}_1, \mathbf{t}_2 \in \mathbb{R}^{256}$) and \textbf{1 IoU Score Token}. Via Two-Way Cross-Attention, each $\mathbf{t}_m$ becomes an \textbf{on-the-fly linear classifier weight vector} tailored to the clicked object. Meanwhile, transposed convolutions upsample the $64 \times 64$ image features (fused with $256 \times 256$ \texttt{stride-4} FPN features in \texttt{SAM 2.1}) into a per-pixel feature map $\mathbf{U}(x, y) \in \mathbb{R}^{256}$. Taking the dot product at every pixel produces the 2D foreground logit map:
     \[
@@ -352,6 +536,7 @@ At first glance, one might expect a foundation model trained on millions of mask
 \section{Mathematical \& Biophysical Analysis of the Four Kiwi Failure Modes}
 
 \subsection{Trap 1 --- The ViT Token-Stride Bottleneck \& Patch-Zoom Remedy}
+\label{sec:trap1}
 
 Suppose a 2D MRI slice of matrix size $N_{\text{slice}} \times N_{\text{slice}}$ ($256 \times 256$) and in-plane pixel spacing $\Delta x = 0.2344\text{ mm}$ is resized to $N_{\text{enc}} \times N_{\text{enc}}$ ($1024 \times 1024$) and tokenized with patch stride $s_{\text{enc}} = 16$ (\texttt{ViT-B/16}), yielding a $64 \times 64$ token grid ($N_{\text{grid}} = N_{\text{enc}} / s_{\text{enc}} = 64$). The physical width of \textbf{one encoder feature token} in the specimen is:
 \[

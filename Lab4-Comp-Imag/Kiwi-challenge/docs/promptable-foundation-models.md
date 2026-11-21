@@ -5,6 +5,69 @@
 
 ---
 
+## Start Here — A Non-Technical Introduction: Big Ideas, Definitions & Visual Intuition
+
+> **Who This Section Is For:** The later sections of this guide dive into tensor shapes, Vision Transformer physics, and reproducible PyTorch code. Before touching a single formula, this opening section builds a **plain-English mental model** of every concept, model family, and evaluation metric you will encounter — written for biomedicine and health-science master's students with moderate math background.
+
+### Why Should a Biomedical Scientist Care?
+
+Imagine you are a radiologist or biomedical researcher looking at a high-resolution 3D MRI scan of a patient's brain — or, in our course benchmark, an intact kiwifruit scanned at 7 Tesla. You need to answer two seemingly simple clinical questions: **"How many tiny spots (microbleeds, multiple-sclerosis plaques, cell nuclei, or kiwi seeds) are inside this 3D organ?"** and **"What percentage of the organ's volume do they occupy?"**
+
+For the past decade, answering that question with AI meant collecting hundreds of painstakingly hand-traced 3D scans, training a specialized neural network (such as a `3D U-Net`) from scratch for that exact scanner, and starting all over again whenever the hospital bought a new scanner or studied a new disease.
+
+Since 2023, **Promptable Vision Foundation Models** — led by Meta's **Segment Anything Model (`SAM`)** and its 2024–2026 successors (`SAM 2.1`, `MedSAM`, `MedSAM2`, `MicroSAM`, `nnInteractive`, and `SAM 3`) — have flipped that workflow upside down. Instead of training a bespoke model from scratch, you start with one massive, general-purpose visual brain that has already studied millions of images, and you **steer it on the fly** by pointing at an object with a mouse click, a rough box, or even a text phrase.
+
+### Visual Intuition: Three Key Ideas Before Any Equations
+
+```mermaid
+flowchart LR
+    subgraph A["(A) Why Tiny Seeds Disappear → Patch-Zooming"]
+        A1["Full MRI slice sliced into<br/>coarse checkerboard tiles<br/>(1 tiny seed hidden in 1 tile)"] -->|"Zoom into a<br/>smaller crop"| A2["Zoomed ROI crop<br/>(same seed now spans<br/>many crisp tiles!)"]
+    end
+
+    subgraph B["(B) One Click → Three Nested Scales"]
+        B1["Single click inside a seed"] --> B2["Mask 0: Just this 1 seed<br/>Mask 1: Whole radial chamber<br/>Mask 2: Entire kiwifruit<br/>(A tight box resolves scale!)"]
+    end
+
+    subgraph C["(C) 3D MRI as a 'Flipbook Movie'"]
+        C1["Click seed on middle slice z0"] --> C2["Memory tracks seed across<br/>z-2 ... z+2 slices<br/>(Stop at ±2 slices so tracker<br/>won't jump to the next seed!)"]
+    end
+```
+
+### Core Concepts Defined in Plain English
+
+| Concept / Term | Plain-English Meaning & Everyday / Clinical Analogy |
+| :--- | :--- |
+| **Semantic vs. Instance Segmentation** | **Semantic segmentation** is like coloring every person in a crowd photo blue: you know where "crowd" pixels are, but touching people blur into one blob. **Instance segmentation** puts a separate numbered name tag on *each individual person* (or each individual kiwi seed / MS plaque) so you can count them accurately. |
+| **Foundation Model & "Zero-Shot"** | A large AI model pre-trained on a vast, diverse library of images so it develops broad visual common sense (edges, shapes, textures, depth). **Zero-shot** means asking it to segment a brand-new type of scan (like our 7T kiwifruit MRI) *without* retraining it on any labeled kiwi examples first. |
+| **Prompting (Click, Negative Click, Box, Text)** | How you tell the model *which* object you want outlined: a **positive click** says "include this spot"; a **negative click** says "exclude this background"; a **bounding box** draws a loose frame around the target (like a radiologist's caliper); a **text prompt** (`SAM 3`) describes it in words. |
+| **Vision Transformer (`ViT`) & Patch Tokens** | Rather than inspecting one tiny pixel at a time like a magnifying glass (the way older convolutional networks work), a Vision Transformer slices an image into a checkerboard of small square tiles called **patches** (tokens) and lets every tile compare notes with every other tile simultaneously (*self-attention*). |
+| **Patch-Zooming & Hierarchical (`Hiera`) Backbone** | If a target object (like a 1 mm microbleed or kiwi seed) is smaller than a single checkerboard tile, the Transformer barely sees it. **Patch-Zooming** crops and enlarges a smaller region before slicing it into tiles so the seed fills several tiles. A **hierarchical backbone** (`Hiera` in `SAM 2.1`) keeps both a wide overview map and fine high-resolution detail maps at the same time. |
+| **Part–Whole Ambiguity (Multi-Mask Output)** | Clicking once inside a kiwi seed is inherently ambiguous: did you mean *this one seed*, *the whole chamber around it*, or *the entire fruit*? (Just as clicking inside a brain tumor could mean the necrotic core, the enhancing ring, or the whole swelling.) `SAM` handles this by proposing **three nested guesses** (small, medium, large) along with its own confidence score for each. |
+| **3D Slice Memory (*"Flipbook"* Tracking)** | Most foundation models were trained on 2D photos or videos, not 3D medical volumes. `SAM 2.1` and `MedSAM2` treat a 3D MRI stack like a **flipbook movie**: you click a seed on one middle slice, and the model uses a short-term **memory bank** to follow that same seed upward and downward through neighboring slices. |
+| **Occlusion & Confidence Scores** | As the flipbook tracker moves past the top or bottom tip of a seed, it must know when to stop. `SAM 2.1` outputs an **object-presence score** ("is the seed still here, or has it ended?") and a **predicted IoU score** ("how sharp and trustworthy is my outline?"). |
+| **"Stuff" vs. "Things" & Neurosymbolic Guardrails** | Large background regions (*peel, fruit flesh, central core*) are **Stuff**; small countable objects (*seeds, lesions*) are **Things**. Asking `SAM` to "segment everything" mostly finds easy Stuff. A **neurosymbolic pipeline** pairs simple biological rules ("seeds live only in the inner seed ring and look dark in bright gel") with neural mask tracing so the computer prompts itself reliably. |
+| **How We Grade Masks (`IoU`, `Dice`, `PQ`)** | **IoU** and **Dice** measure overlap between the AI's painted region and the true outline (`0` = miss, `1` = perfect). However, merging two touching seeds can still score a high Dice! **Panoptic Quality (`PQ`)** fixes this by multiplying *how cleanly matched seeds are traced* (**Segmentation Quality, `SQ`**) by *what fraction of seeds were found 1-to-1 without merges or splits* (**Recognition Quality, `RQ`**). |
+
+### Meet the Model Families (No Jargon Required)
+
+- **`SAM 1` & `SAM-HQ` (2023):** Meta's original "click-anything" 2D photo segmenter (`SAM 1`), plus a sharpness upgrade (`SAM-HQ`) that adds fine edge detail. Great on everyday photos, but works only on one 2D slice at a time.
+- **`MedSAM` (2024):** The first major medical adaptation of `SAM 1`, retrained on over 1.5 million clinical CT, MRI, and ultrasound masks. Crucially, it was trained almost exclusively with **bounding boxes** (matching clinical measurement calipers), so it works poorly if you give it only a single dot click.
+- **`SAM 2` / `SAM 2.1` (2024–2025):** Meta's next-generation model with two breakthroughs for medical imaging: (1) a sharper multi-scale encoder (`Hiera`) that sees smaller objects much better, and (2) a **video memory bank** that lets a single click propagate through a 3D MRI slice stack. It is open, fast, and runs directly on laptops and Google Colab.
+- **`MedSAM2` & `MicroSAM` (2025):** Domain specialists built on the `SAM` family — `MedSAM2` adapts `SAM 2.1`'s 3D slice tracking to clinical organs and tumors, while `MicroSAM` specializes in tightly packed cells and organelles under microscopes (very similar to packed kiwi seeds!).
+- **`nnInteractive` (2025) & `SAM 3` (2025–2026):** `nnInteractive` (from DKFZ) ditches the 2D-video shortcut altogether and operates natively in true 3D on an NVIDIA GPU (supporting clicks, boxes, scribbles, and 3D lassos). `SAM 3` adds natural-language concept prompts (e.g., typing *"dark oval seed"*) alongside clicks and video tracking.
+
+### Recommended Starting Resources (Reviews, Visual Guides, Repos, Videos & Podcasts)
+
+| Format | Curated Learning Resource (Clickable) |
+| :--- | :--- |
+| **Non-Technical Review Papers** | • **[Moor et al., *Nature* (2023)](https://doi.org/10.1038/s41586-023-05881-4)** — *Foundation models for generalist medical AI* (accessible big-picture vision for clinicians & biologists)<br>• **[Maier-Hein et al., *Nature Methods* (2024)](https://doi.org/10.1038/s41592-023-02151-z)** — *Metrics reloaded* (clear visual guide to why Dice fails when counting touching objects)<br>• **[Ma et al., *Nature Communications* (2024)](https://doi.org/10.1038/s41467-024-44824-z)** (`MedSAM`) & **[Archit et al., *Nature Methods* (2025)](https://doi.org/10.1038/s41592-024-02580-4)** (`MicroSAM`) |
+| **Interactive Demos & Visual Tutorials** | • **[Meta AI SAM 2 Interactive Web Demo](https://sam2.metademolab.com/)** — click and track objects live in your browser (2 minutes builds immediate intuition!)<br>• **[Meta AI Blog: Introducing SAM 2](https://ai.meta.com/blog/segment-anything-model-2/)** — plain-English overview with animations of streaming memory<br>• **[Jay Alammar: *The Illustrated Transformer*](https://jalammar.github.io/illustrated-transformer/)** — the gold-standard visual walkthrough of attention and tokens<br>• **[Hugging Face `transformers` SAM 2 Docs](https://huggingface.co/docs/transformers/model_doc/sam2)** — beginner-friendly Python usage guide for the exact API used in Notebook `05` |
+| **Open-Source GitHub Repos** | [`facebookresearch/sam2`](https://github.com/facebookresearch/sam2) · [`bowang-lab/MedSAM`](https://github.com/bowang-lab/MedSAM) · [`bowang-lab/MedSAM2`](https://github.com/bowang-lab/MedSAM2) · [`computational-cell-analytics/micro-sam`](https://github.com/computational-cell-analytics/micro-sam) · [`MIC-DKFZ/nnInteractive`](https://github.com/MIC-DKFZ/nnInteractive) |
+| **Videos & Podcasts** | • **[3Blue1Brown: *Attention in Transformers, Visually Explained*](https://www.3blue1brown.com/lessons/attention)** ([YouTube video](https://www.youtube.com/watch?v=eMlx5fFNoYc), ~26 min) — best animated explanation of how Transformers think<br>• **[RSNA *Radiology: AI* Feature](https://www.youtube.com/watch?v=1d3L0g0GzEE)** — *"Foundation Models in Radiology: What, How, Why, and Why Not?"*<br>• **[NEJM AI Grand Rounds Podcast](https://ai-podcast.nejm.org/)** — clinician-scientist conversations on medical foundation models and real-world validation |
+
+---
+
 ## From Chatbot LLMs (`Lab 3`) to Promptable Vision Foundation Models (`Lab 4`): Inputs, Tokens, Embeddings & Outputs
 
 If you have already worked with Large Language Models (`LLMs`) such as ChatGPT, Claude, or Gemini in **[Lab 3 (`Lab3-GenAI-LLM`)](../../../Lab3-GenAI-LLM)**, you already know 80% of the mental model behind a **Promptable Vision Foundation Model** like `SAM`, `MedSAM`, or `SAM 2.1`! Both are built on the exact same **Transformer** machinery (tokens, high-dimensional embedding vectors, positional encodings, and attention), adapted from 1D text sequences to 2D/3D spatial images.
