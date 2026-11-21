@@ -472,20 +472,21 @@
 \end{frame}
 
 \begin{frame}{Y12: Lab 4 Hands-On Benchmark --- The 7\,T MRI Kiwi 3D Seed Challenge}
-    \textbf{Course-wide red thread (\href{https://github.com/arvidl/BMED365-2027/tree/main/Lab4-Comp-Imag/Kiwi-challenge}{\texttt{Lab4-Comp-Imag/Kiwi-challenge}}, Notebooks \texttt{00}--\texttt{04}):}
+    \textbf{Course-wide red thread (\href{https://github.com/arvidl/BMED365-2027/tree/main/Lab4-Comp-Imag/Kiwi-challenge}{\texttt{Lab4-Comp-Imag/Kiwi-challenge}}, Notebooks \texttt{00}--\texttt{06}):}
 
-    \vspace{0.1cm}
+    \vspace{0.08cm}
     \begin{columns}[T]
-        \begin{column}{0.52\textwidth}
-            \begin{itemize}\footnotesize
+        \begin{column}{0.53\textwidth}
+            \begin{itemize}\scriptsize
                 \item \textbf{\texttt{00}:} White-box \texttt{DICOM$\to$NIfTI/BIDS} conversion ($256\times256\times128$, $0.234\times0.234\times0.50\text{ mm}^3$ 7\,T RARE)
                 \item \textbf{\texttt{01--02}:} Multi-planar 3D exploration, top-hat morphology, \& multispectral $K$-means
-                \item \textbf{\texttt{03}:} Classical, \texttt{Cellpose/SAM\,2}, \& 4-panel semi-verifiability harness ($\hat{N}_{\text{cal}}\approx 1{,}440$ seeds)
-                \item \textbf{\texttt{03b}:} Interactive 3D seed delineator + \textbf{STAPLE} inter-rater study on 98 curated Micro-GT seeds
+                \item \textbf{\texttt{03--03b}:} 3D paradigm ladder, 4-panel semi-verifiability ($\hat{N}_{\text{cal}}\approx 1{,}440$), interactive 3D GT \& \textbf{STAPLE} (98 Micro-GT seeds)
                 \item \textbf{\texttt{04}:} 3D PyTorch \textbf{Semantic vs.\ Instance \texttt{U-Net}} (\texttt{Cellpose}-style vector flows \& Panoptic Quality $\text{PQ}=\text{SQ}\times\text{RQ}$)
+                \item \textbf{\texttt{05}:} Live \textbf{\texttt{SAM\,2.1} vs.\ \texttt{MedSAM}} workshop (ViT Patch-Zooming, 3D slice memory, \& neurosymbolic census)
+                \item \textbf{\texttt{06}:} \textbf{Frontier AI Capstone:} 3D \texttt{SSL}, \texttt{3D U-Mamba} SSM, Conditional Diffusion ($P(N\mid\mathbf{X})$), \& \texttt{LTN} Neurosymbolic AI
             \end{itemize}
         \end{column}
-        \begin{column}{0.45\textwidth}
+        \begin{column}{0.44\textwidth}
             \begin{alertblock}{\footnotesize Semantic Dice $\neq$ Instance Counting!}
                 \footnotesize Touching 3D lesions/seeds can score \textbf{Dice $>0.85$} while merging neighbors into one blob. Instance/Panoptic metrics (\texttt{RQ}, \texttt{PQ}) expose topological merges \& splits!
             \end{alertblock}
@@ -508,7 +509,7 @@
         \item \textbf{Y01--Y04:} Imaging pipeline, discrete pixels/voxels, physical spacing, \& filtering
         \item \textbf{Y05--Y06:} IMC enables 40+ marker multiplexed spatial tissue phenotyping
         \item \textbf{Y07--Y08:} Classical (watershed, variational) vs.\ deep 3D segmentation (\texttt{U-Net}, \texttt{nnU-Net})
-        \item \textbf{Y09--Y10:} Promptable foundation models (\texttt{MedSAM}/\texttt{SAM\,2}) \& multimodal vision-LLMs
+        \item \textbf{Y09--Y10:} Promptable foundation models (\texttt{SAM\,2.1}/\texttt{MedSAM}), multimodal vision-LLMs, \& frontier 3D AI (\texttt{SSL}, \texttt{U-Mamba}, Diffusion, \texttt{LTN})
         \item \textbf{Y11--Y13:} \texttt{DICOM$\to$NIfTI} affine geometry, Semantic vs.\ Instance/Panoptic (\texttt{PQ}), \texttt{STAPLE} consensus, \& semi-verifiable validation (\textbf{Lab 4 Kiwi 7\,T Challenge})
     \end{itemize}
 
