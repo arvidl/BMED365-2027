@@ -2,7 +2,7 @@
 
 This lab is part of our journey through computational modeling techniques, and the use of AI in biomedical applications. It is designed to give you a comprehensive understanding of how computational modeling is transforming society in general and biomedicine in particular and the role it will play in the future of biomedical research.<br>  
 
-Arvid Lundervold, 2026-02-11 (updated 2026-11-15)
+Arvid Lundervold, 2026-02-11 (updated 2026-11-22)
 
 
 ---------------
@@ -72,6 +72,10 @@ The [`Kiwi-challenge/`](Kiwi-challenge/) subfolder connects **Lab 4's real 2005 
 |  [00a-kiwi-anatomical-and-physiological-atlas.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00a-kiwi-anatomical-and-physiological-atlas.ipynb)<br> **Step 0a (`Lab 4 ↔ Lab 5` Multi-Scale Anatomical, Histological & Physiological Atlas):** Visual guide built from open-access (`CC-BY`/`CC-BY-SA`) photography, light/polarized histology (`PMC3797463`, `PMC3261216`), and our 2005 7T MRI — explains optical vs. $T_2$-MRI contrast inversion, interactive 3-plane 7T MRI anatomy, $\mu\text{m}$-scale vascular/parenchyma/amyloplast/seed-testa histology, dioecious `XY` flowers & `BBCH` ontogeny, and 4-phase physiology + human clinical GI MRI parallels | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00a-kiwi-anatomical-and-physiological-atlas.ipynb)|
 |  [01-kiwi-growth-and-morphogenesis.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/01-kiwi-growth-and-morphogenesis.ipynb)<br> **Part 1 (Algebra → ODEs → Spatial PDEs):** MSc/PhD learning outcomes & Botanical ↔ Biomedical glossary; seed-hormone saturation & 128-slice axial MRI scaling (`r = 0.85`), *Shy Girl* (`SyGI`) `XY` toggle switch, Hall's 160-day turgor/starch/sugar ODEs + 7T Bloch $T_2$ contrast, 1D Ring Turing PDE (`K = 33` locules), 2D paracrine hormone diffusion PDE, static 4-regime snapshot + interactive `ipywidgets` explorer, & `<details>` Q&As | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/01-kiwi-growth-and-morphogenesis.ipynb)|
 |  [02-kiwi-digital-twin-and-inverse-problems.ipynb](https://nbviewer.jupyter.org/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/02-kiwi-digital-twin-and-inverse-problems.ipynb)<br> **Part 2 (Advanced Math, Inverse Problems & Digital Twin):** Analytical Turing dispersion $\text{Re}\,\lambda(q)$ across $2x/4x/6x$ ploidy, 3D spatial point-process repulsion (`R = 1.19`) on the 98 Micro-GT seeds, Hadamard ill-posedness (`SVD` & Morozov Tikhonov L-curve), **Generative 3D Synthetic Bloch-MRI Digital Twin** (`Lab 5 → Lab 4`) with Rician noise & Sim-to-Real gap critique, `<details>` Q&As, & Block 2 project directions | [![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main/Lab5-Comp-Mod/Kiwi-challenge/notebooks/02-kiwi-digital-twin-and-inverse-problems.ipynb)|
+
+> **Companion Non-Technical & Methodological Guides (`Kiwi-challenge/docs/`):**
+> - **[Part 1: Math Primer, Multi-Scale Atlas & Morphogenesis (`foundations-atlas-and-morphogenesis.md`)](Kiwi-challenge/docs/foundations-atlas-and-morphogenesis.md)** (**[Printable PDF](Kiwi-challenge/docs/foundations-atlas-and-morphogenesis.pdf)**) — covers Notebooks `00`, `00a`, and `01`.
+> - **[Part 2: Polyploid Stability, 3D Point Processes, Inverse Problems & Digital Twin (`inverse-problems-and-digital-twin.md`)](Kiwi-challenge/docs/inverse-problems-and-digital-twin.md)** (**[Printable PDF](Kiwi-challenge/docs/inverse-problems-and-digital-twin.pdf)**) — covers Notebook `02`.
 
 ---
 
