@@ -1,7 +1,8 @@
 # Lab 5: The Computational Kiwi Challenge — Morphogenesis, Inverse Problems & a 7T MRI Digital Twin
 
 *BMED365 — Computational Imaging, Modeling and AI in Biomedicine (Spring 2027)*  
-*Arvid Lundervold — runs locally with `uv` (`bmed365-2027` kernel) or in Google Colab*
+*Arvid Lundervold — runs locally with `uv` (`bmed365-2027` kernel) or in Google Colab*  
+*Printable version: **[Lab5-Kiwi-challenge-README.pdf](./Lab5-Kiwi-challenge-README.pdf)** ([LaTeX source](./Lab5-Kiwi-challenge-README.tex))*
 
 ![7T MRI vs optical cross-section of a kiwifruit](../../Lab4-Comp-Imag/Kiwi-challenge/assets/photo_mri_kiwi_20050219.jpg)
 

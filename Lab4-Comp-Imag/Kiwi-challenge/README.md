@@ -1,6 +1,7 @@
 # Lab 4: The Kiwi Fruit 3D Seed Segmentation Challenge
 
-*Updated for BMED365 Spring 2027 (`bmed365-2027` kernel / Google Colab) — Arvid Lundervold*
+*Updated for BMED365 Spring 2027 (`bmed365-2027` kernel / Google Colab) — Arvid Lundervold*  
+*Printable version: **[Lab4-Kiwi-challenge-README.pdf](./Lab4-Kiwi-challenge-README.pdf)** ([LaTeX source](./Lab4-Kiwi-challenge-README.tex))*
 
 ![problem](./assets/photo_mri_kiwi_20050219.jpg)
 
