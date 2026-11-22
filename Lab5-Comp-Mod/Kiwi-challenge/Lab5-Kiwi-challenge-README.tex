@@ -1,0 +1,369 @@
+% =====================================================================
+% BMED365 (Spring 2027) — Lab 5: The Computational Kiwi Challenge
+% Printable README PDF (generated faithfully from README.md)
+% Compile with: pdflatex Lab5-Kiwi-challenge-README.tex (run twice)
+% =====================================================================
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xltabular}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage[margin=1.58cm,top=1.55cm,bottom=1.60cm,headheight=14pt]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage{float}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\def\UrlBreaks{\do\/\do-\do_\do.}
+
+% =====================================================================
+% COLORS & HYPERREF (UiB / BMED365 House Style)
+% =====================================================================
+\definecolor{uibblue}{RGB}{0, 61, 115}
+\definecolor{uibred}{RGB}{175, 28, 44}
+\definecolor{kiwigreen}{RGB}{27, 138, 90}
+\definecolor{amberwarn}{RGB}{195, 110, 0}
+\definecolor{lightgray}{RGB}{246, 248, 250}
+\definecolor{rowalt}{RGB}{243, 247, 252}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=uibblue,
+    citecolor=uibblue,
+    urlcolor=uibred,
+    pdftitle={Lab 5: The Computational Kiwi Challenge -- Morphogenesis, Inverse Problems & a 7T MRI Digital Twin (BMED365 Spring 2027)},
+    pdfauthor={Arvid Lundervold (UiB / MMIV) -- BMED365 Spring 2027}
+}
+
+% =====================================================================
+% TYPOGRAPHY, HEADERS & CALLOUT BOXES
+% =====================================================================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.34em}
+\setlist[itemize]{topsep=1.5pt,itemsep=1.5pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=1.5pt,itemsep=1.8pt,leftmargin=1.6em}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\titleformat{\section}{\Large\bfseries\color{uibblue}\raggedright}{\thesection}{0.6em}{}[\vspace{1pt}\color{uibblue!40}\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{uibblue!88!black}\raggedright}{\thesubsection}{0.55em}{}
+\titlespacing*{\section}{0pt}{0.85em}{0.32em}
+\titlespacing*{\subsection}{0pt}{0.62em}{0.22em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\textcolor{gray}{BMED365 (Spring 2027) $\cdot$ Lab 5: Computational Modeling}}
+\fancyhead[R]{\footnotesize\textcolor{gray}{The Computational Kiwi Challenge}}
+\fancyfoot[L]{\footnotesize\textcolor{gray}{University of Bergen \& MMIV $\cdot$ \href{https://github.com/arvidl/BMED365-2027/tree/main/Lab5-Comp-Mod/Kiwi-challenge}{\textcolor{gray}{github.com/arvidl/BMED365-2027}}}}
+\fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.2pt}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyfoot[L]{\footnotesize\textcolor{gray}{University of Bergen \& MMIV $\cdot$ \href{https://github.com/arvidl/BMED365-2027/tree/main/Lab5-Comp-Mod/Kiwi-challenge}{\textcolor{gray}{github.com/arvidl/BMED365-2027}}}}
+    \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0.2pt}
+}
+
+\newtcolorbox{infobox}[1][]{
+    enhanced, breakable,
+    colback=lightgray, colframe=uibblue,
+    fonttitle=\bfseries\small, title={#1},
+    boxrule=0.6pt, arc=2.5pt, left=7pt, right=7pt, top=5pt, bottom=5pt
+}
+
+\newtcolorbox{kiwibox}[1][]{
+    enhanced, breakable,
+    colback=kiwigreen!5, colframe=kiwigreen!85!black,
+    fonttitle=\bfseries\small, title={#1},
+    boxrule=0.6pt, arc=2.5pt, left=7pt, right=7pt, top=4pt, bottom=4pt
+}
+
+\newcommand{\colablink}[1]{%
+  \href{#1}{\tcbox[on line, arc=2pt, boxsep=0pt, left=4.5pt, right=4.5pt, top=2pt, bottom=2pt,
+    colback=amberwarn!15, colframe=amberwarn!80!black, boxrule=0.45pt]{%
+    \sffamily\bfseries\scriptsize\color{amberwarn!55!black}Colab}}%
+}
+
+\newcommand{\ghblob}{https://github.com/arvidl/BMED365-2027/blob/main}
+\newcommand{\ghtree}{https://github.com/arvidl/BMED365-2027/tree/main}
+\newcommand{\colabbase}{https://colab.research.google.com/github/arvidl/BMED365-2027/blob/main}
+\newcommand{\imgbase}{../../Lab4-Comp-Imag/Kiwi-challenge}
+
+% =====================================================================
+\begin{document}
+\thispagestyle{firstpage}
+
+% --- TITLE BANNER ---
+\begin{tcolorbox}[
+    enhanced, colback=kiwigreen!82!black, colframe=kiwigreen!82!black,
+    arc=3.5pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+]
+{\Large\bfseries\color{white} Lab 5: The Computational Kiwi Challenge}\\[2pt]
+{\large\color{white!94} Morphogenesis, Inverse Problems \& a 7\,T MRI Digital Twin}\\[4pt]
+{\footnotesize\color{white!84}
+BMED365 --- Computational Imaging, Modeling and AI in Biomedicine (Spring 2027) $\;\cdot\;$
+Arvid Lundervold (UiB / MMIV) $\;\cdot\;$
+Runs locally with \texttt{uv} (\texttt{bmed365-2027} kernel) or in Google Colab $\;\cdot\;$
+\href{\ghtree/Lab5-Comp-Mod/Kiwi-challenge}{\textcolor{white}{\underline{Repository Folder}}}
+}
+\end{tcolorbox}
+
+\begin{center}
+\vspace{2pt}
+\includegraphics[width=0.64\textwidth]{\imgbase/assets/photo_mri_kiwi_20050219.jpg}\\[2pt]
+{\footnotesize\textit{7\,T MRI vs.\ optical cross-section of an intact `Hayward' kiwifruit (17 February 2005, MIC / Vivarium, UiB).}}
+\vspace{-2pt}
+\end{center}
+
+% =====================================================================
+\section{Why --- and How --- Do We ``Mathematize'' a Kiwifruit? Relevance to Computational Biomedicine}
+% =====================================================================
+
+\subsection{From ``What Is Inside?'' (\texorpdfstring{\texttt{Lab 4}}{Lab 4}) to ``How Did Nature Build It?'' (\texorpdfstring{\texttt{Lab 5}}{Lab 5})}
+
+On 17 February 2005, an intact \textit{`Hayward'} kiwifruit (\textit{Actinidia chinensis} var.\ \textit{deliciosa}, hexaploid $2n = 6x = 174$) was placed inside the preclinical \textbf{7 Tesla Bruker Pharmascan} MRI scanner at the University of Bergen --- amusingly archived in the hospital-style DICOM header with \texttt{PatientSex = F}.
+
+In \href{\ghblob/Lab4-Comp-Imag/Kiwi-challenge/README.md}{\textbf{Lab 4 (\texttt{Lab4-Comp-Imag/Kiwi-challenge})}}, we approached that 3D scan the way a \textbf{radiologist or quantitative image analyst} approaches a brain MRI: we converted 128 DICOM slices to NIfTI, accounted for anisotropic voxels (\texttt{0.234 $\times$ 0.234 $\times$ 0.500\,mm$^3$}), and segmented and counted \textbf{$\sim$1,440 dark seeds} (``focal lesions'') inside an \textbf{\texttt{85.97\,cm$^3$}} organ.
+
+Yet pause for a moment and look closely at what the 7\,T scanner revealed inside that fruit:
+\begin{itemize}
+    \item Why did the berry stop growing right around \textbf{\texttt{86\,cm$^3$}}, and why does cross-sectional flesh area slice-by-slice track local seed density so tightly (\texttt{r = 0.85--0.94})?
+    \item Why was \texttt{PatientSex = F} biologically literal --- how did a single Y-chromosome gene on male vines prevent an ovary from forming in the first place?
+    \item How did a microscopic floral ring --- with \textbf{no ruler, no CAD blueprint, and no central choreographer} --- count out \textbf{\texttt{33} evenly spaced radial seed chambers} (\textit{locules}), while its diploid ($2x$) wild cousin counts out \textbf{\texttt{$\sim$22}}?
+    \item Why do the $\sim$1,440 seeds maintain a strict \textbf{\texttt{$\sim$0.95\,mm} ``personal space''} without colliding, why does losing seeds on one side flatten that side of the fruit while normal 3-fold seed jitter leaves the berry nearly circular, and why do mature seeds look \textbf{jet-black} next to \textbf{\texttt{$\sim$190$\times$} brighter} mucilage gel at \texttt{TE = 63.9\,ms}?
+\end{itemize}
+
+Answering \textit{``what is there?''} is \textbf{Computational Imaging (\texttt{Lab 4})}. Asking \textit{``what physical and genetic laws built this 3D organ, and what happens if we perturb them?''} is \textbf{Mechanistic Computational Modeling (\texttt{Lab 5})}.
+
+\subsection{Why Should a Biomedicine Student or Clinician Care About a Fruit?}
+
+At first glance, modeling a kiwifruit in a graduate biomedicine course might sound playful. In fact, it is a deliberate pedagogical bridge into \textbf{frontline human computational medicine} for three reasons:
+
+\begin{enumerate}
+    \item \textbf{Evolution reuses the exact same mathematics across kingdoms.} Multicellular plants and humans are separated by $\sim$1.5 billion years of evolution, yet living tissues in both kingdoms must obey the same laws of chemical kinetics, mass conservation, fluid mechanics, and diffusion:
+    \begin{itemize}
+        \item \textbf{Receptor saturation ($E_{\max}$ / Hill curves):} Auxin/cytokinin signals from kiwifruit seeds saturate pericarp growth via the exact algebraic law used in \textbf{clinical pharmacodynamics} and \textbf{renal nephron-endowment scaling}.
+        \item \textbf{Bistable gene switches (ODEs):} Kiwifruit's Y-linked \textbf{\textit{Shy Girl} (\texttt{SyGI})} toggle switch locks floral primordia into male vs.\ female fate using the same positive-feedback nonlinear dynamics by which \textbf{\texttt{SRY}/\texttt{SOX9} vs.\ \texttt{WNT4} / $\beta$-catenin} commits the \textbf{human embryonic gonad}.
+        \item \textbf{Fluid-pressure mechanics (ODEs):} Water influx driven by osmotic starch-to-sugar conversion inflates the berry via the same hydrostatic/osmotic balance (\textbf{Starling forces}) governing \textbf{glomerular filtration, cerebral edema, tumor interstitial pressure, and polycystic kidney (\texttt{ADPKD}) cyst expansion}.
+        \item \textbf{Turing symmetry breaking \& paracrine morphogens (PDEs):} Short-range activation coupled to long-range inhibition spaces \textbf{33 kiwifruit chambers} by the exact mathematical instability (\texttt{BMP}--\texttt{SOX9}--\texttt{WNT}) that spaces \textbf{5 human digits} (and causes \textbf{polydactyly} when a limb bud widens), while seed hormone diffusion mirrors \textbf{hypoxic tumor \texttt{VEGF} angiogenesis gradients} and \textbf{wound healing}.
+    \end{itemize}
+    \item \textbf{Zero clinical jargon, zero privacy barriers --- 100\% real 7\,T MRI physics.} Everyone has sliced a kiwifruit at the breakfast table, so your physical intuition works from minute one. At the same time, water protons inside the fruit obey the \textbf{exact same Bloch spin-echo relaxation and quadrature Rician noise physics} as a human brain, heart, or kidney inside a clinical scanner.
+    \item \textbf{Closing the \texttt{Imaging $\leftrightarrow$ Modeling} Digital Twin loop.} Modern precision medicine is moving rapidly from static snapshots to \textbf{patient-specific Digital Twins}: segmenting a patient's heart, tumor, or brain from 3D MRI (\texttt{Lab 4}), running individualized biophysical PDEs forward in time to test therapies \textit{in silico} (\texttt{Lab 5}), solving \textbf{regularized inverse problems} to infer hidden internal pathology from surface data (just like \textbf{ECG imaging \texttt{ECGi}} or \textbf{EEG source localization}), and synthesizing physics-accurate \textbf{virtual phantoms} (\texttt{BrainWeb}, \texttt{XCAT}) with known ground truth to validate clinical AI algorithms.
+\end{enumerate}
+
+\subsection{\texorpdfstring{\textit{How}}{How} Do We Mathematize a Living Organ? (A 5-Step Craft)}
+
+Mathematical equations in biology papers often look intimidating because authors only publish the finished formula, hiding the intuitive scaffolding that produced it. Across this module, we practice \textbf{mathematization} as a transparent, repeatable \textbf{five-step craft}:
+
+\begin{enumerate}
+    \item \textbf{Climb the complexity ladder one rung at a time (\textit{``as simple as possible, but no simpler''}):} Never start with a heavy 3D partial differential equation if a one-line \textbf{algebraic curve} already answers your whole-organ question. We move up a rung (\textbf{Algebra $\to$ Time ODEs $\to$ 1D/2D Spatial PDEs $\to$ 3D Point Processes \& Inverse Problems}) \textit{only} when the biology demands time history or spatial geometry.
+    \item \textbf{Write verbal balance sheets before writing Greek letters:} Every equation begins as plain English --- e.g., \textit{``rate of change equals production minus clearance''} ($\frac{dy}{dt} = \text{In} - \text{Out}$) or \textit{``diffusion compares a cell to the average of its immediate neighbors''} ($\nabla^2 c$). If equations feel rusty, start with \href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00-kiwi-math-primer-for-biomedicine.ipynb}{\textbf{Step 0 (\nolinkurl{00-kiwi-math-primer-for-biomedicine.ipynb})}}; if botanical or MRI tissue terms (\textit{columella}, \textit{locular mucilage}, \textit{amphicribral bundles}, \texttt{BBCH} stages) feel unfamiliar, open \href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00a-kiwi-anatomical-and-physiological-atlas.ipynb}{\textbf{Step 0a (\nolinkurl{00a-kiwi-anatomical-and-physiological-atlas.ipynb})}}.
+    \item \textbf{Anchor every variable in real physical units (\texttt{mm}, \texttt{cm$^3$}, \texttt{days}, \texttt{MPa}, \texttt{ms}):} Assigning honest units turns abstract math into \textbf{falsifiable science} that can be overlaid directly onto calibrated NIfTI voxel coordinates from the 2005 7\,T scanner.
+    \item \textbf{Probe counterfactuals \& audit where the model breaks:} A mechanistic model lets us run \textit{in silico} experiments we never performed in 2005 --- knocking out \texttt{SyGI} (\textit{CRISPR hermaphrodites}), changing ploidy ($2x \to 4x \to 6x$), blocking pollination on one side (\textit{flat-sided fruit}), or scanning an unripe Day-40 berry --- while honestly identifying geometric simplifications (\textbf{the Sim-to-Real gap}).
+    \item \textbf{Turn the forward model around (\texttt{Inverse Inference \& Synthetic Benchmarking}):} Once you can simulate \texttt{Genes/Seeds $\to$ Anatomy $\to$ 7\,T MRI}, you can run that pipeline backward to reconstruct hidden internal deficits from noisy outer contours (\texttt{Tikhonov regularization}) and generate synthetic 3D 7\,T MRI phantoms with exact seed coordinates to benchmark \texttt{Lab 4}'s segmentation pipelines.
+\end{enumerate}
+
+% =====================================================================
+\section{Progressive Modeling Ladder \& Explicit Human Biomedical Parallels}
+% =====================================================================
+
+The modeling starts with zero-calculus algebraic equations and steps progressively up to coupled ODEs, spatial reaction--diffusion PDEs, 3D spatial point processes, ill-posed inverse problems, and synthetic MRI physics:
+
+{\footnotesize
+\renewcommand{\arraystretch}{1.18}
+\rowcolors{2}{rowalt}{white}
+\begin{xltabular}{\textwidth}{L{1.85cm} L{3.3cm} L{3.55cm} L{3.7cm} Y}
+\toprule
+\rowcolor{kiwigreen!15}\textbf{Stage / Module} & \textbf{Botanical Mechanism in \textit{Actinidia}} & \textbf{Mathematical Formulation} & \textbf{Direct Human Biomedical Parallel} & \textbf{Empirical Check on Our 2005 7\,T MRI} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{kiwigreen!15}\textbf{Stage / Module} & \textbf{Botanical Mechanism in \textit{Actinidia}} & \textbf{Mathematical Formulation} & \textbf{Direct Human Biomedical Parallel} & \textbf{Empirical Check on Our 2005 7\,T MRI} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\textbf{Stage 1}\newline \textit{(NB 01)} &
+Seed-derived auxin/cytokinin trophic scaling (\textit{Pyke \& Alspach, 1986}) &
+\textbf{Algebraic saturation:} $V(N) = V_{\text{basal}} + V_{\max}\frac{N}{K_N + N}$ &
+\textbf{Pharmacodynamic $E_{\max}$ / Hill curves}; nephron endowment vs.\ kidney mass; placental perfusion &
+Predicts \textbf{\texttt{86.1\,cm$^3$}} at $\hat{N}=1{,}440$ vs.\ measured \textbf{\texttt{85.97\,cm$^3$}}; slice area $A(z)$ tracks local seed density (\textbf{\texttt{r = 0.851}}, $p = 5.8\times 10^{-30}$). \\
+
+\textbf{Stage 2A}\newline \textit{(NB 01)} &
+\texttt{XY} floral sex switch: Y-linked \textbf{\textit{Shy Girl} (\texttt{SyGI})} represses carpel fate (\textit{Akagi et al., 2018, 2019}) &
+\textbf{Bistable nonlinear ODEs} (Hill repression + positive feedback) &
+\textbf{Mammalian gonadal fate (\texttt{SRY}/\texttt{SOX9} vs.\ \texttt{WNT4} / $\beta$-catenin)}; toggle switches (\href{\ghblob/Lab5-Comp-Mod/notebooks/05-cell-signaling.ipynb}{\texttt{05-cell-signaling}}) &
+Explains why our fruit-bearing scan literally had DICOM tag \texttt{PatientSex = F} (\texttt{XXXXXX}). \\
+
+\textbf{Stage 2B}\newline \textit{(NB 01)} &
+160-day berry growth, Stage~II starch fill, Stage~III sugar osmosis (\textit{Hall et al., 2013}) \& seed dehydration &
+\textbf{Lockhart viscoplastic ODEs} + \textbf{7\,T Bloch $T_2$ spin-echo} (\texttt{TE = 63.9\,ms}) &
+\textbf{Starling filtration \& edema} (\href{\ghblob/Lab5-Comp-Mod/notebooks/06-kidney-filtration.ipynb}{\texttt{06-kidney-filtration}}), \texttt{ADPKD} renal cyst expansion, \& tumor growth (\href{\ghblob/Lab5-Comp-Mod/notebooks/02-tumor-growth.ipynb}{\texttt{02-tumor-growth}}) &
+Reproduces mature volume (\textbf{\texttt{86.9\,cm$^3$}}) and explains why lignified seeds turn \textbf{jet-black} while mucilage gel stays \textbf{\texttt{$\sim$190$\times$} brighter}. \\
+
+\textbf{Stage 3A}\newline \textit{(NB 01 \& 02)} &
+Spontaneous emergence of \textbf{\texttt{$\sim$33} radial locules}; ploidy shift ($2x \to 4x \to 6x$) &
+\textbf{1D Ring Schnakenberg Turing PDE} \& Jacobian dispersion $\text{Re}\,\lambda(q)$ &
+\textbf{Embryonic digit spacing \& polydactyly} (\texttt{BMP}--\texttt{SOX9}--\texttt{WNT} Turing network); polyploid cardiomyocyte / hepatocyte hypertrophy &
+Polar-unwrapped \texttt{z = 64} 7\,T ring exhibits \textbf{\texttt{33} radial chambers}, matching hexaploid $6x$ Turing mode \textbf{\texttt{K* = 33}} (vs.\ \texttt{22} in $2x$, \texttt{28} in $4x$). \\
+
+\textbf{Stage 3B}\newline \textit{(NB 01)} &
+Local pericarp expansion from diffusing seed hormones; flat-sided poorly pollinated fruit &
+\textbf{2D Screened-Poisson PDE:} $(\nabla^2 - \ell^{-2})c = -\frac{\alpha}{D}S(x,y)$ &
+\textbf{Tumor \texttt{VEGF} angiogenesis gradients} \& \textbf{wound-healing growth-factor PDEs} (\href{\ghblob/Lab5-Comp-Mod/notebooks/08-cybernetics-of-wound-healing.ipynb}{\texttt{08-wound-healing}}) &
+Shows \textbf{developmental canalization} (\texttt{$\pm$3.5\%} circularity) in our well-pollinated 2005 berry vs.\ \textbf{\texttt{$\Delta R = 9.4$\,mm}} flat-sided asymmetry under unilateral seed loss. \\
+
+\textbf{Module 2}\newline \textit{(NB 02)} &
+Ovule steric exclusion \& placental spacing in 3D locules &
+\textbf{3D Spatial Point Processes:} Clark--Evans $R$, NN CDF $G(r)$, Ripley's $\Delta L(r)$, Mat\'ern Hard-Core &
+\textbf{Tumor--immune spatial point-process statistics} (\texttt{CD8+} T-cell exclusion/clustering) in \textbf{IMC} (\href{\ghblob/Lab4-Comp-Imag/03-imc-intro.ipynb}{\texttt{Lab4/03-imc-intro}}) &
+Curated 98 Micro-GT seeds exhibit a \textbf{\texttt{0.945\,mm} hard-core floor} and \textbf{Clark--Evans \texttt{R = 1.192}} ($p = 0.0025$), rejecting 3D Poisson CSR. \\
+
+\textbf{Module 3}\newline \textit{(NB 02)} &
+Non-invasive reconstruction of hidden seed deficits from outer fruit contour &
+\textbf{Ill-posed Fredholm / Green's operator \texttt{SVD}} + \textbf{Tikhonov ($L_2$) L-curve} &
+\textbf{Electrocardiographic Imaging (\texttt{ECGi})}, \textbf{EEG/MEG brain source localization}, \& MR elastography &
+\texttt{cond(G) = 1.3e6}: naive $\mathbf{G}^{-1}\mathbf{y}$ blows up (\texttt{$>$470,000\%} error), whereas \textbf{Morozov Tikhonov} reconstructs hidden deficits to \textbf{\texttt{5.2\%} error}. \\
+
+\textbf{Module 4}\newline \textit{(NB 02)} &
+Whole-organ synthetic ground-truth benchmark (\texttt{Lab 5 $\to$ Lab 4}) &
+\textbf{3D Generative Anatomy + Bruker 7\,T RARE Bloch equation + Rician k-space noise} &
+\textbf{\texttt{BrainWeb} MS lesion phantoms}, \textbf{\texttt{XCAT} cardiac phantoms}, \& \textit{in silico} FDA validation of clinical AI &
+Generates a \texttt{192 $\times$ 192 $\times$ 88} synthetic 7\,T MRI with exact $N_{\text{true}} = 750$ seeds (\texttt{3D F1 = 0.99}) and validates Lab~4's sector ratio calibration. \\
+\end{xltabular}
+}
+
+% =====================================================================
+\section{Notebooks \& Companion Methodological Guides}
+% =====================================================================
+
+No data files are duplicated in this folder: Notebook~\texttt{00} is 100\% self-contained with zero external files (\texttt{$< 5$\,s} runtime), Notebook~\texttt{00a} combines our in-repo 2005 7\,T MRI with cached Creative Commons (\texttt{CC-BY} / \texttt{CC-BY-SA}) botanical \& histological figures, while locally Notebooks~\texttt{00a}, \texttt{01}, and \texttt{02} read the 2005 7\,T NIfTI volume and curated 3D Micro-GT directly from \href{\ghtree/Lab4-Comp-Imag/Kiwi-challenge/data}{\texttt{../../Lab4-Comp-Imag/Kiwi-challenge/data/}} (and on Google Colab, \texttt{resolve\_lab4\_kiwi\_file(...)} downloads them automatically from \texttt{main}).
+
+{\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\rowcolors{2}{rowalt}{white}
+\begin{xltabular}{\textwidth}{L{4.25cm} Y C{1.45cm}}
+\toprule
+\rowcolor{uibblue!12}\textbf{Notebook} & \textbf{Description} & \textbf{Launch} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{uibblue!12}\textbf{Notebook} & \textbf{Description} & \textbf{Launch} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00-kiwi-math-primer-for-biomedicine.ipynb}{\texttt{00-kiwi-math-primer-\newline for-biomedicine.ipynb}} &
+\textbf{Step 0 (Visual Mathematical Primer / ``Rosetta Stone''):} Intuition-first guide for biomedicine students, clinicians, and less-mathematically-inclined learners --- translates mathematical shorthand ($\sum, \int, \frac{dy}{dt}, \nabla^2 c, \arg\min, \text{Re}\,\lambda$) into plain clinical English \& 1-line \texttt{NumPy} code across \textbf{6 visual toy simulations}: (1) receptor saturation \& Hill switches ($n=1$ vs.\ $n=4$), (2) 4-line Euler ODE balance sheets \& Waddington bistable valleys, (3) neighbor-average $\nabla^2 c$, decay length $\ell = \sqrt{D/k}$, \& Turing ``local cheerleader + fast firefighter'' peaks, (4) random raindrops (\texttt{CSR}) vs.\ hard-core ``personal space'' \& $G(r)$, (5) frosted-glass inverse blow-up \& static + interactive \texttt{ipywidgets} Tikhonov $\lambda$ slider, and (6) $T_2$ spin-echo decay \& Rician MRI noise floor. &
+\colablink{\colabbase/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00-kiwi-math-primer-for-biomedicine.ipynb} \\
+
+\href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00a-kiwi-anatomical-and-physiological-atlas.ipynb}{\texttt{00a-kiwi-anatomical-and-\newline physiological-atlas.ipynb}} &
+\textbf{Step 0a (\texttt{Lab 4 $\leftrightarrow$ Lab 5} Multi-Scale Anatomical, Histological \& Physiological Atlas):} Visual \textit{``Netter's + Wheater's''} guide to \textit{Actinidia} --- Master Multi-Scale Rosetta Table, \textbf{optical vs.\ 7\,T $T_2$-MRI contrast inversion} across $6x$ green / $2x$--$4x$ gold / anthocyanin red-ringed cultivars + radial $I(r/R)$ signature (\textbf{Plate 1}), interactive 3-plane (\texttt{Axial / Coronal / Sagittal}) 7\,T MRI browser, $\mu\text{m}$-scale histology of \textit{columella}, \textit{amphicribral} vascular bundles, dimorphic parenchyma, \textit{amyloplast} starch granules, \& lignified seed \textit{testa} (\textbf{Plate 2}), dioecious \texttt{XXXXXX} vs.\ \texttt{XXXXXY} (\texttt{SyGI}/\texttt{FrBy}) flowers \& \texttt{BBCH} ontogeny (\textbf{Plate 3}), and 4-phase \texttt{0--180\,DAA} physiology + human clinical GI MRI bridge (\textbf{Plate 4}). &
+\colablink{\colabbase/Lab5-Comp-Mod/Kiwi-challenge/notebooks/00a-kiwi-anatomical-and-physiological-atlas.ipynb} \\
+
+\href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/notebooks/01-kiwi-growth-and-morphogenesis.ipynb}{\texttt{01-kiwi-growth-and-\newline morphogenesis.ipynb}} &
+\textbf{Part 1 (Algebra $\to$ ODEs $\to$ Spatial PDEs):} Explicit MSc/PhD learning outcomes \& Botanical $\leftrightarrow$ Biomedical glossary; intuitive + rigorous derivations with parameter/unit tables; algebraic seed-hormone saturation \& 128-slice axial MRI scaling (\texttt{r = 0.85}, \texttt{0.94} in seed zone); \texttt{XY} floral sex-determination switch (\texttt{SyGI} vs.\ carpel); Hall's 160-day turgor/starch/sugar ODEs + 7\,T Bloch $T_2$ contrast (\texttt{190$\times$} gel/seed ratio); 1D Ring Turing PDE (\texttt{K = 33} locules); 2D screened-Poisson paracrine hormone PDE; static 4-regime pollination snapshot + interactive \texttt{ipywidgets} lab \& Q\&A checkpoints. &
+\colablink{\colabbase/Lab5-Comp-Mod/Kiwi-challenge/notebooks/01-kiwi-growth-and-morphogenesis.ipynb} \\
+
+\href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/notebooks/02-kiwi-digital-twin-and-inverse-problems.ipynb}{\texttt{02-kiwi-digital-twin-and-\newline inverse-problems.ipynb}} &
+\textbf{Part 2 (Advanced Math, Inverse Problems \& Digital Twin):} Explicit MSc/PhD learning outcomes \& quantitative glossary; analytical Turing Jacobian dispersion $\text{Re}\,\lambda(q)$ across $2x/4x/6x$ ploidy (\texttt{22 $\to$ 28 $\to$ 33} carpels); 3D spatial point-process statistics (\texttt{R = 1.19}, $G(r)$, Ripley's $\Delta L(r)$) on the 98 Micro-GT seeds; Hadamard ill-posedness, \texttt{SVD} filter factors \& Morozov Tikhonov L-curve; \textbf{Generative 3D Bloch-MRI Digital Twin} with Rician k-space noise, Hungarian 3D instance matching, \textbf{Sim-to-Real gap} analysis, Q\&As, \& Block~2 project ideas. &
+\colablink{\colabbase/Lab5-Comp-Mod/Kiwi-challenge/notebooks/02-kiwi-digital-twin-and-inverse-problems.ipynb} \\
+\end{xltabular}
+}
+
+\begin{infobox}[Methodological Deep Dives (\texttt{docs/}) \& Runtime Notes]
+\begin{itemize}
+    \item \href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/docs/foundations-atlas-and-morphogenesis.md}{\textbf{\texttt{docs/foundations-atlas-and-morphogenesis.md}}} (\href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/docs/foundations-atlas-and-morphogenesis.pdf}{\textbf{Printable PDF}}): Companion MSc/PhD guide to Notebooks~\texttt{00}, \texttt{00a}, and \texttt{01} --- opening with a non-technical visual introduction \& curated learning links before covering the Mathematical Rosetta Stone, the Multi-Scale Anatomical/Histological/7\,T MRI Atlas, seed-hormone saturation, \texttt{XY} \texttt{SyGI} sex switches, Lockhart turgor/starch/sugar ODEs, and Turing/paracrine PDEs.
+    \item \href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/docs/inverse-problems-and-digital-twin.md}{\textbf{\texttt{docs/inverse-problems-and-digital-twin.md}}} (\href{\ghblob/Lab5-Comp-Mod/Kiwi-challenge/docs/inverse-problems-and-digital-twin.pdf}{\textbf{Printable PDF}}): Companion MSc/PhD guide to Notebook~\texttt{02} --- opening with a non-technical visual introduction \& curated learning links before covering analytical polyploid Turing stability ($2x \to 4x \to 6x$), 3D spatial point-process statistics on the 98 Micro-GT seeds, ill-posed PDE inverse problems (\texttt{SVD} \& Morozov Tikhonov), and the generative 3D Bloch-MRI Digital Twin + Sim-to-Real Gap audit.
+\end{itemize}
+\vspace{2pt}
+\textbf{Runtime Notes:} All four notebooks are pure CPU (\texttt{NumPy}, \texttt{SciPy}, \texttt{scikit-image}, \texttt{nibabel}, \texttt{Pillow}, \texttt{matplotlib}, \texttt{ipywidgets}) and execute end-to-end in \textbf{\texttt{$\sim$4--18 seconds}} each (\texttt{$< 1.5$\,GB} RAM).
+\end{infobox}
+
+% =====================================================================
+\section{Open Science, Reproducible Research \& Multi-Scale Kiwifruit Datasets}
+% =====================================================================
+
+Modern computational biomedicine stands on the \href{https://doi.org/10.1038/sdata.2016.18}{\textbf{FAIR Guiding Principles}} (\textbf{F}indable, \textbf{A}ccessible, \textbf{I}nteroperable, \textbf{R}eusable). One of the hidden superpowers of using \textit{Actinidia} as a model organ in \texttt{BMED365} is that \textbf{every spatial and temporal scale} --- from \texttt{1.7\,\AA} atomic crystal structures and Y-chromosome gene sequences, to 160-day developmental transcriptomes, \texttt{0.23\,mm} 7\,T MRI volumes, and \textbf{human clinical gastrointestinal MRI trials} --- is \textbf{100\% open-access} with zero patient-privacy (\texttt{REK}/\texttt{GDPR}) barriers:
+
+{\footnotesize
+\renewcommand{\arraystretch}{1.12}
+\rowcolors{2}{rowalt}{white}
+\begin{xltabular}{\textwidth}{L{2.55cm} L{4.85cm} L{4.25cm} Y}
+\toprule
+\rowcolor{uibblue!12}\textbf{Scale \& Modality} & \textbf{Open Dataset / Permanent Accession (Clickable)} & \textbf{What It Contains} & \textbf{How It Fits Into \texttt{BMED365} (\texttt{Labs 0--5} \& Block 2)} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{uibblue!12}\textbf{Scale \& Modality} & \textbf{Open Dataset / Permanent Accession (Clickable)} & \textbf{What It Contains} & \textbf{How It Fits Into \texttt{BMED365} (\texttt{Labs 0--5} \& Block 2)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\textbf{1.\ 3D Organ MRI \& Reproducible Silver-GT}\newline \textit{(\texttt{mm} scale)} &
+\href{\ghtree/Lab4-Comp-Imag/Kiwi-challenge/data}{\textbf{UiB 2005 7\,T Bruker Kiwifruit Dataset}} \textit{(in-repo: 128 DICOMs, \texttt{RAS+} NIfTI, BIDS JSON sidecar, 98-seed 3D Micro-GT \& \href{\ghblob/Lab4-Comp-Imag/Kiwi-challenge/scripts/curate_micro_gt.py}{\texttt{curate\_micro\_gt.py}})} + \href{https://zenodo.org/search?q=fruit+micro-CT}{\textbf{Zenodo Open Fruit X-Ray Micro-CT Benchmarks}} &
+Non-destructive 7\,T $T_2$-RARE volume (\texttt{256$\times$256$\times$128}, \texttt{0.234$\times$0.234$\times$0.500\,mm$^3$}) + deterministic 3D instance labels; open micro-CT fruit stacks on Zenodo. &
+\textbf{FAIR benchmark template} for \href{\ghblob/Lab4-Comp-Imag/Kiwi-challenge/README.md}{\textbf{Lab 4}} (DICOM$\to$NIfTI, 3D segmentation, \texttt{STAPLE}, 3D \texttt{U-Net}) and \textbf{Lab 5} (forward PDE validation, 3D point processes, \& \texttt{Sim-to-Real} Digital Twin testing). \\
+
+\textbf{2.\ Genomes, Ploidy \& Sex-Switch Loci}\newline \textit{(\texttt{bp} scale)} &
+\href{https://www.ncbi.nlm.nih.gov/nuccore/LC260493.1}{\textbf{NCBI GenBank \texttt{LC260493.1} (\textit{SyGI} / \textit{Shy Girl})}} (\textit{Akagi et al., 2018}, \href{https://pubmed.ncbi.nlm.nih.gov/29622566/}{PMID: 29622566}); \href{https://plants.ensembl.org/Actinidia_chinensis/Info/Index}{\textbf{Ensembl Plants \textit{A.\ chinensis} \texttt{Red5}}} (\textit{Pilkington et al., 2018}, \href{https://pubmed.ncbi.nlm.nih.gov/29945559/}{PMID: 29945559}, \href{https://zenodo.org/records/1297303}{Zenodo \texttt{1297303}}); \href{http://kiwifruitgenome.org/}{\textbf{Kiwifruit Genome Database (\texttt{KGD})}} \& \textbf{NGDC \href{https://ngdc.cncb.ac.cn/bioproject/browse/PRJCA037936}{\texttt{PRJCA037936}}} (hexaploid \textit{A.\ deliciosa}) &
+Coding sequence of the Y-linked cytokinin response regulator \texttt{SyGI} (\texttt{ARR22/24}-like), plus chromosome-scale diploid $2x$ (\texttt{Red5}) and haplotype-resolved hexaploid $6x$ (`Hayward') assemblies. &
+Grounds \textbf{\texttt{NB 01} Stage~2A} (\texttt{XY} bistable toggle switch \& CRISPR hermaphrodites) and \textbf{\texttt{NB 02} Module~1} ($2x \to 4x \to 6x$ polyploid Turing carpel scaling) in real genomic sequences and gene-dosage tracks. \\
+
+\textbf{3.\ Histology, \texttt{BBCH} Phenology \& Time-Series Multi-Omics}\newline \textit{($\mu\text{m}$ \& \texttt{0--180\,DAA})} &
+\textbf{Open Histology Atlas \href{https://pmc.ncbi.nlm.nih.gov/articles/PMC3797463/}{\texttt{PMC3797463}}} (\textit{Guo et al., 2013}, \texttt{CC BY 3.0}); \textbf{\texttt{BBCH} Developmental Series \href{https://pmc.ncbi.nlm.nih.gov/articles/PMC3261216/}{\texttt{PMC3261216}}} (\textit{Richardson et al., 2011}, \texttt{CC BY 2.0}); \href{https://www.ncbi.nlm.nih.gov/bioproject/?term=Actinidia+fruit+development+RNA-seq}{\textbf{NCBI BioProject (\textit{Actinidia} RNA-seq)}} \& \href{https://www.ncbi.nlm.nih.gov/gds/?term=Actinidia+chinensis}{\textbf{NCBI GEO (\textit{Actinidia chinensis})}} &
+Stained carpel/vascular histology (\textit{columella}, \textit{amphicribral} bundles, dimorphic parenchyma), standardized \texttt{BBCH} growth/starch/sugar curves, \& multi-timepoint RNA-seq. &
+Powers \textbf{\texttt{NB 00a} Plates~2--4} and connects \textbf{\texttt{NB 01} Stage~2B} (Hall's 160-day turgor/starch/sugar ODEs) to real histological \& transcriptomic trajectories (\texttt{Labs 0--2} + \texttt{Lab 5}). \\
+
+\textbf{4.\ 3D Atomic Protein Structures \& Inhibitors}\newline \textit{(\texttt{1.7\,\AA} scale)} &
+\href{https://www.rcsb.org/structure/2ACT}{\textbf{RCSB PDB \texttt{2ACT}}} (native \textbf{actinidin / \texttt{Act d 1}} cysteine protease), \href{https://www.rcsb.org/structure/1AEC}{\textbf{PDB \texttt{1AEC}}} (covalent \textbf{E-64} inhibitor complex), \href{https://www.rcsb.org/structure/4BCT}{\textbf{PDB \texttt{4BCT}}} (\texttt{Act d 2} thaumatin-like allergen), \href{https://www.uniprot.org/uniprotkb/P00785/entry}{\textbf{UniProt \texttt{P00785}}} \& \href{https://alphafold.ebi.ac.uk/entry/P00785}{\textbf{AlphaFold \texttt{AF-P00785-F1}}} &
+High-resolution X-ray \& AlphaFold 3D structures of kiwifruit's primary protease/allergen --- a classic structural homolog of \textbf{human lysosomal cathepsins B/K/L}. &
+Bridges macroscopic organ modeling to \textbf{structural bioinformatics, Michaelis--Menten / \texttt{IC50} enzyme inhibition (\texttt{NB 00}), clinical allergy cross-reactivity, and covalent drug design}. \\
+
+\textbf{5.\ Human Clinical GI MRI \& Nutrition Trials}\newline \textit{(Translational Bridge)} &
+\textbf{Nottingham Human Gut MRI Crossover Trial} (\textit{Wilkinson-Smith et al., 2019}, \href{https://pubmed.ncbi.nlm.nih.gov/30706488/}{PMID: 30706488}); \textbf{Multicenter Rome IV RCT} (\textit{Gearry et al., 2023}, \href{https://pubmed.ncbi.nlm.nih.gov/36537785/}{PMID: 36537785}); \href{https://clinicaltrials.gov/search?intr=kiwifruit}{\textbf{ClinicalTrials.gov (\texttt{kiwifruit})}} \& \href{https://fdc.nal.usda.gov/}{\textbf{USDA FoodData Central}} &
+Clinical $T_1 / T_2$ abdominal MRI quantifying human small-bowel water trapping ($T_1\text{AC}$, \texttt{SBWC}) and colonic volume expansion after eating green kiwifruit (\texttt{2 fruits $\times$ 2/day}). &
+\textbf{Full-circle clinical punchline:} the \textit{exact same} mucilage/pectin osmotic water-trapping and $T_1/T_2$ MRI relaxation physics we model inside the berry (\texttt{NB 01} Stage~2B) is measured inside the \textbf{human gastrointestinal tract} by clinical MRI. \\
+\end{xltabular}
+}
+
+\begin{kiwibox}[Reproducible Research Template for Your MSc / PhD Thesis]
+Notice how the Kiwi Challenge across \texttt{Lab 4} and \texttt{Lab 5} implements end-to-end reproducibility without proprietary black boxes:
+\begin{enumerate}
+    \item \textbf{Immutable raw data + machine-readable metadata:} Raw 2005 Bruker DICOM slices + BIDS-style \texttt{.json} acquisition sidecars (\texttt{TR}, \texttt{TE}, \texttt{ETL}, voxel spacing).
+    \item \textbf{Auditable conversion \& curation scripts:} Explicit \texttt{DICOM $\to$ RAS+ NIfTI} conversion (\href{\ghblob/Lab4-Comp-Imag/Kiwi-challenge/notebooks/00-kiwi-dicom-to-nifti.ipynb}{\texttt{00-kiwi-dicom-to-nifti.ipynb}}) and deterministic Silver-GT generation (\href{\ghblob/Lab4-Comp-Imag/Kiwi-challenge/scripts/curate_micro_gt.py}{\texttt{curate\_micro\_gt.py}}) rather than unrecorded manual clicks.
+    \item \textbf{Pinned software environment \& deterministic seeds:} Cross-platform \texttt{pyproject.toml} + \texttt{uv.lock} (\texttt{Python 3.12}) + \texttt{np.random.seed(42)} + self-bootstrapping Google Colab execution.
+\end{enumerate}
+\end{kiwibox}
+
+% =====================================================================
+\section{Ideas for Block 2 Individual Projects (\texorpdfstring{\texttt{BMED365}}{BMED365})}
+% =====================================================================
+
+Students looking for a self-contained \textbf{Computational Modeling + Imaging + Open Data} topic for their \href{\ghblob/Individual-project/README.md}{Individual Project} can extend these notebooks in several directions (detailed in Section~6 of Notebook~\texttt{02}):
+
+\begin{enumerate}
+    \item \textbf{Finite-Strain Morphoelasticity ($\mathbf{F} = \mathbf{F}_e\mathbf{F}_g$):} Couple differential pericarp growth with stiff \textit{columella} mechanics --- directly analogous to \textbf{human cerebral cortical gyrification} (brain folding) and cardiac remodeling.
+    \item \textbf{Physics-Informed Neural Networks (\texttt{PINNs}) in PyTorch:} Estimate unknown hormone diffusion length $\ell$ and receptor saturation $K_c$ directly from 3D MRI contours by minimizing PDE + boundary losses.
+    \item \textbf{Zero-Annotation \texttt{Sim-to-Real} 3D Deep Learning:} Train a 3D \texttt{U-Net} purely on synthetic Bloch-MRI Digital Twins (\texttt{Module 4}) and evaluate zero-shot transfer on the real 2005 7\,T MRI scan (\texttt{Lab 4}).
+    \item \textbf{Comparative Ploidy Modeling ($2x$ Golden vs.\ $6x$ Green Kiwifruit):} Combine Ensembl/\texttt{KGD} genome tracks (\texttt{Scale 2}) with Turing and growth ODEs to predict locule count, seed load, carbohydrate dynamics, and MRI $T_2$ contrast across \textit{Actinidia} ploidy series.
+    \item \textbf{Multi-Scale Omics-to-MRI or Translational Human Gut MRI Modeling:} Fit Stage~2B's starch-to-sugar osmotic ODEs to public developmental RNA-seq time series (\texttt{Scale 3}), or build a compartmental GI water-transport + $T_1/T_2$ MRI signal model reproducing the Nottingham human colonic MRI trial (\textit{Wilkinson-Smith et al., 2019}, \texttt{Scale 5}).
+\end{enumerate}
+
+\end{document}
