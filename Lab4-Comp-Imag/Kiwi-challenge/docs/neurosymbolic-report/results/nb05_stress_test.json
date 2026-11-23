@@ -1,0 +1,96 @@
+{
+  "center_shift": [
+    {
+      "shift_mm": 0.0,
+      "hard_mask_PQ": 0.3267,
+      "hard_mask_Rec": 0.5769,
+      "hard_mask_Pred": 57,
+      "soft_ltn_PQ": 0.4734,
+      "soft_ltn_Rec": 0.5385,
+      "soft_ltn_Pred": 32,
+      "adapted_ltn_PQ": 0.4734,
+      "unmasked_base_PQ": 0.2968
+    },
+    {
+      "shift_mm": 2.0,
+      "hard_mask_PQ": 0.3282,
+      "hard_mask_Rec": 0.5769,
+      "hard_mask_Pred": 51,
+      "soft_ltn_PQ": 0.4617,
+      "soft_ltn_Rec": 0.5192,
+      "soft_ltn_Pred": 31,
+      "adapted_ltn_PQ": 0.4734,
+      "unmasked_base_PQ": 0.2968
+    },
+    {
+      "shift_mm": 4.0,
+      "hard_mask_PQ": 0.2293,
+      "hard_mask_Rec": 0.3462,
+      "hard_mask_Pred": 31,
+      "soft_ltn_PQ": 0.4621,
+      "soft_ltn_Rec": 0.5192,
+      "soft_ltn_Pred": 30,
+      "adapted_ltn_PQ": 0.4734,
+      "unmasked_base_PQ": 0.2968
+    },
+    {
+      "shift_mm": 6.0,
+      "hard_mask_PQ": 0.0896,
+      "hard_mask_Rec": 0.1154,
+      "hard_mask_Pred": 13,
+      "soft_ltn_PQ": 0.4524,
+      "soft_ltn_Rec": 0.5192,
+      "soft_ltn_Pred": 30,
+      "adapted_ltn_PQ": 0.4734,
+      "unmasked_base_PQ": 0.2968
+    },
+    {
+      "shift_mm": 8.0,
+      "hard_mask_PQ": 0.0,
+      "hard_mask_Rec": 0.0,
+      "hard_mask_Pred": 2,
+      "soft_ltn_PQ": 0.4328,
+      "soft_ltn_Rec": 0.5192,
+      "soft_ltn_Pred": 30,
+      "adapted_ltn_PQ": 0.4734,
+      "unmasked_base_PQ": 0.2968
+    }
+  ],
+  "radial_scale": [
+    {
+      "radial_scale": 0.8,
+      "hard_mask_PQ": 0.2394,
+      "hard_mask_Rec": 0.3654,
+      "soft_ltn_PQ": 0.4598,
+      "soft_ltn_Rec": 0.5192
+    },
+    {
+      "radial_scale": 0.9,
+      "hard_mask_PQ": 0.3397,
+      "hard_mask_Rec": 0.5769,
+      "soft_ltn_PQ": 0.4606,
+      "soft_ltn_Rec": 0.5192
+    },
+    {
+      "radial_scale": 1.0,
+      "hard_mask_PQ": 0.3267,
+      "hard_mask_Rec": 0.5769,
+      "soft_ltn_PQ": 0.4734,
+      "soft_ltn_Rec": 0.5385
+    },
+    {
+      "radial_scale": 1.1,
+      "hard_mask_PQ": 0.307,
+      "hard_mask_Rec": 0.5769,
+      "soft_ltn_PQ": 0.471,
+      "soft_ltn_Rec": 0.5385
+    },
+    {
+      "radial_scale": 1.25,
+      "hard_mask_PQ": 0.2993,
+      "hard_mask_Rec": 0.5769,
+      "soft_ltn_PQ": 0.4625,
+      "soft_ltn_Rec": 0.5385
+    }
+  ]
+}
