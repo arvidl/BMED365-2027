@@ -1,0 +1,178 @@
+{
+  "division_of_labor": {
+    "with_col_z_range": [
+      -7.47,
+      -2.81
+    ],
+    "with_col_span": 4.66,
+    "with_col_inner_drop": 0.29,
+    "no_col_z_range": [
+      -8.25,
+      -2.44
+    ],
+    "no_col_span": 5.82,
+    "no_col_inner_drop": 0.52
+  },
+  "thr_cal": 0.38,
+  "test_raw": {
+    "Pred": 31,
+    "GT": 52,
+    "TP": 27,
+    "FP": 4,
+    "FN": 25,
+    "Dice": 0.6885,
+    "Merges": 2,
+    "Splits": 0,
+    "Precision": 0.871,
+    "Recall": 0.5192,
+    "SQ": 0.7151,
+    "RQ": 0.6506,
+    "PQ": 0.4652
+  },
+  "test_split": {
+    "Pred": 32,
+    "GT": 52,
+    "TP": 28,
+    "FP": 4,
+    "FN": 24,
+    "Dice": 0.6885,
+    "Merges": 1,
+    "Splits": 1,
+    "Precision": 0.875,
+    "Recall": 0.5385,
+    "SQ": 0.71,
+    "RQ": 0.6667,
+    "PQ": 0.4734
+  },
+  "split_sensitivity": [
+    {
+      "split_mm3": 2.1,
+      "Pred": 32,
+      "GT": 52,
+      "TP": 28,
+      "FP": 4,
+      "FN": 24,
+      "Dice": 0.6885,
+      "Merges": 1,
+      "Splits": 1,
+      "Precision": 0.875,
+      "Recall": 0.5385,
+      "SQ": 0.71,
+      "RQ": 0.6667,
+      "PQ": 0.4734
+    },
+    {
+      "split_mm3": 2.35,
+      "Pred": 32,
+      "GT": 52,
+      "TP": 28,
+      "FP": 4,
+      "FN": 24,
+      "Dice": 0.6885,
+      "Merges": 1,
+      "Splits": 1,
+      "Precision": 0.875,
+      "Recall": 0.5385,
+      "SQ": 0.71,
+      "RQ": 0.6667,
+      "PQ": 0.4734
+    },
+    {
+      "split_mm3": 2.55,
+      "Pred": 32,
+      "GT": 52,
+      "TP": 28,
+      "FP": 4,
+      "FN": 24,
+      "Dice": 0.6885,
+      "Merges": 1,
+      "Splits": 1,
+      "Precision": 0.875,
+      "Recall": 0.5385,
+      "SQ": 0.71,
+      "RQ": 0.6667,
+      "PQ": 0.4734
+    },
+    {
+      "split_mm3": 2.8,
+      "Pred": 31,
+      "GT": 52,
+      "TP": 27,
+      "FP": 4,
+      "FN": 25,
+      "Dice": 0.6885,
+      "Merges": 2,
+      "Splits": 0,
+      "Precision": 0.871,
+      "Recall": 0.5192,
+      "SQ": 0.7151,
+      "RQ": 0.6506,
+      "PQ": 0.4652
+    },
+    {
+      "split_mm3": 3.2,
+      "Pred": 31,
+      "GT": 52,
+      "TP": 27,
+      "FP": 4,
+      "FN": 25,
+      "Dice": 0.6885,
+      "Merges": 2,
+      "Splits": 0,
+      "Precision": 0.871,
+      "Recall": 0.5192,
+      "SQ": 0.7151,
+      "RQ": 0.6506,
+      "PQ": 0.4652
+    },
+    {
+      "split_mm3": "No split",
+      "Pred": 31,
+      "GT": 52,
+      "TP": 27,
+      "FP": 4,
+      "FN": 25,
+      "Dice": 0.6885,
+      "Merges": 2,
+      "Splits": 0,
+      "Precision": 0.871,
+      "Recall": 0.5192,
+      "SQ": 0.7151,
+      "RQ": 0.6506,
+      "PQ": 0.4652
+    }
+  ],
+  "zoomed_clump_mm3": 2.61,
+  "zoomed_clump_spacing_mm": 1.04,
+  "error_anatomy": {
+    "TP": {
+      "count": 28,
+      "median_vol_mm3": 1.48,
+      "mean_t2_drop": 0.874,
+      "mean_r_norm": 0.492,
+      "pct_z_border": 14.3
+    },
+    "FN": {
+      "count": 24,
+      "median_vol_mm3": 0.51,
+      "mean_t2_drop": 0.806,
+      "mean_r_norm": 0.517,
+      "pct_z_border": 37.5
+    },
+    "FP_count": 4
+  },
+  "whole_organ": {
+    "v_kiwi_cm3": 85.97,
+    "raw_seeds": 749,
+    "calibrated_seeds": 1223,
+    "median_seed_vol_mm3": 0.8,
+    "v_seeds_mm3": 627.8,
+    "lesion_load_pct": 0.73,
+    "ood_vox_base": 197401,
+    "ood_vox_ns": 160,
+    "ood_reduction_pct": 99.92,
+    "polar_vox_base": 17219,
+    "polar_vox_ns": 0,
+    "base_blobs": 6276
+  }
+}

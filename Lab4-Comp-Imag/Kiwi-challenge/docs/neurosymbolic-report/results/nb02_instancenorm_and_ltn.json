@@ -1,0 +1,76 @@
+{
+  "raw_means": {
+    "equator": 0.063,
+    "mid_lat": 0.378,
+    "pole": 0.8819
+  },
+  "inorm_means": {
+    "equator": -0.0,
+    "mid_lat": 0.0,
+    "pole": 0.0
+  },
+  "max_diff_mid_pol_after_inorm": 4.76837158203125e-07,
+  "param_counts": {
+    "baseline": 340450,
+    "additive_gps": 340803,
+    "coupled_gps": 341314
+  },
+  "pmean_sweep": [
+    {
+      "p": 1.0,
+      "loss": 0.0175,
+      "grad_fp": 0.008,
+      "fp_bg_ratio": 0.008072455085718694,
+      "gain_vs_p1": 1.0,
+      "pct_grad_on_fp": 0.8
+    },
+    {
+      "p": 1.5,
+      "loss": 0.0413,
+      "grad_fp": 0.0384,
+      "fp_bg_ratio": 0.07868054646879707,
+      "gain_vs_p1": 4.79,
+      "pct_grad_on_fp": 7.29
+    },
+    {
+      "p": 2.0,
+      "loss": 0.0856,
+      "grad_fp": 0.0889,
+      "fp_bg_ratio": 0.7668830973882961,
+      "gain_vs_p1": 11.1,
+      "pct_grad_on_fp": 43.4
+    },
+    {
+      "p": 3.0,
+      "loss": 0.1901,
+      "grad_fp": 0.2,
+      "fp_bg_ratio": 72.85390862859799,
+      "gain_vs_p1": 24.98,
+      "pct_grad_on_fp": 98.65
+    },
+    {
+      "p": 4.0,
+      "loss": 0.2842,
+      "grad_fp": 0.2991,
+      "fp_bg_ratio": 6921.11963498361,
+      "gain_vs_p1": 37.36,
+      "pct_grad_on_fp": 99.99
+    },
+    {
+      "p": 6.0,
+      "loss": 0.4249,
+      "grad_fp": 0.4473,
+      "fp_bg_ratio": 62463127.63293781,
+      "gain_vs_p1": 55.86,
+      "pct_grad_on_fp": 100.0
+    },
+    {
+      "p": 8.0,
+      "loss": 0.5196,
+      "grad_fp": 0.5469,
+      "fp_bg_ratio": 546938657760.6201,
+      "gain_vs_p1": 68.3,
+      "pct_grad_on_fp": 100.0
+    }
+  ]
+}

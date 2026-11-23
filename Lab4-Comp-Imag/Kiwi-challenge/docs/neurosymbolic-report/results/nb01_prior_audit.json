@@ -1,0 +1,42 @@
+{
+  "volume_shape": [
+    256,
+    256,
+    128
+  ],
+  "spacing_mm": [
+    0.2344,
+    0.2344,
+    0.5
+  ],
+  "vox_vol_mm3": 0.02747,
+  "v_kiwi_cm3": 85.97,
+  "n_roi_seeds": 98,
+  "n_train_seeds": 59,
+  "n_test_seeds": 52,
+  "labeled_train_seed_vox_pct": 0.083,
+  "prior1_pct_core_in_ring": 100.0,
+  "prior1_centroid_r_min": 0.307,
+  "prior1_centroid_r_max": 0.59,
+  "prior1_centroid_r_median": 0.484,
+  "prior2_core_t2r_median": 0.118,
+  "prior2_core_t2r_p99": 0.403,
+  "prior2_core_pct_safe": 100.0,
+  "prior2_rim_t2r_median": 0.51,
+  "prior2_rim_t2r_p75": 0.66,
+  "prior2_rim_pct_penalized": 6.57,
+  "prior2_gel_t2r_median": 0.598,
+  "prior3_vol_median_mm3": 1.46,
+  "prior3_vol_iqr_mm3": [
+    0.8,
+    1.7
+  ],
+  "prior3_vol_max_mm3": 2.8,
+  "prior3_nn_min_mm": 0.94,
+  "prior3_nn_median_mm": 1.56,
+  "prior3_pct_above_088mm": 100.0,
+  "gt_standard": "semi-automated silver-standard (scripts/curate_micro_gt.py + visual audit)",
+  "gt_affine_max_diff": 0.0,
+  "roi_vox_pct_of_volume": 1.22,
+  "n_cut_plane_straddling_seeds": 13
+}
