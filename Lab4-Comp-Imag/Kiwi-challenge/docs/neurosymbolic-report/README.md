@@ -51,7 +51,7 @@ uv run jupyter lab Lab4-Comp-Imag/Kiwi-challenge/docs/neurosymbolic-report/noteb
 Select the `bmed365-2027` (`python3`) kernel.
 
 ### 2. Interactive 3D Superimposition in FreeSurfer 8.2.0 `freeview` (macOS)
-Both `data/kiwi_micro_gt_labels.nii.gz` (silver-standard 98-seed reference) and `results/kiwi_neurosymbolic_pred_labels.nii.gz` (unmasked whole-fruit 749-seed prediction) share the exact `256 × 256 × 128` lattice and bit-identical `sform` affine as the raw 7 T MRI. Launch them interactively with a custom high-contrast ColorLUT (`scripts/kiwi_seeds_ColorLUT.txt`):
+Both `data/kiwi_micro_gt_labels.nii.gz` (silver-standard 98-seed reference) and `results/kiwi_neurosymbolic_pred_labels.nii.gz` (unmasked whole-fruit 749-seed prediction) share the exact `256 × 256 × 128` lattice and bit-identical `sform` affine as the raw 7 T MRI. Launch them interactively with a custom high-contrast ColorLUT ([`scripts/kiwi_seeds_ColorLUT.txt`](../../scripts/kiwi_seeds_ColorLUT.txt)):
 ```bash
 # Default: 7T MRI + Silver Micro-GT (toggleable Neurosymbolic prediction & yellow outline)
 ./Lab4-Comp-Imag/Kiwi-challenge/scripts/view_kiwi_freeview.sh
@@ -65,6 +65,25 @@ Both `data/kiwi_micro_gt_labels.nii.gz` (silver-standard 98-seed reference) and 
 # Edit a personal working copy in git-ignored MyStuff/kiwi-gt/ (and re-run any notebook via gt_nii_override=...)
 ./Lab4-Comp-Imag/Kiwi-challenge/scripts/view_kiwi_freeview.sh --gt MyStuff/kiwi-gt/kiwi_gt_manual_v1.nii.gz
 ```
+
+#### Animated Freeview-Style Illustrations (No FreeSurfer Required)
+For quick inspection directly on GitHub, Linux, Windows, or Google Colab, four annotated animations reproduce each mode of `view_kiwi_freeview.sh` using the exact same NIfTI volumes and 18-color cyclic [`kiwi_seeds_ColorLUT.txt`](../../scripts/kiwi_seeds_ColorLUT.txt) palette (regenerable via `uv run python Lab4-Comp-Imag/Kiwi-challenge/scripts/generate_kiwi_freeview_gifs.py`):
+
+1. **4-Pane Synchronized Micro-GT Flythrough** (`./view_kiwi_freeview.sh`, `z = 56..71`, `-layout 2`, `-cc`, high-mag `#ID` inspector):
+
+   ![4-Pane Freeview Micro-GT Tri-Planar Flythrough](./kiwi_freeview_microgt_triplanar.gif)
+
+2. **Interactive Layer & Outline Modes at Equator `z = 64`** (`./view_kiwi_freeview.sh --outline` & `Alt+V` layer toggle):
+
+   ![Freeview Outline and Layer-Toggle Inspector](./kiwi_freeview_outline_layers.gif)
+
+3. **Unmasked Whole-Fruit 128-Slice Neurosymbolic 3D Prediction** (`./view_kiwi_freeview.sh --with-pred`, 749 raw seeds, 0 polar FPs):
+
+   ![Whole-Fruit 128-Slice Neurosymbolic 3D Prediction Flythrough](./kiwi_freeview_wholefruit_pred.gif)
+
+4. **3D Smoothed Seed Isosurfaces Turntable in Physical Millimeter Space** (`./view_kiwi_freeview.sh --with-pred --3d`):
+
+   ![3D Smoothed Seed Isosurfaces Turntable](./kiwi_freeview_3d_isosurfaces.gif)
 
 ### 3. Recompile the LaTeX / BibLaTeX Report (TeX Live 2025)
 ```bash
