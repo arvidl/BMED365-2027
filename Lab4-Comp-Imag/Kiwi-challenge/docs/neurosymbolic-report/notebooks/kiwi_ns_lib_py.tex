@@ -1,0 +1,1362 @@
+% =====================================================================
+% BMED365 (Spring 2027) — Lab 4: Differentiable Neurosymbolic AI Report
+% Annotated Source Code Monograph: kiwi_ns_lib.py (847 lines)
+% Compile with: pdflatex kiwi_ns_lib_py.tex (run twice for TOC & LastPage)
+% =====================================================================
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xltabular}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[margin=1.65cm,top=1.75cm,bottom=1.85cm,headheight=14pt]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[hyphens]{url}
+\usepackage[
+    colorlinks=true,
+    linkcolor=uibblue,
+    citecolor=uibblue,
+    urlcolor=uibred,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    pdftitle={kiwi_ns_lib.py -- Annotated Shared PyTorch and Quantitative Imaging Library (BMED365 Spring 2027)},
+    pdfauthor={Arvid Lundervold (University of Bergen & MMIV) -- BMED365 Spring 2027},
+    pdfsubject={Annotated Source Code Monograph for Differentiable Neurosymbolic AI on 7T MRI}
+]{hyperref}
+\def\UrlBreaks{\do\/\do-\do_\do.}
+% Allow clean line breaks after underscores in long filenames & Python identifiers
+\let\origunderscore\_
+\renewcommand{\_}{\origunderscore\allowbreak}
+
+% =====================================================================
+% COLORS (UiB / MMIV / BMED365 House Style)
+% =====================================================================
+\definecolor{uibblue}{RGB}{0, 61, 115}
+\definecolor{uibred}{RGB}{175, 28, 44}
+\definecolor{kiwigreen}{RGB}{27, 138, 90}
+\definecolor{amberwarn}{RGB}{165, 95, 0}
+\definecolor{amberbg}{RGB}{255, 250, 240}
+\definecolor{lightgray}{RGB}{246, 248, 250}
+\definecolor{rowalt}{RGB}{243, 247, 252}
+\definecolor{codebg}{RGB}{245, 248, 252}
+\definecolor{codehdr}{RGB}{224, 234, 246}
+\definecolor{codekw}{RGB}{0, 75, 145}
+\definecolor{codestr}{RGB}{155, 35, 45}
+\definecolor{codecmt}{RGB}{90, 105, 118}
+\definecolor{linenum}{RGB}{130, 142, 156}
+
+% =====================================================================
+% TYPOGRAPHY, HEADERS & ANNOTATION BOXES
+% =====================================================================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.42em}
+\setlength{\emergencystretch}{1.8em}
+\setlist[itemize]{topsep=2pt,itemsep=2pt,leftmargin=1.45em}
+\setlist[enumerate]{topsep=2pt,itemsep=2pt,leftmargin=1.65em}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\titleformat{\section}{\large\bfseries\color{uibblue}}{\thesection}{0.65em}{}[\vspace{1pt}\color{uibblue!40}\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{uibblue!88!black}}{\thesubsection}{0.55em}{}
+\titleformat{\subsubsection}{\small\bfseries\color{uibblue!75!black}}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.15em}{0.42em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.28em}
+\titlespacing*{\subsubsection}{0pt}{0.55em}{0.2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\textcolor{gray}{BMED365 (Spring 2027) $\cdot$ Annotated Library Reference}}
+\fancyhead[R]{\footnotesize\textcolor{gray}{\texttt{kiwi\_ns\_lib.py} (847 lines)}}
+\fancyfoot[L]{\footnotesize\textcolor{gray}{University of Bergen \& MMIV $\cdot$ \href{https://github.com/arvidl/BMED365-2027}{\textcolor{gray}{github.com/arvidl/BMED365-2027}}}}
+\fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage{} of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.2pt}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyfoot[L]{\footnotesize\textcolor{gray}{University of Bergen \& MMIV $\cdot$ \href{https://github.com/arvidl/BMED365-2027}{\textcolor{gray}{github.com/arvidl/BMED365-2027}}}}
+    \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage{} of \pageref{LastPage}}}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0.2pt}
+}
+
+% --- Boxes ---
+\newtcolorbox{annotbox}[1][]{
+    enhanced, breakable,
+    colback=kiwigreen!5, colframe=kiwigreen!80!black,
+    colbacktitle=kiwigreen!80!black, coltitle=white,
+    fonttitle=\bfseries\small, title={#1},
+    boxrule=0.55pt, arc=2.2pt, left=7pt, right=7pt, top=5pt, bottom=5pt
+}
+
+\newtcolorbox{designbox}[1][]{
+    enhanced, breakable,
+    colback=lightgray, colframe=uibblue,
+    colbacktitle=uibblue, coltitle=white,
+    fonttitle=\bfseries\small, title={#1},
+    boxrule=0.6pt, arc=2.2pt, left=7pt, right=7pt, top=5pt, bottom=5pt
+}
+
+\newtcolorbox{warnbox}[1][]{
+    enhanced, breakable,
+    colback=amberbg, colframe=amberwarn,
+    colbacktitle=amberwarn, coltitle=white,
+    fonttitle=\bfseries\small, title={#1},
+    boxrule=0.6pt, arc=2.2pt, left=7pt, right=7pt, top=5pt, bottom=5pt
+}
+
+\newtcolorbox{srcbox}[1][]{
+    enhanced, breakable,
+    colback=codebg, colframe=uibblue!35,
+    colbacktitle=codehdr, coltitle=uibblue!90!black,
+    fonttitle=\ttfamily\scriptsize\bfseries, title={#1},
+    boxrule=0.55pt, arc=2.2pt, left=6pt, right=6pt, top=3pt, bottom=3pt,
+    toptitle=2.5pt, bottomtitle=2.5pt
+}
+
+% --- Numbered Python Listing Style (exact original line numbers) ---
+\lstdefinestyle{pyannot}{
+    language=Python,
+    basicstyle=\ttfamily\scriptsize,
+    keywordstyle=\bfseries\color{codekw},
+    stringstyle=\color{codestr},
+    commentstyle=\itshape\color{codecmt},
+    numbers=left,
+    numberstyle=\tiny\ttfamily\color{linenum},
+    numbersep=7pt,
+    xleftmargin=20pt,
+    xrightmargin=0pt,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=false,
+    breakindent=12pt,
+    columns=fullflexible,
+    keepspaces=true,
+    upquote=true,
+    aboveskip=2pt,
+    belowskip=2pt,
+    literate={±}{{$\pm$}}1
+             {³}{{\textsuperscript{3}}}1
+             {×}{{$\times$}}1
+             {é}{{\'e}}1
+             {ö}{{\"o}}1
+             {Ł}{{\L{}}}1
+             {Δ}{{$\Delta$}}1
+             {α}{{$\alpha$}}1
+             {–}{{--}}1
+             {—}{{---}}1
+             {≥}{{$\ge$}}1
+             {≤}{{$\le$}}1
+             {⊂}{{$\subset$}}1
+             {∈}{{$\in$}}1
+             {→}{{$\to$}}1
+             {…}{{\ldots}}1
+}
+
+\newcommand{\ghblob}{https://github.com/arvidl/BMED365-2027/blob/main}
+\newcommand{\repodir}{Lab4-Comp-Imag/Kiwi-challenge/docs/neurosymbolic-report}
+
+% =====================================================================
+\begin{document}
+\thispagestyle{firstpage}
+
+% --- TITLE BANNER ---
+\begin{tcolorbox}[
+    enhanced, colback=uibblue, colframe=uibblue,
+    arc=3.5pt, left=12pt, right=12pt, top=9pt, bottom=9pt
+]
+{\Large\bfseries\color{white} \texttt{kiwi\_ns\_lib.py} --- Annotated Shared PyTorch \& Quantitative Imaging Library\\[2pt]
+{\large Single Source of Truth for the Differentiable Neurosymbolic 7\,T MRI ``Thesis + Code'' Package}}\\[4pt]
+{\normalsize\color{white!90} BMED365 --- Computational Imaging, Modeling and AI in Biomedicine (Spring 2027)}\\[3pt]
+{\footnotesize\color{white!84}
+Arvid Lundervold (University of Bergen \& MMIV) $\;\cdot\;$
+847 lines $\;\cdot\;$ 1 dataclass, 5 \texttt{nn.Module} classes, 25 functions $\;\cdot\;$ 100\% pure PyTorch (CUDA / MPS / CPU)
+}\\[6pt]
+{\footnotesize
+\href{\ghblob/\repodir/notebooks/kiwi_ns_lib.py}{\textcolor{white}{\underline{\texttt{kiwi\_ns\_lib.py} on GitHub}}}\hspace{12pt}
+\href{\ghblob/\repodir/neurosymbolic-kiwi-report.pdf}{\textcolor{white}{\underline{Technical Report PDF}}}\hspace{12pt}
+\href{\ghblob/\repodir/README.md}{\textcolor{white}{\underline{Package README}}}
+}
+\end{tcolorbox}
+
+% --- ARCHITECTURE OVERVIEW ---
+\begin{designbox}[Why This Annotated Reference Exists (Zero-Drift ``Thesis + Code'' Engineering)]
+Every figure, ablation metric, calibration curve, spatial log-prior field, and whole-organ 3D NIfTI biomarker in \href{\ghblob/\repodir/neurosymbolic-kiwi-report.pdf}{\texttt{neurosymbolic-kiwi-report.pdf}} is generated by Companion Notebooks \texttt{01}--\texttt{05} importing this single 847-line module (or auto-fetching it verbatim from GitHub \texttt{main} in Google Colab). Centralizing all coordinate transforms, 3D architectures, fuzzy-logic losses, training loops, watershed/Mat\'ern decoders, and Hungarian evaluators here guarantees \textbf{zero code drift} between experiments and published LaTeX equations.
+
+In the pages below, \textbf{every line of \texttt{kiwi\_ns\_lib.py} (L1--L847) is reproduced verbatim with its exact original line numbers}, interleaved with mathematical derivations, tensor-shape contracts, and biomedical software-engineering annotations.
+\end{designbox}
+
+\vspace{-0.2em}
+{\small\tableofcontents}
+
+\clearpage
+% =====================================================================
+\section*{Architectural Overview, Tensor Contracts \& API Cross-Reference}
+\addcontentsline{toc}{section}{Architectural Overview, Tensor Contracts \& API Cross-Reference}
+% =====================================================================
+
+\subsection*{End-to-End 6-Stage Pipeline Architecture}
+The library is organized into six cohesive layers matching the scientific workflow of the technical report:
+\begin{enumerate}
+    \item \textbf{Runtime \& Portability (L31--L86):} Hardware-agnostic device dispatch (\texttt{CUDA} $\to$ Apple \texttt{MPS} $\to$ \texttt{CPU}), async GPU stream synchronization for accurate wall-clock benchmarking, and multi-depth file discovery with automatic GitHub fallback for standalone Google Colab sessions.
+    \item \textbf{Whole-Organ Geometry \& Biophysical Predicates (L89--L280):} Loads the $256 \times 256 \times 128$ 7\,T RARE MRI ($0.2344 \times 0.2344 \times 0.5000\,\text{mm}^3$) and curated $80 \times 80 \times 16$ Micro-GT (or a custom manually edited NIfTI via \texttt{gt\_nii\_override}), computes slice-normalized organ coordinates $(\tilde{r}, (\tilde{r}-0.43)^2, \tilde{p}_z)$, builds smooth differentiable predicates ($R_{\text{ring}}, B_{\text{non\_dark}}$), removes $B_1$ shading via 3D morphological closing, and constructs per-instance normalized 3D Euclidean Distance Transforms.
+    \item \textbf{3D Neural \& Neurosymbolic Architectures (L282--L389):} Shares a single compact 3-level \texttt{Backbone3DUNet} ($\sim 340\text{k}$ params) across four controlled variants---pure neural \texttt{MultiTaskUNet3D} (\texttt{in\_ch=3}), naive \texttt{CoordConv3D\,+\,INorm} (\texttt{in\_ch=6}), explicitly factorized \texttt{AdditiveBayesOrganNet3D} ($+353$ params, un-normalized \texttt{Organ-GPS}), and nonlinear \texttt{CoupledOrganNet3D} ($+864$ params).
+    \item \textbf{Differentiable Real Logic \& Multi-Task Losses (L391--L430):} Implements three canonical fuzzy implication families (Product/Reichenbach, \L{}ukasiewicz, G\"odel), LTN's generalized $p$-mean universal quantifier ($\varepsilon = 10^{-8}$ stabilizer), Soft Dice, and class-weighted multi-task BCE + Dice + distance MSE.
+    \item \textbf{3D SSL Warm-Start \& Unified Training Harness (L432--L624):} Enforces strict spatial disjointness from the held-out Test Wedge across both 36 unlabeled SSL cubes and 40 polar-to-polar stratified unlabeled LTN blocks, supporting exact seed determinism, dual-LR \texttt{AdamW} + \texttt{CosineAnnealingLR}, 3D flip equivariance, and the causal columella hard-negative toggle (\texttt{use\_columella\_neg}).
+    \item \textbf{Decoding, Steric Splitting, Evaluation \& Whole-Organ Inference (L626--L847):} Decodes probability + distance maps via physical-mm ellipsoidal 3D watershed, disentangles fused clumps via declarative Mat\'ern hard-core $K$-means ($V \ge 2.55\,\text{mm}^3$, $d_{\min} \ge 0.88\,\text{mm}$), evaluates exact Hungarian 3D Panoptic Quality ($\text{PQ} = \text{SQ} \times \text{RQ}$), calibrates $\tau_{\text{fg}}^*$ leakage-free on the training wedge, and tiles inference unmasked across all 128 axial slices.
+\end{enumerate}
+
+\subsection*{Neural Architecture Comparison \& Tensor-Shape Contract}
+For any 3D input patch of spatial dimensions $(X, Y, Z)$ divisible by $4$ (e.g., training wedge $80 \times 40 \times 16$, unlabeled cubes $64 \times 40 \times 16$, whole-fruit tiles $80 \times 40 \times 16$), every model produces paired semantic logits $\mathbf{z}_{\text{sem}} \in \mathbb{R}^{B \times 1 \times X \times Y \times Z}$ and normalized center-distance predictions $\hat{\mathbf{d}} \in (0, 1)^{B \times 1 \times X \times Y \times Z}$:
+
+{\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.20}
+\rowcolors{2}{rowalt}{white}
+\begin{tabularx}{\textwidth}{L{3.85cm} C{1.55cm} C{1.55cm} L{3.65cm} Y}
+\toprule
+\rowcolor{uibblue!12}\textbf{Class / Mode} & \textbf{Params} & \textbf{Delta} & \textbf{Inputs $(B, C, X, Y, Z)$} & \textbf{Coordinate Handling \& Auditability} \\
+\midrule
+\texttt{MultiTaskUNet3D(3)} (\texttt{baseline}) & 340,450 & --- & $\mathbf{X}_3$: $(B, 3, X, Y, Z)$ & Translation-equivariant CNN only; zero global organ awareness. \\
+\texttt{MultiTaskUNet3D(6)} (\texttt{coordconv\_inorm}) & 341,746 & $+1{,}296$ & $[\mathbf{X}_3, \mathbf{g}]$: $(B, 6, X, Y, Z)$ & Naive concatenation into \texttt{InstanceNorm3d}; erases patch mean/scale (NB~02 proof). \\
+\texttt{AdditiveBayesOrganNet3D} (\texttt{additive\_gps}) & \textbf{340,803} & \textbf{$+353$} & $\mathbf{X}_3$ $(B,3,\cdot)$ \& $\mathbf{g}$ $(B,3,\cdot)$ & Un-normalized $1{\times}1{\times}1$ MLP; explicit $z_{\text{app}} + z_{\text{GPS}}$; directly auditable via \texttt{gps\_log\_prior()}. \\
+\texttt{CoupledOrganNet3D} (\texttt{coupled\_gps}) & 341,314 & $+864$ & $\mathbf{X}_3$ $(B,3,\cdot)$ \& $\mathbf{g}$ $(B,3,\cdot)$ & Un-normalized GPS embedding concatenated with decoder features; allows nonlinear interaction. \\
+\bottomrule
+\end{tabularx}
+}
+
+\subsection*{Complete Symbol Index \& Cross-Notebook Usage Matrix (All 31 Definitions)}
+{\scriptsize
+\setlength{\tabcolsep}{3.8pt}
+\renewcommand{\arraystretch}{1.15}
+\rowcolors{2}{rowalt}{white}
+\begin{xltabular}{\textwidth}{L{1.35cm} L{4.55cm} C{2.05cm} Y}
+\toprule
+\rowcolor{uibblue!12}\textbf{Lines} & \textbf{Symbol (Class / Function)} & \textbf{Called By} & \textbf{Primary Scientific / Engineering Role} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{uibblue!12}\textbf{Lines} & \textbf{Symbol (Class / Function)} & \textbf{Called By} & \textbf{Primary Scientific / Engineering Role} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+L35--L41   & \texttt{get\_best\_device()} & NB 01--05 & Runtime accelerator priority: \texttt{CUDA} $\to$ Apple \texttt{MPS} $\to$ \texttt{CPU}. \\
+L44--L49   & \texttt{sync\_device(dev)} & internal (2) & Synchronizes async GPU streams before \texttt{time.perf\_counter()}. \\
+L52--L69   & \texttt{resolve\_kiwi\_file(rel\_path)} & internal (3) & Multi-depth local lookup with GitHub \texttt{main} Colab fallback. \\
+L72--L86   & \texttt{resolve\_report\_dirs()} & NB 01--05 & Resolves/creates \texttt{figures/} and \texttt{results/} report folders. \\
+L94--L124  & \texttt{KiwiDataset} \textit{(dataclass)} & internal (9) & Immutable bundle of 7\,T volume, Micro-GT splits, organ geometry, predicates \& affine. \\
+L127--L168 & \texttt{build\_whole\_organ\_geometry()} & NB 05, int. & Berry Otsu mask, $\tilde{r}$, $\tilde{z}$, $R_{\text{ring}}$; supports \texttt{center\_shift\_vox} \& \texttt{radial\_scale}. \\
+L171--L231 & \texttt{load\_kiwi\_dataset()} & NB 01--05 & Loads MRI + Micro-GT (\texttt{gt\_nii\_override}), $B_1$ closing envelope, $r_{T_2}$, $B_{\text{non\_dark}}$. \\
+L234--L241 & \texttt{save\_aligned\_label\_nifti()} & NB 04 & Exports \texttt{uint16} 3D instance mask bit-aligned to MRI \texttt{sform}/\texttt{qform}. \\
+L244--L250 & \texttt{make\_3ch\_tensor()} & internal (2) & Stacks $[\text{vol\_norm}, \text{env\_local}, \text{env\_smooth}]$ into $(1, 3, X, Y, Z)$ tensor. \\
+L253--L266 & \texttt{make\_3ch\_and\_gps()} & NB 02, int. & Builds $(\mathbf{X}_3, \mathbf{g})$ with $\mathbf{g} = [\tilde{r}, (\tilde{r}-0.43)^2, \tilde{p}_z]$ and override hooks. \\
+L269--L279 & \texttt{build\_distance\_targets()} & internal (1) & Binary foreground + per-instance padded anisotropic 3D EDT in $[0, 1]$. \\
+L286--L300 & \texttt{ConvBlock3D} \textit{(nn.Module)} & internal (5) & Standard medical CNN block: $(\text{Conv3d}(3) \to \text{InstanceNorm3d} \to \text{SiLU}) \times 2$. \\
+L303--L322 & \texttt{Backbone3DUNet} \textit{(nn.Module)} & internal (6) & 3-level 3D U-Net encoder--decoder ($16 \to 32 \to 64 \to 32 \to 16$ channels). \\
+L325--L335 & \texttt{MultiTaskUNet3D} \textit{(nn.Module)} & NB 02, int. & Dual-head 3D U-Net for \texttt{baseline} (\texttt{in\_ch=3}) or naive \texttt{CoordConv3D} (\texttt{in\_ch=6}). \\
+L338--L361 & \texttt{AdditiveBayesOrganNet3D} & NB 02, int. & Explicit Bayes log-odds network $z_{\text{app}} + z_{\text{GPS}}$ with auditable \texttt{gps\_log\_prior()}. \\
+L364--L388 & \texttt{CoupledOrganNet3D} & NB 02, int. & Feature-concatenation Organ-GPS network ($+864$ params, nonlinear fusion). \\
+L395--L410 & \texttt{implication\_violation()} & NB 02 & Fuzzy violation $1 - I(a \Rightarrow b)$ for \texttt{product}, \texttt{lukasiewicz}, or \texttt{godel}. \\
+L413--L415 & \texttt{ltn\_universal\_pmean()} & NB 02, int. & LTN generalized $p$-mean quantifier $(\text{mean}(v^p) + 10^{-8})^{1/p}$. \\
+L418--L421 & \texttt{soft\_dice\_loss()} & internal (1) & Differentiable smooth Soft Dice loss over foreground logits. \\
+L424--L429 & \texttt{supervised\_multitask\_loss()} & internal (3) & Combined $0.45\,\text{BCE}_{w_+=6} + 0.55\,\text{SoftDice} + 2.5\,\text{WeightedMSE}$. \\
+L436--L483 & \texttt{pretrain\_ssl\_backbone()} & NB 03--05 & 3D masked-context SSL warm-start on 36 test-disjoint unlabeled cubes. \\
+L486--L510 & \texttt{sample\_unlabeled\_blocks()} & NB 03--05 & Stratified 10-latitude unlabeled bank ($\Omega_U$, strictly disjoint from test wedge). \\
+L513--L623 & \texttt{train\_neurosymbolic\_variant()} & NB 03--05 & Seed-deterministic training harness for all 4 modes + LTN + columella toggle. \\
+L630--L633 & \texttt{build\_ellip()} & internal (1) & Physical-mm 3D ellipsoidal structuring element compensating $\Delta z = 2.13\times\Delta xy$. \\
+L636--L657 & \texttt{decode\_deep\_watershed\_3d()} & NB 03, 05, int. & Anisotropic distance-peak 3D watershed + island rescue + min-volume filter. \\
+L660--L689 & \texttt{symbolic\_hardcore\_clump\_split()} & NB 03, 04, int. & Declarative Mat\'ern hard-core $K$-means split ($V \ge 2.55\,\text{mm}^3$, $d_{\min} \ge 0.88\,\text{mm}$). \\
+L692--L730 & \texttt{evaluate\_semantic\_and\_instance\_3d()} & NB 03--05 & Vectorized 3D IoU matrix, Hungarian matching, $\text{PQ} = \text{SQ} \times \text{RQ}$, Merges/Splits. \\
+L733--L750 & \texttt{match\_instance\_sets()} & NB 04 & Returns exact $(\text{TP}_{\text{pred}}, \text{TP}_{\text{gt}}, \text{FN}_{\text{gt}}, \text{FP}_{\text{pred}})$ ID sets for error anatomy. \\
+L753--L758 & \texttt{forward\_patch()} & internal (3) & Mode-aware forward dispatcher unifying 1-input and 2-input architectures. \\
+L761--L783 & \texttt{calibrate\_threshold\_on\_train()} & NB 03--05 & Leakage-free threshold sweep $\tau \in [0.22, 0.50]$ strictly on labeled training wedge. \\
+L786--L847 & \texttt{run\_test\_and\_whole\_fruit()} & NB 03--05 & Unmasked test-wedge evaluation + optional $3{\times}5{\times}8$ tiled 128-slice whole-fruit inference. \\
+\end{xltabular}
+}
+
+\setcounter{section}{-1}
+\section[\texorpdfstring{Module Header, Scientific Stack \& GitHub Endpoint (L1--L29)}{Module Header, Scientific Stack & GitHub Endpoint (L1--L29)}]{Module Header, Scientific Stack \& GitHub Endpoint (L1--L29)}
+\begin{annotbox}[Design Notes --- L1--L29: Minimal Pure-PyTorch Dependency Footprint]
+\begin{itemize}
+    \item \texttt{from \_\_future\_\_ import annotations} (L8) defers PEP~604 union type evaluation (\texttt{np.ndarray | None}) cleanly across Python 3.10--3.12 (both local \texttt{uv} Python 3.12 and Google Colab runtimes).
+    \item \textbf{Zero heavy framework lock-in:} The library depends exclusively on standard scientific Python packages (\texttt{torch}, \texttt{nibabel}, \texttt{numpy}, \texttt{scipy}, \texttt{scikit-image}, \texttt{scikit-learn})---no \texttt{MONAI}, \texttt{mmcv}, or custom CUDA kernels---so every notebook runs identically on macOS Apple Silicon (\texttt{mps}), Linux NVIDIA (\texttt{cuda}), and CPU.
+    \item \texttt{GITHUB\_RAW\_KIWI} (L28) points explicitly to the \texttt{main} branch so standalone Google Colab sessions automatically download the exact published 7\,T NIfTI volume and Micro-GT files.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 1--29 --- Module Docstring, Imports \& GitHub Raw Base URL}]
+\begin{lstlisting}[style=pyannot,firstnumber=1]
+"""kiwi_ns_lib.py — Shared PyTorch & Quantitative Imaging Library for the BMED365
+Differentiable Neurosymbolic AI Technical Report ('Thesis + Code' Package).
+
+All 5 companion notebooks in `docs/neurosymbolic-report/notebooks/` import this
+module (or download it automatically from GitHub `main` when run in Google Colab),
+ensuring zero code drift between experiments, figures, tables, and LaTeX prose.
+"""
+from __future__ import annotations
+
+import json
+import math
+import time
+import urllib.request
+from dataclasses import dataclass
+from pathlib import Path
+
+import nibabel as nib
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from scipy import ndimage as ndi
+from scipy.optimize import linear_sum_assignment
+from scipy.spatial.distance import cdist
+from skimage import filters, measure, segmentation
+from sklearn.cluster import KMeans
+
+GITHUB_RAW_KIWI = "https://raw.githubusercontent.com/arvidl/BMED365-2027/main/Lab4-Comp-Imag/Kiwi-challenge"
+\end{lstlisting}
+\end{srcbox}
+
+\section[\texorpdfstring{Cross-Platform Runtime \& Portable Path Resolution (L30--L87)}{Cross-Platform Runtime & Portable Path Resolution (L30--L87)}]{Cross-Platform Runtime \& Portable Path Resolution (L30--L87)}
+\subsection*{1.1 Accelerator Priority \& Asynchronous GPU Timing (L30--L50)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{1.1 Accelerator Priority \& Asynchronous GPU Timing (L30--L50)}{1.1 Accelerator Priority & Asynchronous GPU Timing (L30--L50)}}
+\begin{annotbox}[Runtime Notes --- L35--L49: Dynamic Backend Selection \& Wall-Clock Synchronization]
+\begin{itemize}
+    \item \texttt{get\_best\_device()} (L35--L41) enforces the BMED365 portability rule: never hard-code \texttt{"cuda"} or \texttt{"mps"}. Priority order is \texttt{CUDA} (Colab T4 / Linux workstation) $\to$ Apple \texttt{MPS} (M1--M5 Mac) $\to$ \texttt{CPU}.
+    \item \texttt{sync\_device()} (L44--L49) is essential for honest timing in \texttt{pretrain\_ssl\_backbone()} and \texttt{train\_neurosymbolic\_variant()}: both CUDA and Apple Metal execute kernels asynchronously, so calling \texttt{time.perf\_counter()} without draining the command queue would severely under-report GPU training times.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 30--50 --- Device Dispatch \& GPU Stream Synchronization}]
+\begin{lstlisting}[style=pyannot,firstnumber=31]
+# =============================================================================
+# 1. Cross-Platform Runtime & Portable Path Resolution
+# =============================================================================
+
+def get_best_device() -> torch.device:
+    """Select fastest available accelerator at runtime: CUDA -> Apple MPS -> CPU."""
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
+
+
+def sync_device(dev: torch.device) -> None:
+    """Synchronize asynchronous GPU streams before wall-clock timing."""
+    if dev.type == "cuda":
+        torch.cuda.synchronize()
+    elif dev.type == "mps":
+        torch.mps.synchronize()
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{1.2 Zero-Config Local \& Google Colab File Resolution (L51--L87)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{1.2 Zero-Config Local \& Google Colab File Resolution (L51--L87)}{1.2 Zero-Config Local & Google Colab File Resolution (L51--L87)}}
+\begin{annotbox}[Engineering Notes --- L52--L86: Working-Directory Independence]
+\begin{itemize}
+    \item \texttt{resolve\_kiwi\_file()} (L52--L69) probes five relative ancestor depths so notebooks execute cleanly whether JupyterLab is launched from the repository root (\texttt{BMED365-2027/}), from \texttt{Kiwi-challenge/}, or directly inside \texttt{docs/neurosymbolic-report/notebooks/}. If none match (e.g., an ephemeral \texttt{/content} Colab container), it downloads the file once from \texttt{GITHUB\_RAW\_KIWI}.
+    \item \texttt{resolve\_report\_dirs()} (L72--L86) anchors all figure PNGs (\texttt{FIG\_DIR}) and JSON/NIfTI outputs (\texttt{RES\_DIR}) into \texttt{docs/neurosymbolic-report/\{figures,results\}/} locally, or local \texttt{./figures} and \texttt{./results} in Colab.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 51--87 --- Portable Data Lookup \& Report Output Directory Resolution}]
+\begin{lstlisting}[style=pyannot,firstnumber=52]
+def resolve_kiwi_file(rel_path: str) -> Path:
+    """Resolve a Kiwi-challenge data/asset file locally or auto-download on Colab."""
+    here = Path.cwd()
+    candidates = [
+        here / rel_path,
+        here / ".." / rel_path,
+        here / ".." / ".." / rel_path,
+        here / ".." / ".." / ".." / rel_path,
+        here / "Lab4-Comp-Imag/Kiwi-challenge" / rel_path,
+    ]
+    for cand in candidates:
+        if cand.exists():
+            return cand.resolve()
+    dst = Path(rel_path)
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    print(f"Downloading {rel_path} from GitHub main for Colab session...")
+    urllib.request.urlretrieve(f"{GITHUB_RAW_KIWI}/{rel_path}", dst)
+    return dst.resolve()
+
+
+def resolve_report_dirs() -> tuple[Path, Path]:
+    """Return (figures_dir, results_dir) for the neurosymbolic-report package."""
+    here = Path.cwd()
+    for base in [here / "..", here, here / "Lab4-Comp-Imag/Kiwi-challenge/docs/neurosymbolic-report"]:
+        if (base / "notebooks").exists() or base.name == "neurosymbolic-report":
+            figs = (base / "figures").resolve()
+            res = (base / "results").resolve()
+            figs.mkdir(parents=True, exist_ok=True)
+            res.mkdir(parents=True, exist_ok=True)
+            return figs, res
+    figs = (here / "figures").resolve()
+    res = (here / "results").resolve()
+    figs.mkdir(parents=True, exist_ok=True)
+    res.mkdir(parents=True, exist_ok=True)
+    return figs, res
+\end{lstlisting}
+\end{srcbox}
+
+\section[\texorpdfstring{Data Loading, Whole-Organ Coordinate Frame \& Biophysical Predicates (L88--L280)}{Data Loading, Whole-Organ Coordinate Frame & Biophysical Predicates (L88--L280)}]{Data Loading, Whole-Organ Coordinate Frame \& Biophysical Predicates (L88--L280)}
+\subsection*{2.1 The \texttt{KiwiDataset} Container (L88--L125)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{2.1 The \texttt{KiwiDataset} Container (L88--L125)}{2.1 The KiwiDataset Container (L88--L125)}}
+\begin{annotbox}[Data Contract --- L93--L124: Unified 3D Volume, Split \& Predicate Bundle]
+\texttt{KiwiDataset} encapsulates all 27 arrays and scalar metadata produced by \texttt{load\_kiwi\_dataset()} so downstream functions never pass loose tuples of 15 arrays:
+\begin{itemize}
+    \item \textbf{Spatial ROI \& Leakage-Free Split:} \texttt{roi\_gt} is the $80 \times 80 \times 16$ equatorial Micro-GT sector (\texttt{rx0:rx1}, \texttt{ry0:ry1}, \texttt{rz0:rz1} $= [128,208)\times[128,208)\times[56,72)$); \texttt{split\_y = 40} partitions it into voxel-disjoint \texttt{train\_gt} ($y \in [128, 168)$, 59 seeds) and \texttt{test\_gt} ($y \in [168, 208)$, 52 seeds).
+    \item \textbf{Central Columella Hard-Negative Box (L119--L122):} \texttt{cx0..cx1 = 112..144}, \texttt{cy0..cy1 = 112..144} carves a $32 \times 32 \times 16$ seed-free central-core crop used in \texttt{train\_neurosymbolic\_variant()} and toggled causally in Notebook~04.
+    \item \textbf{Affine Provenance (L123--L124):} Stores the original $4 \times 4$ NIfTI \texttt{affine} and \texttt{gt\_affine\_max\_diff} ($\max|\mathbf{A}_{\text{MRI}} - \mathbf{A}_{\text{GT}}| = 0.0$) for bit-aligned Freeview/ITK-SNAP verification.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 88--125 --- KiwiDataset Dataclass Specification}]
+\begin{lstlisting}[style=pyannot,firstnumber=89]
+# =============================================================================
+# 2. Data Loading, Whole-Organ Coordinate Frame & Biophysical Predicates
+# =============================================================================
+
+@dataclass
+class KiwiDataset:
+    vol: np.ndarray
+    spacing: tuple[float, float, float]
+    vox_vol_mm3: float
+    gt_full: np.ndarray
+    roi_gt: np.ndarray
+    train_gt: np.ndarray
+    test_gt: np.ndarray
+    rx0: int
+    rx1: int
+    ry0: int
+    ry1: int
+    rz0: int
+    rz1: int
+    split_y: int
+    fruit_mask: np.ndarray
+    r_norm: np.ndarray
+    z_norm: np.ndarray
+    pole_dist: np.ndarray
+    soft_ring: np.ndarray
+    vol_norm: np.ndarray
+    env_local: np.ndarray
+    env_smooth: np.ndarray
+    t2_ratio: np.ndarray
+    non_dark: np.ndarray
+    cx0: int = 112
+    cx1: int = 144
+    cy0: int = 112
+    cy1: int = 144
+    affine: np.ndarray | None = None
+    gt_affine_max_diff: float = 0.0
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{2.2 Intrinsic Organ Coordinate Frame \& Stress-Test Hooks (L126--L169)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{2.2 Intrinsic Organ Coordinate Frame \& Stress-Test Hooks (L126--L169)}{2.2 Intrinsic Organ Coordinate Frame & Stress-Test Hooks (L126--L169)}}
+\begin{annotbox}[Mathematical Annotation --- L127--L168: Slice-Normalized Radius \& Smooth Compartment Predicate]
+\texttt{build\_whole\_organ\_geometry()} maps the raw 7\,T volume into an atlas-free intrinsic coordinate frame invariant to the fruit's polar taper:
+\begin{enumerate}
+    \item \textbf{Intact Berry Mask (L139--L146):} Anisotropic Gaussian smoothing ($\sigma = 1.2\,\text{mm}$ converted to voxels via $1.2 / s_k$), Otsu thresholding at $0.35\times$, 2D slice-wise + 3D hole filling, and largest connected component isolate \texttt{fruit\_mask} ($V_{\text{kiwi}} = 85.97\,\text{cm}^3$).
+    \item \textbf{Area-Equivalent Radial Depth (L149--L156):} For every slice $z$ with $\ge 80$ berry voxels, $R_{\text{fruit}}(z) = \sqrt{\text{Area}(z)/\pi} \cdot \alpha$ and $\tilde{r}(x,y,z) = \sqrt{(x - (c_x + \Delta x))^2 + (y - (c_y + \Delta y))^2} / R_{\text{fruit}}(z)$. Outside-fruit voxels default to $1.5$.
+    \item \textbf{Smooth Differentiable Inner-Pericarp Membership $R_{\text{ring}} \in [0, 1]$ (L162--L167):}
+    \[
+        R_{\text{ring}}(\mathbf{x}) = \sigma\!\left(\frac{\tilde{r} - 0.22}{0.02}\right)\sigma\!\left(\frac{0.65 - \tilde{r}}{0.02}\right) \cdot \operatorname{clip}\!\left(\frac{z - 16}{5}, 0, 1\right)\operatorname{clip}\!\left(\frac{111 - z}{5}, 0, 1\right) \cdot M_{\text{fruit}}(\mathbf{x}).
+    \]
+    \item \textbf{Pathological Stress-Test Parameters:} Optional \texttt{center\_shift\_vox} $(\Delta x, \Delta y, \Delta z)$ and \texttt{radial\_scale} $\alpha$ let Notebook~05 inject synthetic clinical mass effect ($0$--$8\,\text{mm}$) and atrophy/hypertrophy ($\alpha \in [0.80, 1.25]$) without modifying any core code.
+\end{enumerate}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 126--169 --- build\_whole\_organ\_geometry()}]
+\begin{lstlisting}[style=pyannot,firstnumber=127]
+def build_whole_organ_geometry(
+    vol_3d: np.ndarray,
+    sp: tuple[float, float, float],
+    center_shift_vox: tuple[float, float, float] = (0.0, 0.0, 0.0),
+    radial_scale: float = 1.0,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Extract intact berry mask, normalized radial coordinate r/R_fruit(z),
+    axial coordinate z/Z, and smooth differentiable inner-pericarp membership R_ring.
+
+    Optional `center_shift_vox` (dx, dy, dz) and `radial_scale` allow synthetic
+    pathological distortion / mass-effect stress testing (Notebook 05).
+    """
+    v_sm = ndi.gaussian_filter(vol_3d, sigma=(1.2 / sp[0], 1.2 / sp[1], 1.2 / sp[2]))
+    fg_raw = v_sm > (filters.threshold_otsu(v_sm[::2, ::2, ::2]) * 0.35)
+    fg_fill = np.zeros_like(fg_raw)
+    for z in range(vol_3d.shape[2]):
+        fg_fill[:, :, z] = ndi.binary_fill_holes(fg_raw[:, :, z])
+    fg_fill = ndi.binary_fill_holes(fg_fill)
+    lbl_fg, _ = ndi.label(fg_fill)
+    fruit_mask = lbl_fg == (1 + int(np.argmax(np.bincount(lbl_fg.ravel())[1:])))
+
+    dx, dy, dz = center_shift_vox
+    r_norm_3d = np.full(vol_3d.shape, 1.5, dtype=np.float32)
+    yy, xx = np.meshgrid(np.arange(vol_3d.shape[1]), np.arange(vol_3d.shape[0]))
+    for z in range(vol_3d.shape[2]):
+        m = fruit_mask[:, :, z]
+        if m.sum() >= 80:
+            cx, cy = float(xx[m].mean()) + dx, float(yy[m].mean()) + dy
+            r_fruit = max(np.sqrt(m.sum() / np.pi) * radial_scale, 1.0)
+            r_norm_3d[:, :, z] = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2) / r_fruit
+
+    z_idx = np.arange(vol_3d.shape[2], dtype=np.float32) + dz
+    z_norm_1d = np.clip(z_idx / float(vol_3d.shape[2] - 1), 0.0, 1.0)
+    z_norm_3d = np.broadcast_to(z_norm_1d[None, None, :], vol_3d.shape).copy()
+
+    z_gate = np.clip((z_idx[None, None, :] - 16.0) / 5.0, 0.0, 1.0) * np.clip(
+        (111.0 - z_idx[None, None, :]) / 5.0, 0.0, 1.0
+    )
+    r_in = 1.0 / (1.0 + np.exp(-np.clip((r_norm_3d - 0.22) / 0.02, -20.0, 20.0)))
+    r_out = 1.0 / (1.0 + np.exp(-np.clip((0.65 - r_norm_3d) / 0.02, -20.0, 20.0)))
+    soft_ring = (r_in * r_out * z_gate * fruit_mask.astype(np.float32)).astype(np.float32)
+    return fruit_mask, r_norm_3d, z_norm_3d, soft_ring
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{2.3 7\,T MRI Loading, $B_1$-Invariant Morphological Envelope \& Bit-Aligned NIfTI Export (L170--L242)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{2.3 7\,T MRI Loading, $B_1$-Invariant Morphological Envelope \& Bit-Aligned NIfTI Export (L170--L242)}{2.3 7 T MRI Loading, B1-Invariant Morphological Envelope & Bit-Aligned NIfTI Export (L170--L242)}}
+\begin{annotbox}[Physics \& Provenance Notes --- L171--L241: $B_1$ Shading Cancellation \& Manual GT Override]
+\begin{itemize}
+    \item \textbf{Manual Ground-Truth Override (L171, L179--L183):} Passing \texttt{gt\_nii\_override="MyStuff/kiwi-gt/kiwi\_gt\_manual\_v1.nii.gz"} re-runs all five notebooks against a manually refined \texttt{uint16} mask while keeping the repository's shared silver standard untouched.
+    \item \textbf{Safe Integer Rounding (L192):} \texttt{np.rint(np.asarray(gt\_img.dataobj)).astype(np.uint16)} prevents floating-point NIfTI scale-slope artifacts from corrupting integer instance IDs.
+    \item \textbf{Removing 7\,T RF $B_1$ Shading via 3D Morphological Closing (L207--L221):} Normalizing by the 99th inside-fruit percentile (\texttt{vol\_norm}), then applying \texttt{ndi.grey\_closing(size=(7, 7, 3))} ($\approx 1.64 \times 1.64 \times 1.50\,\text{mm}^3$) bridges across dark $\sim 1.5\,\text{mm}$ seeds to reconstruct the bright surrounding mucilage gel envelope \texttt{env\_local}. Dividing gives the $B_1$-invariant local contrast ratio $r_{T_2} = \operatorname{clip}(I / (E_{\text{local}} + 0.03), 0, 1.25)$, and the smooth physics violation predicate:
+    \[
+        B_{\text{non\_dark}}(\mathbf{x}) = \max\!\left(\operatorname{clip}\!\left(\frac{r_{T_2} - 0.82}{0.15},\, 0,\, 1\right),\; \operatorname{clip}\!\left(\frac{0.32 - E_{\text{local}}}{0.10},\, 0,\, 1\right)\right).
+    \]
+    The $0.82$ onset protects $100\%$ of seed cores and $93.4\%$ of 1-voxel partial-volume rims while penalizing bright gel ($r_{T_2} \to 1$) and dry columella/air ($E_{\text{local}} < 0.32$).
+    \item \textbf{Bit-Aligned Export (L234--L241):} \texttt{save\_aligned\_label\_nifti()} sets both \texttt{sform} and \texttt{qform} to \texttt{code=1} with the exact MRI affine so FreeSurfer \texttt{freeview}, 3D Slicer, and ITK-SNAP superimpose predictions with zero resampling.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 170--242 --- load\_kiwi\_dataset() \& save\_aligned\_label\_nifti()}]
+\begin{lstlisting}[style=pyannot,firstnumber=171]
+def load_kiwi_dataset(gt_nii_override: str | Path | None = None) -> KiwiDataset:
+    """Load 7T RARE kiwi MRI, curated 3D Micro-GT, organ coordinates & biophysical predicates.
+
+    Pass `gt_nii_override` (e.g. 'MyStuff/kiwi-gt/kiwi_gt_manual_v1.nii.gz') to audit,
+    evaluate, or retrain against a manually refined 3D instance mask without modifying
+    the shared silver standard in `data/kiwi_micro_gt_labels.nii.gz`.
+    """
+    nii_path = resolve_kiwi_file("data/kiwi_20050217191129_131073_RARE_high_res_axial.nii.gz")
+    gt_nii_path = (
+        Path(gt_nii_override).expanduser().resolve()
+        if gt_nii_override is not None
+        else resolve_kiwi_file("data/kiwi_micro_gt_labels.nii.gz")
+    )
+    gt_json_path = resolve_kiwi_file("data/kiwi_micro_gt_roi.json")
+
+    nii_img = nib.load(str(nii_path))
+    vol = nii_img.get_fdata(dtype=np.float32)
+    spacing = tuple(float(s) for s in nii_img.header.get_zooms()[:3])
+    vox_vol_mm3 = float(np.prod(spacing))
+
+    gt_img = nib.load(str(gt_nii_path))
+    gt_full = np.rint(np.asarray(gt_img.dataobj)).astype(np.uint16)
+    gt_affine_max_diff = float(np.max(np.abs(nii_img.affine - gt_img.affine)))
+    gt_meta = json.loads(gt_json_path.read_text(encoding="utf-8"))
+    rx0, rx1 = gt_meta["roi_bounds_voxel_xyz"]["x"]
+    ry0, ry1 = gt_meta["roi_bounds_voxel_xyz"]["y"]
+    rz0, rz1 = gt_meta["roi_bounds_voxel_xyz"]["z"]
+    roi_gt = gt_full[rx0:rx1, ry0:ry1, rz0:rz1]
+
+    split_y = 40
+    train_gt = roi_gt[:, :split_y, :].copy()
+    test_gt = roi_gt[:, split_y:, :].copy()
+
+    fruit_mask, r_norm, z_norm, soft_ring = build_whole_organ_geometry(vol, spacing)
+    pole_dist = (np.abs(z_norm - 0.5) * 2.0).astype(np.float32)
+
+    p99 = float(np.percentile(vol[fruit_mask], 99.0))
+    vol_norm = np.clip(vol / (p99 + 1e-6), 0.0, 1.25).astype(np.float32)
+    env_close = ndi.grey_closing(vol_norm, size=(7, 7, 3))
+    env_local = ndi.gaussian_filter(
+        env_close, sigma=(0.8 / spacing[0], 0.8 / spacing[1], 0.8 / spacing[2])
+    ).astype(np.float32)
+    env_smooth = ndi.gaussian_filter(
+        vol_norm, sigma=(2.0 / spacing[0], 2.0 / spacing[1], 1.6 / spacing[2])
+    ).astype(np.float32)
+
+    t2_ratio = np.clip(vol_norm / (env_local + 0.03), 0.0, 1.25).astype(np.float32)
+    non_dark = np.maximum(
+        np.clip((t2_ratio - 0.82) / 0.15, 0.0, 1.0),
+        np.clip((0.32 - env_local) / 0.10, 0.0, 1.0),
+    ).astype(np.float32)
+
+    return KiwiDataset(
+        vol=vol, spacing=spacing, vox_vol_mm3=vox_vol_mm3,
+        gt_full=gt_full, roi_gt=roi_gt, train_gt=train_gt, test_gt=test_gt,
+        rx0=rx0, rx1=rx1, ry0=ry0, ry1=ry1, rz0=rz0, rz1=rz1, split_y=split_y,
+        fruit_mask=fruit_mask, r_norm=r_norm, z_norm=z_norm, pole_dist=pole_dist,
+        soft_ring=soft_ring, vol_norm=vol_norm, env_local=env_local,
+        env_smooth=env_smooth, t2_ratio=t2_ratio, non_dark=non_dark,
+        affine=nii_img.affine.copy(), gt_affine_max_diff=gt_affine_max_diff,
+    )
+
+
+def save_aligned_label_nifti(lbl_3d: np.ndarray, ref_affine: np.ndarray, out_path: Path) -> Path:
+    """Save a uint16 3D instance label mask bit-aligned to the original 7T MRI affine."""
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img = nib.Nifti1Image(lbl_3d.astype(np.uint16), ref_affine)
+    img.set_sform(ref_affine, code=1)
+    img.set_qform(ref_affine, code=1)
+    nib.save(img, str(out_path))
+    return out_path
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{2.4 Appearance/GPS Tensor Builders \& Per-Instance Anisotropic 3D EDT (L243--L280)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{2.4 Appearance/GPS Tensor Builders \& Per-Instance Anisotropic 3D EDT (L243--L280)}{2.4 Appearance/GPS Tensor Builders & Per-Instance Anisotropic 3D EDT (L243--L280)}}
+\begin{annotbox}[Tensor Engineering Notes --- L244--L279: Quadratic Radial Bowl \& Padded EDT]
+\begin{itemize}
+    \item \texttt{make\_3ch\_tensor()} (L244--L250) packages three complementary appearance channels $[I,\, E_{\text{local}},\, E_{\text{smooth}}]$ so the CNN sees raw $T_2$ intensity, local mucilage context, and coarse $B_1$ shading simultaneously.
+    \item \texttt{make\_3ch\_and\_gps()} (L253--L266) builds the 3-channel un-normalized \texttt{Organ-GPS} tensor $[\tilde{r},\; (\tilde{r} - 0.43)^2,\; |2z/Z - 1|]$. Providing the explicit quadratic bowl $(\tilde{r} - 0.43)^2$ centered at mid-pericarp lets a tiny 2-layer MLP represent a smooth annular ring cleanly without needing high capacity. Optional \texttt{r\_override}/\texttt{pole\_override} enable test-time coordinate perturbation in Notebook~05.
+    \item \texttt{build\_distance\_targets()} (L269--L279) computes each seed's normalized center-distance dome $y_d \in [0, 1]$ via \texttt{ndi.distance\_transform\_edt(..., sampling=sp)} inside a \textbf{1-voxel zero-padded bounding box} (\texttt{pad\_width=1}). Padding is critical: without it, seeds touching the ROI boundary would have artificially nonzero distance at the crop edge, corrupting watershed peaks.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 243--280 --- Tensor Packaging \& Per-Instance Anisotropic 3D EDT}]
+\begin{lstlisting}[style=pyannot,firstnumber=244]
+def make_3ch_tensor(ds: KiwiDataset, x0: int, x1: int, y0: int, y1: int, z0: int, z1: int) -> torch.Tensor:
+    """Stack [vol_norm, env_local, env_smooth] -> (1, 3, X, Y, Z)."""
+    arr = np.stack(
+        [ds.vol_norm[x0:x1, y0:y1, z0:z1], ds.env_local[x0:x1, y0:y1, z0:z1], ds.env_smooth[x0:x1, y0:y1, z0:z1]],
+        axis=0,
+    )[None, ...]
+    return torch.from_numpy(arr)
+
+
+def make_3ch_and_gps(
+    ds: KiwiDataset,
+    x0: int, x1: int, y0: int, y1: int, z0: int, z1: int,
+    r_override: np.ndarray | None = None,
+    pole_override: np.ndarray | None = None,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Return (x3, gps) where gps = [r/R, (r/R - 0.43)^2, |2z/Z - 1|]."""
+    x3 = make_3ch_tensor(ds, x0, x1, y0, y1, z0, z1)
+    r_src = ds.r_norm if r_override is None else r_override
+    p_src = ds.pole_dist if pole_override is None else pole_override
+    rn = np.clip(r_src[x0:x1, y0:y1, z0:z1], 0.0, 1.5)
+    zn = p_src[x0:x1, y0:y1, z0:z1]
+    gps = np.stack([rn, (rn - 0.43) ** 2, zn], axis=0)[None, ...].astype(np.float32)
+    return x3, torch.from_numpy(gps)
+
+
+def build_distance_targets(inst_lbl: np.ndarray, sp: tuple[float, float, float]) -> tuple[np.ndarray, np.ndarray]:
+    """Compute binary semantic foreground + per-instance normalized 3D EDT in [0, 1]."""
+    sem_fg = (inst_lbl > 0).astype(np.float32)
+    norm_dist = np.zeros(inst_lbl.shape, dtype=np.float32)
+    for prop in measure.regionprops(inst_lbl):
+        s0, s1, s2 = prop.slice
+        sub = np.pad(inst_lbl[s0, s1, s2] == prop.label, pad_width=1, mode="constant", constant_values=False)
+        d_local = ndi.distance_transform_edt(sub, sampling=sp)[1:-1, 1:-1, 1:-1]
+        m_local = sub[1:-1, 1:-1, 1:-1]
+        norm_dist[s0, s1, s2][m_local] = (d_local[m_local] / max(float(d_local.max()), 1e-6)).astype(np.float32)
+    return sem_fg, norm_dist
+\end{lstlisting}
+\end{srcbox}
+
+\section[\texorpdfstring{Neural \& Differentiable Neurosymbolic 3D Architectures (L281--L389)}{Neural & Differentiable Neurosymbolic 3D Architectures (L281--L389)}]{Neural \& Differentiable Neurosymbolic 3D Architectures (L281--L389)}
+\subsection*{3.1 Shared 3D U-Net Backbone \& Pure/Naive Multi-Task Variants (L281--L336)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{3.1 Shared 3D U-Net Backbone \& Pure/Naive Multi-Task Variants (L281--L336)}{3.1 Shared 3D U-Net Backbone & Pure/Naive Multi-Task Variants (L281--L336)}}
+\begin{annotbox}[Architecture Notes --- L286--L335: Why \texttt{InstanceNorm3d} Helps Texture Yet Breaks \texttt{CoordConv3D}]
+\begin{itemize}
+    \item \texttt{ConvBlock3D} (L286--L300) omits convolution bias (\texttt{bias=False}) because the immediately following \texttt{InstanceNorm3d(out\_c, affine=True)} subtracts the per-channel mean and supplies its own learnable shift $\beta_c$. \texttt{SiLU} provides smooth non-zero gradients everywhere.
+    \item \texttt{Backbone3DUNet} (L303--L322) is a symmetric 3-level U-Net ($16 \to 32 \to 64 \to 32 \to 16$, two $2{\times}2{\times}2$ \texttt{MaxPool3d} downsamples and two \texttt{ConvTranspose3d} upsamples, requiring input spatial dims divisible by $4$). Keeping channel width compact (\texttt{base\_ch=16}, $\sim 340\text{k}$ params) prevents memorization on $59$ labeled training seeds and trains in $\sim 15$\,s on Apple MPS or Colab T4.
+    \item \texttt{MultiTaskUNet3D} (L325--L335) serves both \textbf{Model~A} (\texttt{in\_ch=3}, pure neural baseline) and \textbf{Model~B} (\texttt{in\_ch=6}, naive \texttt{CoordConv3D})---the latter fails catastrophically because \texttt{enc1}'s \texttt{InstanceNorm3d} erases absolute patch coordinates.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 281--336 --- ConvBlock3D, Backbone3DUNet \& MultiTaskUNet3D}]
+\begin{lstlisting}[style=pyannot,firstnumber=282]
+# =============================================================================
+# 3. Neural & Differentiable Neurosymbolic 3D Architectures
+# =============================================================================
+
+class ConvBlock3D(nn.Module):
+    """Standard 3D medical CNN block (Conv3d -> InstanceNorm3d -> SiLU, x2)."""
+    def __init__(self, in_c: int, out_c: int):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Conv3d(in_c, out_c, kernel_size=3, padding=1, bias=False),
+            nn.InstanceNorm3d(out_c, affine=True),
+            nn.SiLU(inplace=True),
+            nn.Conv3d(out_c, out_c, kernel_size=3, padding=1, bias=False),
+            nn.InstanceNorm3d(out_c, affine=True),
+            nn.SiLU(inplace=True),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.net(x)
+
+
+class Backbone3DUNet(nn.Module):
+    """Compact 3-level 3D U-Net (~340k params) shared across all benchmarks."""
+    def __init__(self, in_ch: int = 3, base_ch: int = 16):
+        super().__init__()
+        self.enc1 = ConvBlock3D(in_ch, base_ch)
+        self.pool1 = nn.MaxPool3d(2)
+        self.enc2 = ConvBlock3D(base_ch, base_ch * 2)
+        self.pool2 = nn.MaxPool3d(2)
+        self.bot = ConvBlock3D(base_ch * 2, base_ch * 4)
+        self.up2 = nn.ConvTranspose3d(base_ch * 4, base_ch * 2, kernel_size=2, stride=2)
+        self.dec2 = ConvBlock3D(base_ch * 4, base_ch * 2)
+        self.up1 = nn.ConvTranspose3d(base_ch * 2, base_ch, kernel_size=2, stride=2)
+        self.dec1 = ConvBlock3D(base_ch * 2, base_ch)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        e1 = self.enc1(x)
+        e2 = self.enc2(self.pool1(e1))
+        b = self.bot(self.pool2(e2))
+        d2 = self.dec2(torch.cat([self.up2(b), e2], dim=1))
+        return self.dec1(torch.cat([self.up1(d2), e1], dim=1))
+
+
+class MultiTaskUNet3D(nn.Module):
+    """Pure neural (in_ch=3) or naive CoordConv3D+InstanceNorm3d (in_ch=6) 3D U-Net."""
+    def __init__(self, in_ch: int = 3, base_ch: int = 16):
+        super().__init__()
+        self.backbone = Backbone3DUNet(in_ch, base_ch)
+        self.head_sem = nn.Conv3d(base_ch, 1, kernel_size=1)
+        self.head_dist = nn.Conv3d(base_ch, 1, kernel_size=1)
+
+    def forward(self, x: torch.Tensor):
+        feat = self.backbone(x)
+        return self.head_sem(feat), torch.sigmoid(self.head_dist(feat))
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{3.2 Un-Normalized Bayes Log-Odds \& Coupled \texttt{Organ-GPS} Networks (L337--L389)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{3.2 Un-Normalized Bayes Log-Odds \& Coupled \texttt{Organ-GPS} Networks (L337--L389)}{3.2 Un-Normalized Bayes Log-Odds & Coupled Organ-GPS Networks (L337--L389)}}
+\begin{annotbox}[Mathematical Annotation --- L338--L388: Additive Bayes Log-Odds vs.\ Coupled Feature Fusion]
+\begin{itemize}
+    \item \textbf{\texttt{AdditiveBayesOrganNet3D} (L338--L361, $+353$ params):} Isolates $\mathbf{g}$ in a purely point-wise ($1{\times}1{\times}1$) MLP ($3 \to 16 \to 16 \to 1$) with \textbf{zero spatial normalization}:
+    \[
+        z_{\text{total}}(\mathbf{x}) = z_{\text{app}}\bigl(\mathbf{f}_\theta(\mathbf{X}_3)\bigr) + z_{\text{GPS}}\bigl(\mathbf{g}(\mathbf{x}); \psi\bigr), \qquad
+        (3\cdot 16 + 16) + (16\cdot 16 + 16) + (16\cdot 1 + 1) = 64 + 272 + 17 = 353\text{ params.}
+    \]
+    Because \texttt{gps\_log\_prior()} (L356--L357) is callable standalone on any synthetic $(\tilde{r}, \tilde{p}_z)$ mesh, Notebook~04 audits the exact learned spatial odds veto without approximation. Under mass effect (Notebook~05), finite $z_{\text{GPS}}$ lets strong MRI appearance $z_{\text{app}}$ override stale coordinates smoothly.
+    \item \textbf{\texttt{CoupledOrganNet3D} (L364--L388, $+864$ params):} Concatenates the 16-channel un-normalized GPS embedding $\mathbf{g}$ with the 16-channel decoder feature map $\mathbf{f}$ before a 2-layer $1{\times}1{\times}1$ semantic head ($32 \to 16 \to 1$), permitting nonlinear texture--location interactions at the cost of losing exact additive decomposability.
+    \item Notice that in both models, \texttt{head\_dist} depends strictly on local appearance features $\mathbf{f}$ (distance-to-seed-center is purely local geometry).
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 337--389 --- AdditiveBayesOrganNet3D \& CoupledOrganNet3D}]
+\begin{lstlisting}[style=pyannot,firstnumber=338]
+class AdditiveBayesOrganNet3D(nn.Module):
+    """Explicit Bayes Log-Odds Neurosymbolic 3D Network:
+      z_total(x) = z_app(f_theta(X)) + z_gps(h_psi(gps)).
+    Directly auditable spatial log-prior (+353 parameters over MultiTaskUNet3D).
+    """
+    def __init__(self, in_ch: int = 3, gps_ch: int = 3, base_ch: int = 16):
+        super().__init__()
+        self.backbone = Backbone3DUNet(in_ch, base_ch)
+        self.head_app = nn.Conv3d(base_ch, 1, kernel_size=1)
+        self.gps_mlp = nn.Sequential(
+            nn.Conv3d(gps_ch, 16, kernel_size=1),
+            nn.SiLU(),
+            nn.Conv3d(16, 16, kernel_size=1),
+            nn.SiLU(),
+        )
+        self.head_gps = nn.Conv3d(16, 1, kernel_size=1)
+        self.head_dist = nn.Conv3d(base_ch, 1, kernel_size=1)
+
+    def gps_log_prior(self, gps: torch.Tensor) -> torch.Tensor:
+        return self.head_gps(self.gps_mlp(gps))
+
+    def forward(self, x3: torch.Tensor, gps: torch.Tensor):
+        f = self.backbone(x3)
+        return self.head_app(f) + self.gps_log_prior(gps), torch.sigmoid(self.head_dist(f))
+
+
+class CoupledOrganNet3D(nn.Module):
+    """Coupled feature-fusion Organ-GPS 3D Network (NB 06 architecture):
+      z_total(x) = head_sem([f_theta(X), h_psi(gps)]).
+    Allows nonlinear interaction between appearance and organ position (+864 params).
+    """
+    def __init__(self, in_ch: int = 3, gps_ch: int = 3, base_ch: int = 16):
+        super().__init__()
+        self.backbone = Backbone3DUNet(in_ch, base_ch)
+        self.gps_mlp = nn.Sequential(
+            nn.Conv3d(gps_ch, 16, kernel_size=1),
+            nn.SiLU(),
+            nn.Conv3d(16, 16, kernel_size=1),
+            nn.SiLU(),
+        )
+        self.head_sem = nn.Sequential(
+            nn.Conv3d(base_ch + 16, 16, kernel_size=1),
+            nn.SiLU(),
+            nn.Conv3d(16, 1, kernel_size=1),
+        )
+        self.head_dist = nn.Conv3d(base_ch, 1, kernel_size=1)
+
+    def forward(self, x3: torch.Tensor, gps: torch.Tensor):
+        f = self.backbone(x3)
+        g = self.gps_mlp(gps)
+        return self.head_sem(torch.cat([f, g], dim=1)), torch.sigmoid(self.head_dist(f))
+\end{lstlisting}
+\end{srcbox}
+
+\section[\texorpdfstring{Differentiable Real Logic (LTN) \& Supervised Loss Primitives (L390--L430)}{Differentiable Real Logic (LTN) & Supervised Loss Primitives (L390--L430)}]{Differentiable Real Logic (LTN) \& Supervised Loss Primitives (L390--L430)}
+\begin{annotbox}[Mathematical Annotation --- L395--L429: Smooth Fuzzy Implications, $p$-Mean Quantifiers \& Multi-Task Balance]
+\begin{itemize}
+    \item \texttt{implication\_violation()} (L395--L410) computes $v(a, b) = 1 - I(a \Rightarrow b) \in [0, 1]$ for three fuzzy logics:
+    \begin{itemize}
+        \item \texttt{"product"} (Reichenbach): $v = a(1 - b)$, smooth everywhere with zero dead zones (used in all training).
+        \item \texttt{"lukasiewicz"}: $v = \max(0, a - b)$, piecewise linear with a dead triangle where $a \le b$.
+        \item \texttt{"godel"}: $v = (1 - b)\,\mathbf{1}\{a > b\}$, discontinuous along $a = b$.
+    \end{itemize}
+    \item \texttt{ltn\_universal\_pmean()} (L413--L415) implements $\mathcal{L}_p(\mathbf{v}) = (\frac{1}{N}\sum_i v_i^p + 10^{-8})^{1/p}$. Adding $\varepsilon = 10^{-8}$ \emph{inside} the $1/p$-th root prevents \texttt{NaN} gradients ($\frac{d}{dx} x^{1/p} \to \infty$ as $x \to 0^+$) whenever a batch achieves near-zero violation. At $p = 3$, rare $0.8\%$ polar FPs receive a $24.98\times$ stronger gradient than plain averaging ($p = 1$).
+    \item \texttt{supervised\_multitask\_loss()} (L424--L429) balances severe voxel imbalance (seeds occupy $<10\%$ even inside the ROI) using \texttt{pos\_weight=6.0} in BCE, smooth \texttt{soft\_dice\_loss}, and foreground-weighted distance MSE:
+    \[
+        \mathcal{L}_{\text{sup}} = 0.45\,\text{BCE}_{w_+=6} + 0.55\,\mathcal{L}_{\text{SoftDice}} + 2.5\,\mathbb{E}\bigl[(1 + 6 y_s)(\hat{d} - y_d)^2\bigr].
+    \]
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 390--430 --- Fuzzy Implication, LTN p-Mean \& Supervised Multi-Task Losses}]
+\begin{lstlisting}[style=pyannot,firstnumber=391]
+# =============================================================================
+# 4. Differentiable Real Logic (LTN) & Supervised Loss Primitives
+# =============================================================================
+
+def implication_violation(premise: torch.Tensor, conclusion: torch.Tensor, family: str = "product") -> torch.Tensor:
+    """Compute fuzzy implication violation v = 1 - I(premise -> conclusion) in [0, 1].
+    Families:
+      - 'product' (Reichenbach): v = premise * (1 - conclusion)   [smooth everywhere]
+      - 'lukasiewicz'          : v = max(0, premise - conclusion) [piecewise linear, dead zone]
+      - 'godel'                : v = (1 - conclusion) if premise > conclusion else 0 [discontinuous]
+    """
+    a = premise.clamp(0.0, 1.0)
+    b = conclusion.clamp(0.0, 1.0)
+    if family == "product":
+        return a * (1.0 - b)
+    if family == "lukasiewicz":
+        return torch.clamp(a - b, min=0.0, max=1.0)
+    if family == "godel":
+        return torch.where(a > b, 1.0 - b, torch.zeros_like(a))
+    raise ValueError(f"Unknown fuzzy implication family: {family}")
+
+
+def ltn_universal_pmean(violation: torch.Tensor, p: float = 3.0) -> torch.Tensor:
+    """LTN generalized p-mean universal error quantifier (Badreddine et al., AIJ 2022)."""
+    return (torch.mean(violation.clamp(0.0, 1.0) ** p) + 1e-8) ** (1.0 / p)
+
+
+def soft_dice_loss(logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    probs = torch.sigmoid(logits)
+    inter = (probs * targets).sum()
+    return 1.0 - (2.0 * inter + 1.0) / (probs.sum() + targets.sum() + 1.0)
+
+
+def supervised_multitask_loss(s_log: torch.Tensor, d_hat: torch.Tensor, y_s: torch.Tensor, y_d: torch.Tensor) -> torch.Tensor:
+    pos_w = torch.tensor([6.0], device=s_log.device)
+    bce = F.binary_cross_entropy_with_logits(s_log, y_s, pos_weight=pos_w)
+    dl = soft_dice_loss(s_log, y_s)
+    mse = ((1.0 + 6.0 * y_s) * (d_hat - y_d) ** 2).mean()
+    return 0.45 * bce + 0.55 * dl + 2.5 * mse
+\end{lstlisting}
+\end{srcbox}
+
+\section[\texorpdfstring{Unlabeled Sampling, 3D SSL Warm-Start \& Unified Training Harness (L431--L624)}{Unlabeled Sampling, 3D SSL Warm-Start & Unified Training Harness (L431--L624)}]{Unlabeled Sampling, 3D SSL Warm-Start \& Unified Training Harness (L431--L624)}
+\subsection*{5.1 Test-Disjoint 3D Masked-Context SSL \& Stratified Unlabeled Bank (L431--L511)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{5.1 Test-Disjoint 3D Masked-Context SSL \& Stratified Unlabeled Bank (L431--L511)}{5.1 Test-Disjoint 3D Masked-Context SSL & Stratified Unlabeled Bank (L431--L511)}}
+\begin{annotbox}[Leakage-Prevention \& SSL Notes --- L436--L510: Strict Held-Out Test Exclusion]
+\begin{itemize}
+    \item \textbf{Zero Test-Wedge Contamination (L454 \& L496):} Both \texttt{pretrain\_ssl\_backbone()} and \texttt{sample\_unlabeled\_blocks()} explicitly reject any random cube intersecting the held-out Test Wedge $[r_{x0}, r_{x1}) \times [r_{y0} + \text{split\_y}, r_{y1}) \times [r_{z0}, r_{z1})$, ensuring the test wedge remains completely unseen during both SSL pretraining and LTN semi-supervised logic training.
+    \item \textbf{Biophysically Grounded SSL Targets (L441--L461, L469--L480):} Rather than reconstructing raw intensity alone, the 3-channel SSL target stacks $[I,\; (E_{\text{local}} - I)_+,\; -\text{LoG}(I)]$ (local contrast drop and 3D blobness at $\sigma = 0.48\,\text{mm}$). Inputs undergo random $35\%$ coarse $4{\times}4{\times}2$ block masking (inpainted with coarse shading channel \texttt{xb[:, 2:3]}), random gamma $[0.80, 1.25]$, and Gaussian noise ($\sigma = 0.05$), with extra loss weight on masked regions and blob structures.
+    \item \textbf{Polar-to-Polar Stratification (L490--L504):} \texttt{z\_strata = [0, 8, 16, 28, 44, 60, 76, 92, 104, 112]} forces the 40-cube unlabeled LTN bank to sample both woody polar caps, tapered mid-latitudes, and the equator evenly (accepting cubes with $>12\%$ berry occupancy so sparse polar tips are included).
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 431--511 --- pretrain\_ssl\_backbone() \& sample\_unlabeled\_blocks()}]
+\begin{lstlisting}[style=pyannot,firstnumber=432]
+# =============================================================================
+# 5. Unlabeled Sampling, 3D SSL Warm-Start & Unified Training Harness
+# =============================================================================
+
+def pretrain_ssl_backbone(ds: KiwiDataset, device: torch.device, seed: int = 2027, epochs: int = 100) -> tuple[Backbone3DUNet, float]:
+    """3D Masked Context Restoration SSL warm-start on 36 unlabeled test-disjoint cubes."""
+    t0 = time.perf_counter()
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    log_blob = np.clip(
+        -ndi.gaussian_laplace(ds.vol_norm, sigma=(0.48 / ds.spacing[0], 0.48 / ds.spacing[1], 0.48 / ds.spacing[2])),
+        0.0, 1.5,
+    ).astype(np.float32)
+    log_blob = np.clip(log_blob / (float(np.percentile(log_blob[ds.fruit_mask], 99.5)) + 1e-6), 0.0, 1.0)
+
+    ssl_in, ssl_tgt = [], []
+    rng = np.random.default_rng(seed)
+    for _ in range(36):
+        while True:
+            x0 = int(rng.integers(24, 256 - 64 - 24))
+            y0 = int(rng.integers(24, 256 - 40 - 24))
+            z0 = int(rng.integers(16, 128 - 16 - 16))
+            if (x0 < ds.rx1 and x0 + 64 > ds.rx0) and (y0 < ds.ry1 and y0 + 40 > ds.ry0 + ds.split_y) and (z0 < ds.rz1 and z0 + 16 > ds.rz0):
+                continue
+            if ds.fruit_mask[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16].mean() > 0.65:
+                ssl_in.append(make_3ch_tensor(ds, x0, x0 + 64, y0, y0 + 40, z0, z0 + 16))
+                c_drop = np.clip(ds.env_local[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16] - ds.vol_norm[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16], 0.0, 1.0)
+                lg = log_blob[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16]
+                ssl_tgt.append(torch.from_numpy(np.stack([ds.vol_norm[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16], c_drop, lg], axis=0)[None]))
+                break
+
+    x_bank = torch.cat(ssl_in, dim=0).to(device)
+    y_bank = torch.cat(ssl_tgt, dim=0).to(device)
+    backbone = Backbone3DUNet(in_ch=3, base_ch=16).to(device)
+    head = nn.Conv3d(16, 3, kernel_size=1).to(device)
+    opt = torch.optim.AdamW(list(backbone.parameters()) + list(head.parameters()), lr=4e-3, weight_decay=1e-4)
+
+    for _ in range(epochs):
+        idx = torch.randint(0, x_bank.shape[0], (4,), device=device)
+        xb, yb = x_bank[idx], y_bank[idx]
+        bmask = F.interpolate((torch.rand((4, 1, 16, 10, 8), device=device) < 0.35).float(), size=(64, 40, 16), mode="nearest")
+        gamma = torch.empty((4, 1, 1, 1, 1), device=device).uniform_(0.80, 1.25)
+        xb_cor = torch.clamp(xb.clamp_min(0.0) ** gamma + torch.randn_like(xb) * 0.05, 0.0, 1.3)
+        xb_cor = xb_cor * (1.0 - bmask) + xb[:, 2:3].expand_as(xb) * bmask
+        pred = head(backbone(xb_cor))
+        loss = ((1.0 + 2.0 * bmask) * (1.0 + 3.0 * yb[:, 2:3]) * (pred - yb) ** 2).mean()
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+
+    sync_device(device)
+    return backbone, time.perf_counter() - t0
+
+
+def sample_unlabeled_blocks(ds: KiwiDataset, device: torch.device, n_blocks: int = 40, seed: int = 2027):
+    """Sample stratified unlabeled 3D whole-fruit blocks strictly disjoint from the held-out Test Wedge."""
+    ux, ug, ur, un = [], [], [], []
+    rng = np.random.default_rng(seed)
+    z_strata = [0, 8, 16, 28, 44, 60, 76, 92, 104, 112]
+    for i in range(n_blocks):
+        while True:
+            x0 = int(rng.integers(8, 256 - 64 - 8))
+            y0 = int(rng.integers(8, 256 - 40 - 8))
+            z0 = z_strata[i % len(z_strata)]
+            if (x0 < ds.rx1 and x0 + 64 > ds.rx0) and (y0 < ds.ry1 and y0 + 40 > ds.ry0 + ds.split_y) and (z0 < ds.rz1 and z0 + 16 > ds.rz0):
+                continue
+            if ds.fruit_mask[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16].mean() > 0.12:
+                xa, ga = make_3ch_and_gps(ds, x0, x0 + 64, y0, y0 + 40, z0, z0 + 16)
+                ux.append(xa)
+                ug.append(ga)
+                ur.append(torch.from_numpy(ds.soft_ring[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16][None, None]))
+                un.append(torch.from_numpy(ds.non_dark[x0 : x0 + 64, y0 : y0 + 40, z0 : z0 + 16][None, None]))
+                break
+    return (
+        torch.cat(ux, dim=0).to(device),
+        torch.cat(ug, dim=0).to(device),
+        torch.cat(ur, dim=0).to(device),
+        torch.cat(un, dim=0).to(device),
+    )
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{5.2 Unified Multi-Mode Training Harness (L512--L624)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{5.2 Unified Multi-Mode Training Harness (L512--L624)}{5.2 Unified Multi-Mode Training Harness (L512--L624)}}
+\begin{annotbox}[Optimization \& Experimental Control Notes --- L513--L623]
+\begin{itemize}
+    \item \textbf{Controlled 4-Mode Comparison (L538--L567):} Supports \texttt{"baseline"}, \texttt{"coordconv\_inorm"}, \texttt{"additive\_gps"}, and \texttt{"coupled\_gps"} under identical data splits, seeds (\texttt{torch.manual\_seed} + \texttt{np.random.seed}), \texttt{AdamW} (\texttt{weight\_decay=1e-4}), and \texttt{CosineAnnealingLR} (\texttt{eta\_min=2e-4}).
+    \item \textbf{Accelerated \texttt{Organ-GPS} Learning Rate (L548--L554):} Because the 353-parameter \texttt{gps\_mlp + head\_gps} branch starts near zero while competing against a warm-started 340k-parameter CNN, giving it a separate parameter group (\texttt{gps\_lr = 1.5e-2} vs.\ \texttt{3.2e-3} backbone) lets the spatial log-prior erect crisp polar and outer-rind barriers within $\sim 25$ iterations.
+    \item \textbf{Equivariant 3D Flip Augmentation (L573--L577):} Randomly flips $(X, Y, Z)$ axes with $p = 0.5$ jointly across image $\mathbf{X}_3$, coordinates $\mathbf{g}$, semantic target $y_s$, and distance target $y_d$.
+    \item \textbf{Columella Hard-Negative Toggle (L582--L584, L603--L605):} Adds $0.35 \times \text{BCE}(z_{\text{col}}, 0)$ on the seed-free central columella crop; toggling \texttt{use\_columella\_neg=False} in Notebook~04 cleanly isolates spontaneous neural--symbolic load balancing.
+    \item \textbf{Joint LTN Loss (L595--L611):} Samples $4$ unlabeled cubes per step and computes $\mathcal{L}_{\text{comp}} = \mathcal{L}_p((1 - R_{\text{ring}})p_u)$ and $\mathcal{L}_{T_2} = \mathcal{L}_p(p_u B_{\text{non\_dark}})$, combining $\mathcal{L}_{\text{sup}} + w_{\text{comp}}\mathcal{L}_{\text{comp}} + w_{T_2}\mathcal{L}_{T_2}$.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 512--624 --- train\_neurosymbolic\_variant()}]
+\begin{lstlisting}[style=pyannot,firstnumber=513]
+def train_neurosymbolic_variant(
+    ds: KiwiDataset,
+    device: torch.device,
+    mode: str,
+    ssl_backbone: Backbone3DUNet | None = None,
+    unlabeled_bank: tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor] | None = None,
+    p_quant: float = 3.0,
+    w_comp: float = 2.0,
+    w_t2: float = 1.2,
+    gps_lr: float = 1.5e-2,
+    epochs: int = 100,
+    seed: int = 2027,
+    use_columella_neg: bool = True,
+) -> tuple[nn.Module, dict[str, list[float]], float]:
+    """Train one controlled variant with CosineAnnealingLR and exact seed determinism."""
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    t0 = time.perf_counter()
+
+    train_sem_np, train_dist_np = build_distance_targets(ds.train_gt, ds.spacing)
+    x_tr, g_tr = [t.to(device) for t in make_3ch_and_gps(ds, ds.rx0, ds.rx1, ds.ry0, ds.ry0 + ds.split_y, ds.rz0, ds.rz1)]
+    x_ng, g_ng = [t.to(device) for t in make_3ch_and_gps(ds, ds.cx0, ds.cx1, ds.cy0, ds.cy1, ds.rz0, ds.rz1)]
+    y_sem = torch.from_numpy(train_sem_np[None, None]).to(device)
+    y_dist = torch.from_numpy(train_dist_np[None, None]).to(device)
+
+    if mode == "baseline":
+        model = MultiTaskUNet3D(in_ch=3, base_ch=16).to(device)
+        opt = torch.optim.AdamW(model.parameters(), lr=3.2e-3, weight_decay=1e-4)
+    elif mode == "coordconv_inorm":
+        model = MultiTaskUNet3D(in_ch=6, base_ch=16).to(device)
+        opt = torch.optim.AdamW(model.parameters(), lr=3.2e-3, weight_decay=1e-4)
+    elif mode == "additive_gps":
+        model = AdditiveBayesOrganNet3D(in_ch=3, gps_ch=3, base_ch=16).to(device)
+        if ssl_backbone is not None:
+            model.backbone.load_state_dict(ssl_backbone.state_dict())
+        gps_params = list(model.gps_mlp.parameters()) + list(model.head_gps.parameters())
+        gps_ids = {id(p) for p in gps_params}
+        other_params = [p for p in model.parameters() if id(p) not in gps_ids]
+        opt = torch.optim.AdamW(
+            [{"params": other_params, "lr": 3.2e-3}, {"params": gps_params, "lr": gps_lr}],
+            weight_decay=1e-4,
+        )
+    elif mode == "coupled_gps":
+        model = CoupledOrganNet3D(in_ch=3, gps_ch=3, base_ch=16).to(device)
+        if ssl_backbone is not None:
+            model.backbone.load_state_dict(ssl_backbone.state_dict())
+        gps_params = list(model.gps_mlp.parameters())
+        gps_ids = {id(p) for p in gps_params}
+        other_params = [p for p in model.parameters() if id(p) not in gps_ids]
+        opt = torch.optim.AdamW(
+            [{"params": other_params, "lr": 3.2e-3}, {"params": gps_params, "lr": gps_lr}],
+            weight_decay=1e-4,
+        )
+    else:
+        raise ValueError(f"Unknown mode: {mode}")
+
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs, eta_min=2e-4)
+    hist: dict[str, list[float]] = {"sup": [], "comp": [], "t2": []}
+
+    for _ in range(epochs):
+        dims = [d for d in (2, 3, 4) if np.random.rand() < 0.5]
+        xp = torch.flip(x_tr, dims) if dims else x_tr
+        gp = torch.flip(g_tr, dims) if dims else g_tr
+        ys = torch.flip(y_sem, dims) if dims else y_sem
+        yd = torch.flip(y_dist, dims) if dims else y_dist
+
+        if mode == "baseline":
+            sl, dh = model(xp)
+            loss_sup = supervised_multitask_loss(sl, dh, ys, yd)
+            if use_columella_neg:
+                sl_n, _ = model(x_ng)
+                loss_sup = loss_sup + 0.35 * F.binary_cross_entropy_with_logits(sl_n, torch.zeros_like(sl_n))
+            loss_comp = torch.tensor(0.0, device=device)
+            loss_t2 = torch.tensor(0.0, device=device)
+            loss = loss_sup
+        elif mode == "coordconv_inorm":
+            sl, dh = model(torch.cat([xp, gp], dim=1))
+            loss_sup = supervised_multitask_loss(sl, dh, ys, yd)
+            if use_columella_neg:
+                sl_n, _ = model(torch.cat([x_ng, g_ng], dim=1))
+                loss_sup = loss_sup + 0.35 * F.binary_cross_entropy_with_logits(sl_n, torch.zeros_like(sl_n))
+            ux, ug, ur, un = unlabeled_bank
+            uidx = torch.randint(0, ux.shape[0], (4,), device=device)
+            p_u = torch.sigmoid(model(torch.cat([ux[uidx], ug[uidx]], dim=1))[0])
+            loss_comp = ltn_universal_pmean((1.0 - ur[uidx]) * p_u, p=p_quant)
+            loss_t2 = ltn_universal_pmean(p_u * un[uidx], p=p_quant)
+            loss = loss_sup + w_comp * loss_comp + w_t2 * loss_t2
+        else:
+            sl, dh = model(xp, gp)
+            loss_sup = supervised_multitask_loss(sl, dh, ys, yd)
+            if use_columella_neg:
+                sl_n, _ = model(x_ng, g_ng)
+                loss_sup = loss_sup + 0.35 * F.binary_cross_entropy_with_logits(sl_n, torch.zeros_like(sl_n))
+            ux, ug, ur, un = unlabeled_bank
+            uidx = torch.randint(0, ux.shape[0], (4,), device=device)
+            p_u = torch.sigmoid(model(ux[uidx], ug[uidx])[0])
+            loss_comp = ltn_universal_pmean((1.0 - ur[uidx]) * p_u, p=p_quant)
+            loss_t2 = ltn_universal_pmean(p_u * un[uidx], p=p_quant)
+            loss = loss_sup + w_comp * loss_comp + w_t2 * loss_t2
+
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+        sched.step()
+        hist["sup"].append(float(loss_sup.item()))
+        hist["comp"].append(float(loss_comp.item()))
+        hist["t2"].append(float(loss_t2.item()))
+
+    model.eval()
+    sync_device(device)
+    return model, hist, time.perf_counter() - t0
+\end{lstlisting}
+\end{srcbox}
+
+\section[\texorpdfstring{Decoding, Declarative Hard-Core Splitting, Evaluation \& Inference (L625--L847)}{Decoding, Declarative Hard-Core Splitting, Evaluation & Inference (L625--L847)}]{Decoding, Declarative Hard-Core Splitting, Evaluation \& Inference (L625--L847)}
+\subsection*{6.1 Anisotropic 3D Deep Watershed \& Declarative Mat\'ern Hard-Core Clump Splitting (L625--L690)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{6.1 Anisotropic 3D Deep Watershed \& Declarative Mat\'ern Hard-Core Clump Splitting (L625--L690)}{6.1 Anisotropic 3D Deep Watershed & Declarative Matern Hard-Core Clump Splitting (L625--L690)}}
+\begin{annotbox}[Geometric Decoding Notes --- L630--L689: Compensating Anisotropy \& Enforcing Steric Repulsion]
+\begin{itemize}
+    \item \textbf{\texttt{build\_ellip()} (L630--L633):} Constructs a physical-millimeter 3D ellipsoid footprint ($r_{xy} = 0.68\,\text{mm}$, $r_z = 0.95\,\text{mm}$) so peak detection respects true millimeter dimensions despite $2.13\times$ thicker axial slices ($\Delta z = 0.50\,\text{mm}$ vs.\ $\Delta xy = 0.2344\,\text{mm}$).
+    \item \textbf{\texttt{decode\_deep\_watershed\_3d()} (L636--L657):} Smooths $\hat{d} \cdot \mathbf{1}_{\text{fg}}$ lightly, detects local maxima $\ge 0.22$ within the ellipsoidal footprint, runs marker-controlled 3D watershed on $-\hat{d}_{\text{sm}}$, rescues any foreground islands $\ge 0.16\,\text{mm}^3$ that lacked a peak above $0.22$ (L642--L650), and relabels surviving instances contiguously as \texttt{uint16}.
+    \item \textbf{\texttt{symbolic\_hardcore\_clump\_split()} (L660--L689):} Operationalizes Prior~3 (\texttt{Lab 5} Mat\'ern hard-core packing). Any decoded blob with $V \ge 2.55\,\text{mm}^3$ proposes $k = \operatorname{clip}(\operatorname{round}(V / 1.60), 2, 4)$ sub-clusters via $K$-means on \textbf{millimeter-scaled coordinates} (\texttt{coords * sp\_arr}). The split is accepted \emph{only} if all pairwise sub-centroid distances satisfy $d_{ab} \ge d_{\min} = 0.88\,\text{mm}$ and every sub-blob has $V_c \ge 0.35\,\text{mm}^3$---preventing over-splitting of genuinely large single seeds.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 625--690 --- build\_ellip(), decode\_deep\_watershed\_3d() \& symbolic\_hardcore\_clump\_split()}]
+\begin{lstlisting}[style=pyannot,firstnumber=626]
+# =============================================================================
+# 6. Decoding, Declarative Hard-Core Splitting, Evaluation & Inference
+# =============================================================================
+
+def build_ellip(rx_mm: float, rz_mm: float, sp: tuple[float, float, float]) -> np.ndarray:
+    rx, ry, rz = int(np.ceil(rx_mm / sp[0])), int(np.ceil(rx_mm / sp[1])), int(np.ceil(rz_mm / sp[2]))
+    xx, yy, zz = np.ogrid[-rx : rx + 1, -ry : ry + 1, -rz : rz + 1]
+    return ((xx * sp[0] / rx_mm) ** 2 + (yy * sp[1] / rx_mm) ** 2 + (zz * sp[2] / rz_mm) ** 2) <= 1.0
+
+
+def decode_deep_watershed_3d(fg_bin: np.ndarray, dist_hat: np.ndarray, sp: tuple[float, float, float], min_mm3: float = 0.16) -> np.ndarray:
+    """Marker-controlled 3D watershed seeded by anisotropic maxima of predicted distance transform."""
+    d_sm = ndi.gaussian_filter(dist_hat * fg_bin, sigma=(0.65, 0.65, 0.45))
+    maxima = (d_sm == ndi.maximum_filter(d_sm, footprint=build_ellip(0.68, 0.95, sp=sp))) & fg_bin & (d_sm >= 0.22)
+    markers, _ = ndi.label(maxima)
+    ws = segmentation.watershed(-d_sm, markers=markers, mask=fg_bin)
+    unlabeled_islands, n_un = ndi.label(fg_bin & (ws == 0))
+    vv = float(np.prod(sp))
+    if n_un > 0:
+        nxt = int(ws.max()) + 1
+        for uid in range(1, n_un + 1):
+            m = unlabeled_islands == uid
+            if m.sum() * vv >= min_mm3:
+                ws[m] = nxt
+                nxt += 1
+    out = np.zeros_like(ws, dtype=np.uint16)
+    nid = 0
+    for prop in measure.regionprops(ws):
+        if prop.area * vv >= min_mm3:
+            nid += 1
+            out[ws == prop.label] = nid
+    return out
+
+
+def symbolic_hardcore_clump_split(
+    lbl_3d: np.ndarray,
+    sp: tuple[float, float, float],
+    split_mm3: float = 2.55,
+    d_min_mm: float = 0.88,
+) -> np.ndarray:
+    """Declarative Lab-5 Matérn hard-core clump disentanglement."""
+    out = np.zeros_like(lbl_3d, dtype=np.uint16)
+    sp_arr = np.asarray(sp, dtype=np.float32)
+    vv = float(np.prod(sp))
+    nid = 0
+    for prop in measure.regionprops(lbl_3d):
+        coords = prop.coords
+        vol_mm3 = len(coords) * vv
+        if vol_mm3 < 0.16:
+            continue
+        k_est = int(np.clip(round(vol_mm3 / 1.60), 2, 4)) if vol_mm3 >= split_mm3 else 1
+        if k_est >= 2 and len(coords) >= k_est * 12:
+            km = KMeans(n_clusters=k_est, n_init=4, random_state=2027).fit(coords.astype(np.float32) * sp_arr[None, :])
+            dists = np.linalg.norm(km.cluster_centers_[:, None, :] - km.cluster_centers_[None, :, :], axis=-1)
+            np.fill_diagonal(dists, 99.0)
+            if dists.min() >= d_min_mm and (np.bincount(km.labels_, minlength=k_est) * vv).min() >= 0.35:
+                for cid in range(k_est):
+                    cp = coords[km.labels_ == cid]
+                    nid += 1
+                    out[cp[:, 0], cp[:, 1], cp[:, 2]] = nid
+                continue
+        nid += 1
+        out[coords[:, 0], coords[:, 1], coords[:, 2]] = nid
+    return out
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{6.2 Vectorized 3D Hungarian Matching, Panoptic Quality \& Error Anatomy (L691--L751)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{6.2 Vectorized 3D Hungarian Matching, Panoptic Quality \& Error Anatomy (L691--L751)}{6.2 Vectorized 3D Hungarian Matching, Panoptic Quality & Error Anatomy (L691--L751)}}
+\begin{annotbox}[Metric Specification --- L692--L750: Exact 3D Instance Evaluation]
+\begin{itemize}
+    \item \textbf{Fast Sparse Overlap Matrix (L708--L714):} Rather than looping $O(N_p \cdot N_g)$ over the 3D volume, \texttt{np.unique(np.stack([pred\_lbl[ov\_fg], gt\_lbl[ov\_fg]], axis=1), axis=0, return\_counts=True)} builds the exact intersection matrix $\mathbf{M}_{\text{inter}}$ in a single vectorized pass, then computes $\text{IoU}_{ij} = M_{ij} / (|P_i| + |G_j| - M_{ij})$.
+    \item \textbf{Optimal One-to-One Assignment \& Panoptic Quality (L715--L722):} \texttt{linear\_sum\_assignment(-iou\_m)} solves the maximum-weight bipartite matching problem exactly. Matched pairs with $\text{IoU} \ge 0.25$ are counted as \texttt{TP}; then $\text{SQ} = \overline{\text{IoU}}_{\text{TP}}$, $\text{RQ} = \frac{2\,\text{TP}}{2\,\text{TP} + \text{FP} + \text{FN}}$, and $\text{PQ} = \text{SQ} \times \text{RQ}$.
+    \item \textbf{Topological Error Counts (L723--L724):} A \textbf{Merge} is any single predicted blob covering $\ge 25\%$ of two or more GT seeds; a \textbf{Split} is any single GT seed overlapped $\ge 25\%$ by two or more predicted blobs.
+    \item \textbf{\texttt{match\_instance\_sets()} (L733--L750):} Exposes the raw instance ID sets $(\text{TP}_{\text{pred}}, \text{TP}_{\text{gt}}, \text{FN}_{\text{gt}}, \text{FP}_{\text{pred}})$ so Notebook~04 can audit the physical volume, $T_2$ contrast drop, and $z$-border clipping of missed seeds.
+\end{itemize}
+\end{annotbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 691--751 --- evaluate\_semantic\_and\_instance\_3d() \& match\_instance\_sets()}]
+\begin{lstlisting}[style=pyannot,firstnumber=692]
+def evaluate_semantic_and_instance_3d(pred_lbl: np.ndarray, gt_lbl: np.ndarray, min_iou: float = 0.25) -> dict:
+    """Exact 3D Hungarian bipartite matching and Panoptic Quality (PQ = SQ x RQ)."""
+    b_p, b_g = (pred_lbl > 0), (gt_lbl > 0)
+    sem_dice = (2.0 * int((b_p & b_g).sum())) / max(int(b_p.sum() + b_g.sum()), 1)
+    ids_p = [int(v) for v in np.unique(pred_lbl) if v > 0]
+    ids_g = [int(v) for v in np.unique(gt_lbl) if v > 0]
+    n_p, n_g = len(ids_p), len(ids_g)
+    if n_p == 0 or n_g == 0:
+        return {
+            "Pred": n_p, "GT": n_g, "TP": 0, "FP": n_p, "FN": n_g,
+            "Dice": round(sem_dice, 4), "Merges": 0, "Splits": 0,
+            "Precision": 0.0, "Recall": 0.0, "SQ": 0.0, "RQ": 0.0, "PQ": 0.0,
+        }
+    p_map, g_map = {v: i for i, v in enumerate(ids_p)}, {v: j for j, v in enumerate(ids_g)}
+    area_p = np.array([(pred_lbl == v).sum() for v in ids_p], dtype=np.float64)
+    area_g = np.array([(gt_lbl == v).sum() for v in ids_g], dtype=np.float64)
+    inter_m = np.zeros((n_p, n_g), dtype=np.float64)
+    ov_fg = b_p & b_g
+    if ov_fg.any():
+        pairs, cnts = np.unique(np.stack([pred_lbl[ov_fg], gt_lbl[ov_fg]], axis=1), axis=0, return_counts=True)
+        for (pv, gv), c in zip(pairs, cnts):
+            inter_m[p_map[int(pv)], g_map[int(gv)]] = float(c)
+    iou_m = inter_m / np.maximum(area_p[:, None] + area_g[None, :] - inter_m, 1.0)
+    ri, ci = linear_sum_assignment(-iou_m)
+    tp_pairs = [(r, c) for r, c in zip(ri, ci) if iou_m[r, c] >= min_iou]
+    tp = len(tp_pairs)
+    fp, fn = n_p - tp, n_g - tp
+    prec = tp / max(tp + fp, 1)
+    rec = tp / max(tp + fn, 1)
+    sq = float(np.mean([iou_m[r, c] for r, c in tp_pairs])) if tp > 0 else 0.0
+    rq = (2.0 * tp) / float(2 * tp + fp + fn)
+    merges = int(np.sum(np.sum(inter_m / np.maximum(area_g[None, :], 1.0) >= 0.25, axis=1) >= 2))
+    splits = int(np.sum(np.sum(inter_m / np.maximum(area_p[:, None], 1.0) >= 0.25, axis=0) >= 2))
+    return {
+        "Pred": n_p, "GT": n_g, "TP": tp, "FP": fp, "FN": fn,
+        "Dice": round(sem_dice, 4), "Merges": merges, "Splits": splits,
+        "Precision": round(prec, 4), "Recall": round(rec, 4),
+        "SQ": round(sq, 4), "RQ": round(rq, 4), "PQ": round(sq * rq, 4),
+    }
+
+
+def match_instance_sets(pred_lbl: np.ndarray, gt_lbl: np.ndarray, min_iou: float = 0.25):
+    """Return (tp_pred_ids, tp_gt_ids, fn_gt_ids, fp_pred_ids) for physical error anatomy."""
+    ids_p = [int(v) for v in np.unique(pred_lbl) if v > 0]
+    ids_g = [int(v) for v in np.unique(gt_lbl) if v > 0]
+    p_map, g_map = {v: i for i, v in enumerate(ids_p)}, {v: j for j, v in enumerate(ids_g)}
+    area_p = np.array([(pred_lbl == v).sum() for v in ids_p], dtype=np.float64)
+    area_g = np.array([(gt_lbl == v).sum() for v in ids_g], dtype=np.float64)
+    inter_m = np.zeros((len(ids_p), len(ids_g)), dtype=np.float64)
+    ov = (pred_lbl > 0) & (gt_lbl > 0)
+    if ov.any():
+        pairs, cnts = np.unique(np.stack([pred_lbl[ov], gt_lbl[ov]], axis=1), axis=0, return_counts=True)
+        for (pv, gv), c in zip(pairs, cnts):
+            inter_m[p_map[int(pv)], g_map[int(gv)]] = float(c)
+    iou_m = inter_m / np.maximum(area_p[:, None] + area_g[None, :] - inter_m, 1.0)
+    ri, ci = linear_sum_assignment(-iou_m)
+    tp_p = {ids_p[r] for r, c in zip(ri, ci) if iou_m[r, c] >= min_iou}
+    tp_g = {ids_g[c] for r, c in zip(ri, ci) if iou_m[r, c] >= min_iou}
+    return tp_p, tp_g, set(ids_g) - tp_g, set(ids_p) - tp_p
+\end{lstlisting}
+\end{srcbox}
+
+\subsection*{6.3 Leakage-Free Operating-Point Calibration \& Unmasked 128-Slice Whole-Fruit Inference (L752--L847)}
+\addcontentsline{toc}{subsection}{\texorpdfstring{6.3 Leakage-Free Operating-Point Calibration \& Unmasked 128-Slice Whole-Fruit Inference (L752--L847)}{6.3 Leakage-Free Operating-Point Calibration & Unmasked 128-Slice Whole-Fruit Inference (L752--L847)}}
+\begin{annotbox}[Inference \& Validation Notes --- L753--L847: Preventing Data Leakage \& Whole-Organ Tiling]
+\begin{itemize}
+    \item \textbf{\texttt{forward\_patch()} (L753--L758):} Clean dispatcher hiding the signature difference between single-tensor (\texttt{baseline}, \texttt{coordconv\_inorm}) and dual-tensor (\texttt{additive\_gps}, \texttt{coupled\_gps}) models.
+    \item \textbf{\texttt{calibrate\_threshold\_on\_train()} (L761--L783):} Corrects logic-induced probability calibration drift by sweeping $\tau_{\text{fg}} \in \{0.22, 0.26, \dots, 0.50\}$ \textbf{strictly on the labeled training wedge} (\texttt{ds.train\_gt}) with frozen model weights, maximizing $\text{PQ}$ without ever touching \texttt{ds.test\_gt}.
+    \item \textbf{\texttt{run\_test\_and\_whole\_fruit()} (L786--L847):}
+    \begin{enumerate}
+        \item Evaluates strictly unmasked on the held-out Test Wedge (recording both pre-split \texttt{ev\_te\_raw} and post-split \texttt{ev\_te}), accepting \texttt{r\_override} and \texttt{pole\_override} for Notebook~05's mass-effect stress tests.
+        \item When \texttt{do\_whole\_fruit=True}, tiles all 128 axial slices in $3 \times 5 \times 8 = 120$ non-overlapping $80 \times 40 \times 16$ patches ($x_0 \in \{16, 96, 176\}$, $y_0 \in \{16, 56, 96, 136, 176\}$, $z_0 \in \{0, 16, \dots, 112\}$, skipping empty air tiles with $<100$ berry voxels).
+        \item Audits unmasked out-of-distribution safety directly across the whole fruit via \texttt{ood\_vox} (foreground voxels where $R_{\text{ring}} < 0.05$) and \texttt{polar\_vox} (foreground voxels in woody polar caps $z < 16$ or $z \ge 112$), then decodes full-organ 3D seed instances \texttt{ws\_wf}.
+    \end{enumerate}
+\end{itemize}
+\end{annotbox}
+\begin{warnbox}[Note on Whole-Fruit Tiling Geometry (L823--L834)]
+Each inference tile ($80 \times 40 \times 16$) matches the exact shape of the training and test wedges so patch-wise \texttt{InstanceNorm3d} statistics remain consistent across the intact fruit. Notice that $x \in [16, 256)$ and $y \in [16, 216)$ span the entire berry cross-section while leaving a narrow 16-voxel air margin near the scan edges; all voxels outside \texttt{ds.fruit\_mask} are zeroed only by the intact berry boundary (\texttt{\& ds.fruit\_mask}, L836)---never by any inner-pericarp or polar mask.
+\end{warnbox}
+\begin{srcbox}[{kiwi\_ns\_lib.py $\cdot$ Lines 752--847 --- forward\_patch(), calibrate\_threshold\_on\_train() \& run\_test\_and\_whole\_fruit()}]
+\begin{lstlisting}[style=pyannot,firstnumber=753]
+def forward_patch(model: nn.Module, mode: str, x3: torch.Tensor, gps: torch.Tensor):
+    if mode == "baseline":
+        return model(x3)
+    if mode == "coordconv_inorm":
+        return model(torch.cat([x3, gps], dim=1))
+    return model(x3, gps)
+
+
+def calibrate_threshold_on_train(
+    model: nn.Module,
+    mode: str,
+    ds: KiwiDataset,
+    device: torch.device,
+    use_split: bool = True,
+) -> float:
+    """Leakage-free operating-point calibration strictly on the labeled TRAIN wedge."""
+    x_tr, g_tr = [t.to(device) for t in make_3ch_and_gps(ds, ds.rx0, ds.rx1, ds.ry0, ds.ry0 + ds.split_y, ds.rz0, ds.rz1)]
+    with torch.no_grad():
+        sl, dh = forward_patch(model, mode, x_tr, g_tr)
+        p_tr = torch.sigmoid(sl)[0, 0].cpu().numpy()
+        d_tr = dh[0, 0].cpu().numpy()
+    best_th, best_pq = 0.42, -1.0
+    for th in [0.22, 0.26, 0.30, 0.34, 0.38, 0.42, 0.46, 0.50]:
+        lbl = decode_deep_watershed_3d(p_tr >= th, d_tr, ds.spacing)
+        if use_split:
+            lbl = symbolic_hardcore_clump_split(lbl, ds.spacing)
+        ev = evaluate_semantic_and_instance_3d(lbl, ds.train_gt)
+        if ev["PQ"] > best_pq:
+            best_pq = ev["PQ"]
+            best_th = th
+    return float(best_th)
+
+
+def run_test_and_whole_fruit(
+    model: nn.Module,
+    mode: str,
+    ds: KiwiDataset,
+    device: torch.device,
+    thresh: float,
+    use_split: bool = True,
+    r_override: np.ndarray | None = None,
+    pole_override: np.ndarray | None = None,
+    do_whole_fruit: bool = True,
+) -> dict:
+    """Evaluate strictly on held-out Test Wedge (unmasked) and optionally full 128-slice berry."""
+    x_te, g_te = [
+        t.to(device)
+        for t in make_3ch_and_gps(ds, ds.rx0, ds.rx1, ds.ry0 + ds.split_y, ds.ry1, ds.rz0, ds.rz1, r_override, pole_override)
+    ]
+    with torch.no_grad():
+        sl_t, dh_t = forward_patch(model, mode, x_te, g_te)
+        prob_te = torch.sigmoid(sl_t)[0, 0].cpu().numpy()
+        dist_te = dh_t[0, 0].cpu().numpy()
+
+    pred_te_raw = decode_deep_watershed_3d(prob_te >= thresh, dist_te, ds.spacing)
+    pred_te = symbolic_hardcore_clump_split(pred_te_raw, ds.spacing) if use_split else pred_te_raw
+    ev_te_raw = evaluate_semantic_and_instance_3d(pred_te_raw, ds.test_gt)
+    ev_te = evaluate_semantic_and_instance_3d(pred_te, ds.test_gt)
+
+    res = {
+        "thresh": thresh, "prob_te": prob_te, "dist_te": dist_te,
+        "pred_te_raw": pred_te_raw, "pred_te": pred_te,
+        "ev_te_raw": ev_te_raw, "ev_te": ev_te,
+    }
+    if not do_whole_fruit:
+        return res
+
+    prob_wf = np.zeros(ds.vol.shape, dtype=np.float32)
+    dist_wf = np.zeros(ds.vol.shape, dtype=np.float32)
+    with torch.no_grad():
+        for x0 in [16, 96, 176]:
+            for y0 in [16, 56, 96, 136, 176]:
+                for z0 in range(0, 128, 16):
+                    if ds.fruit_mask[x0 : x0 + 80, y0 : y0 + 40, z0 : z0 + 16].sum() < 100:
+                        continue
+                    xa, ga = [
+                        t.to(device)
+                        for t in make_3ch_and_gps(ds, x0, x0 + 80, y0, y0 + 40, z0, z0 + 16, r_override, pole_override)
+                    ]
+                    s_o, d_o = forward_patch(model, mode, xa, ga)
+                    prob_wf[x0 : x0 + 80, y0 : y0 + 40, z0 : z0 + 16] = torch.sigmoid(s_o)[0, 0].cpu().numpy()
+                    dist_wf[x0 : x0 + 80, y0 : y0 + 40, z0 : z0 + 16] = d_o[0, 0].cpu().numpy()
+
+    fg_wf = (prob_wf >= thresh) & ds.fruit_mask
+    ood_vox = int((fg_wf & (ds.soft_ring < 0.05)).sum())
+    polar_vox = int(fg_wf[:, :, :16].sum() + fg_wf[:, :, 112:].sum())
+    ws_wf = decode_deep_watershed_3d(fg_wf, dist_wf, ds.spacing)
+    if use_split:
+        ws_wf = symbolic_hardcore_clump_split(ws_wf, ds.spacing)
+    n_wf = len(np.unique(ws_wf)) - (1 if 0 in ws_wf else 0)
+    res.update({
+        "fg_wf": fg_wf, "ws_wf": ws_wf, "n_wf": n_wf,
+        "ood_vox": ood_vox, "polar_vox": polar_vox,
+    })
+    return res
+\end{lstlisting}
+\end{srcbox}
+
+\end{document}
