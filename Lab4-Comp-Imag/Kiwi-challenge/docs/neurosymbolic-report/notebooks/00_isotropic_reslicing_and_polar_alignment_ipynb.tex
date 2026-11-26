@@ -266,6 +266,39 @@ Arvid Lundervold (University of Bergen \& MMIV) $\;\cdot\;$ Formulated at Stille
 \end{enumerate}
 \end{seqbox}
 
+\subsection*{Origin \& AI-Assisted Coding Provenance (From Sketch to Experiment)}
+In keeping with BMED365's emphasis on \textbf{AI-assisted scientific coding and open-science provenance}, this notebook was seeded directly by the handwritten notepad sketch below (\textit{Stilleskriving HKS, 26/11-26}) paired with a single domain-grounded prompt (reproduced verbatim, preserving the original wording and light typos):
+
+\begin{tcolorbox}[
+    enhanced,
+    colback=kiwigreen!4, colframe=kiwigreen!70!black,
+    colbacktitle=kiwigreen!80!black, coltitle=white,
+    fonttitle=\bfseries\small,
+    title={Multimodal Human Seed: Handwritten Sketch + Verbatim Prompt (26/11-26, Stilleskriving HKS)},
+    boxrule=0.55pt, arc=2.5pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+    toptitle=2.5pt, bottomtitle=2.5pt
+]
+\noindent
+\begin{minipage}[t]{0.34\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[width=\linewidth]{../figures/fig00_sketch_stilleskriving_20261126.jpg}\\[2pt]
+    {\fontsize{7.0}{8.4}\selectfont\textit{Handwritten sketch (enhanced \& EXIF-stripped): $f = f_2 \circ f_1$ onto an isotropic N--S aligned grid.}\par}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.63\linewidth}
+    \vspace{0pt}
+    {\fontsize{7.6}{9.1}\selectfont\textbf{Original Prompt (verbatim, 26/11-26):}\\[2pt]
+    \textit{``In the relation to the Lab4 Kiwi-challenge I wnat to explore the following transformations (being sketched at Stilleskriving HKS 26/11-26 ). This relates to \url{https://github.com/arvidl/BMED365-2027/tree/main/Lab4-Comp-Imag/Kiwi-challenge/docs/neurosymbolic-report/notebooks} and a possible set of initial transformations of the intact 2005 UiB 7\,T Bruker Pharmascan RARE kiwifruit MRI (\texttt{256 $\times$ 256 $\times$ 128}, anisotropic voxel spacing \texttt{0.2344 $\times$ 0.2344 $\times$ 0.5000 mm\textsuperscript{3}}) with implications for the curated 3D Micro-Ground-Truth (\texttt{98} 3D seed instances). The idea behind these intitial transformation is to better deal with the seed segmentation problem (both manual segmentation and automated neurosymbolic segmentation) by making the voxels isotropic obtained by slice interpolation and reslicing along the long axis of the fruit, and then make an affine (rigid) transformation of the Kiwifruit object such that the (estimated) ``North pole'' and ``South pole'' is paralell to the z-axis in the intrisic coordinate system of the kiwi. By proper initial transformations and interpolation techniques - brining the origninal Kiwi recording into a new geometric representation - I thereby expect the manual and automated segmentation problem to be easier to perform and also visualize / evaluate. Eventually, the instance-segmented seeds can also be transformed back to the original Kiwi acquisition. If this is an interesting avenue to explore, please consider an implementation as a new Jupyter notebook 00 in Lab4-Comp-Imag/Kiwi-challenge/docs/neurosymbolic-report/notebooks.''}\par}
+\end{minipage}
+\end{tcolorbox}
+
+\subsubsection*{Didactic Note --- What makes this human--AI workflow effective in biomedicine?}
+\begin{itemize}[itemsep=1.5pt, topsep=2pt]
+    \item \textbf{Domain scientist leads the formulation:} The human author supplies the physical acquisition insight (anisotropy + oblique bore tilt), the algebraic composition ($f = f_2 \circ f_1$), and the metrological requirement of \textbf{invertibility} ($f^{-1}$ back to native scanner coordinates) --- clear scientific thinking matters far more than polished prose.
+    \item \textbf{High-signal context anchors:} Providing exact geometry (\texttt{256 $\times$ 256 $\times$ 128}, \texttt{0.2344 $\times$ 0.2344 $\times$ 0.5000 mm\textsuperscript{3}}), ground-truth scale (\texttt{98} seed instances), a visual sketch, and the exact repository path grounds the implementation in verifiable reality rather than generic boilerplate.
+    \item \textbf{Hypothesis-testing rather than confirmation:} Open-ended framing (\textit{``If this is an interesting avenue to explore...''}) invites the AI coding collaborator to \textbf{empirically stress-test} the idea --- uncovering non-obvious pitfalls below (outer-mask PCA failing by $>17^\circ$, two-pass vs.\ single-pass pullback PSNR loss, anisotropic SDF artifacts, and the tilted-ROI prism caveat) rather than blindly confirming the hypothesis.
+\end{itemize}
+
 \subsection*{Scientific Motivation \& Transformation Hypothesis}
 The archival 2005 UiB 7\,T Bruker Pharmascan RARE kiwifruit MRI (\texttt{256 $\times$ 256 $\times$ 128}) was acquired with \textbf{anisotropic voxels} ($0.2344 \times 0.2344 \times 0.5000\,\text{mm}^3$, slice-thickness aspect ratio $2.133:1$) and with the intact fruit resting obliquely tilted inside the scanner bore relative to the imaging $z$-axis. Before performing manual 3D curation or training automated neurosymbolic instance segmenters (Notebooks~\texttt{01}--\texttt{05}), we formalize, implement, and empirically audit a \textbf{two-stage geometric normalization} sketched at \textit{Stilleskriving HKS (26/11-26)}:
 \[
