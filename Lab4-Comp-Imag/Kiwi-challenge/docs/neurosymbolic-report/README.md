@@ -5,8 +5,8 @@
 
 This folder contains a self-contained, Master's-thesis-level **IMRAD technical report** in LaTeX / BibLaTeX (`bibtex` backend) together with **six modular PyTorch companion notebooks** (`00`–`05`) and shared library (`kiwi_ns_lib.py`) — starting with an exploratory pre-segmentation geometric representation study (`00`) followed by the five report notebooks (`01`–`05`) that generate **every single figure, metric, ablation table, and whole-organ biomarker** in the report.
 
-- **Compiled Technical Report (Clickable PDF, TOC, DOIs, Back-References & Appendices A–F):** [`neurosymbolic-kiwi-report.pdf`](./neurosymbolic-kiwi-report.pdf)
-- **LaTeX Source & Verified Peer-Reviewed Bibliography (33 entries):** [`neurosymbolic-kiwi-report.tex`](./neurosymbolic-kiwi-report.tex) | [`references.bib`](./references.bib)
+- **Native-Representation Technical Report (Notebooks `01`–`05`, Clickable PDF, TOC, DOIs, Back-References & Appendices A–F):** [`neurosymbolic-kiwi-report.pdf`](./neurosymbolic-kiwi-report.pdf) ([LaTeX](./neurosymbolic-kiwi-report.tex) | [33-entry BibTeX](./references.bib))
+- **Canonical-Representation Companion Technical Report (Notebook `00`, $f = f_2 \circ f_1$, $f^{-1}$, AI-Assisted Coding & Appendices A–E):** [`canonical-kiwi-report.pdf`](./canonical-kiwi-report.pdf) ([LaTeX](./canonical-kiwi-report.tex) | [41-entry BibTeX](./canonical-references.bib))
 - **Shared PyTorch & Quantitative Imaging Library (`kiwi_ns_lib.py`):** [`notebooks/kiwi_ns_lib.py`](./notebooks/kiwi_ns_lib.py) ([annotated PDF](./notebooks/kiwi_ns_lib_py.pdf) | [LaTeX](./notebooks/kiwi_ns_lib_py.tex))
 - **Single-Notebook Fast Walkthrough (Course Companion):** [`../../notebooks/07-kiwi-neurosymbolic-ai.ipynb`](../../notebooks/07-kiwi-neurosymbolic-ai.ipynb) ([printable PDF](../../notebooks/07-kiwi-neurosymbolic-ai_ipynb.pdf) | [LaTeX](../../notebooks/07-kiwi-neurosymbolic-ai_ipynb.tex))
 
@@ -87,11 +87,15 @@ For quick inspection directly on GitHub, Linux, Windows, or Google Colab, four a
 
    ![3D Smoothed Seed Isosurfaces Turntable](./kiwi_freeview_3d_isosurfaces.gif)
 
-### 3. Recompile the LaTeX / BibLaTeX Report (TeX Live 2025)
+### 3. Recompile the LaTeX / BibLaTeX Technical Reports (TeX Live 2025)
 ```bash
 cd Lab4-Comp-Imag/Kiwi-challenge/docs/neurosymbolic-report
-pdflatex neurosymbolic-kiwi-report.tex
-bibtex neurosymbolic-kiwi-report
-pdflatex neurosymbolic-kiwi-report.tex
-pdflatex neurosymbolic-kiwi-report.tex
+
+# Native-representation report (Notebooks 01–05)
+pdflatex neurosymbolic-kiwi-report.tex && bibtex neurosymbolic-kiwi-report \
+  && pdflatex neurosymbolic-kiwi-report.tex && pdflatex neurosymbolic-kiwi-report.tex
+
+# Canonical-representation companion report (Notebook 00)
+pdflatex canonical-kiwi-report.tex && bibtex canonical-kiwi-report \
+  && pdflatex canonical-kiwi-report.tex && pdflatex canonical-kiwi-report.tex
 ```
